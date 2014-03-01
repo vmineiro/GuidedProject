@@ -1,28 +1,23 @@
-package src;
-import java.util.List;
+package maze.logic;
+
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-
-import javax.swing.DropMode;
-
-import maze.logic.*;
 
 public class Game {
 	
-	private Maze maze;
+	public Maze maze;
 	private Hero player;
-	private Dragon dragon01;
+	private ArrayList<Dragon> dragons;
 	private Sword sword;
 	
 	public Game() {	
 		maze = new Maze();
 		player = new Hero(1,1);
-		dragon01 = new Dragon(3,1, Dragon.Mode.STATIC);
+		Dragon dragonTemp = new Dragon(3,1, Dragon.Mode.STATIC);
+		dragons.add(dragonTemp);
 		sword = new Sword(8,1);
 		
 		setPlayerPosition(player,maze);
-		setDragonPosition(dragon01,maze);
+		setDragonsPosition(dragons,maze);
 		setSwordPosition(sword,maze);
 		
 	}
@@ -62,11 +57,16 @@ public class Game {
 
 	}
 
-	private void setDragonPosition(Dragon dragon, Maze maze) {
-		if (maze.getCellValue(dragon.getLine(), dragon.getCol()) == ' ')
-			maze.setCellValue(dragon.getLine(), dragon.getCol(), 'D');
-
-
+	private void setDragonsPosition(ArrayList<Dragon> dragons, Maze maze) {
+		for (Dragon dragon : dragons) {
+			if (!dragon.isDead()) {
+				if (dragon.isAsleep()) {
+					maze.setCellValue(dragon.getLine(), dragon.getCol(), 'd');
+				} else {
+					maze.setCellValue(dragon.getLine(), dragon.getCol(), 'D');
+				}		
+			}
+		}
 	}
 
 	public boolean playerMove() {

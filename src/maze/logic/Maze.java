@@ -61,21 +61,4 @@ public class Maze {
 		}
 		return emptyCells;
 	}
-	
-	public boolean playerValidMove(){
-		
-		return true;
-	}
-	
-//	public List<Position> getValidCells(int line, int col){
-//		List <Position> validCells = null;
-//		
-//		if (getCellValue(line-1, col) == ' ') {
-//			Position temp = new Position(line-1,col);
-//			validCells.add(temp);
-//		}
-//		
-//		return validCells;
-//	}
-
 }

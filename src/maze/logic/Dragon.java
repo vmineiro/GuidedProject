@@ -18,7 +18,7 @@ public class Dragon extends Character {
 		return dead;
 	}
 	
-	public boolean isSleep(){
+	public boolean isAsleep(){
 		return sleep;
 	}
 

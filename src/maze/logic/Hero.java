@@ -19,4 +19,7 @@ public class Hero extends Character {
 		return dead;
 	}
 
+	public boolean validMove(){
+		return false;
+	}
 }
