@@ -37,5 +37,13 @@ public class Character {
 	public boolean isActive(){
 		return active;
 	}
+	
+	public void setInactive(){
+		active = false;
+	}
+	
+	public void setActive(){
+		active = true;
+	}
 
 }

@@ -3,8 +3,8 @@ package maze.logic;
 import java.util.List;
 
 public class Maze {
-	private int mazeExit[] = {5,9};
 	
+	private int mazeExit[] = {5,9};
 	private char maze [][] = {
 		{'X','X','X','X','X','X','X','X','X','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
@@ -37,6 +37,14 @@ public class Maze {
 	
 	public char getCellValue(int line,int col){
 		return maze[line][col];
+	}
+	
+	public int getExitLine(){
+		return mazeExit[0];
+	}
+	
+	public int getExitCol(){
+		return mazeExit[1];
 	}
 	
 	public void printMaze() {
