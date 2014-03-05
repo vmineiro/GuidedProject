@@ -1,5 +1,6 @@
 package maze.logic;
 
+import java.util.Random;
 import java.util.Scanner;
 //import java.util.ArrayList;
 
@@ -31,16 +32,17 @@ public class Game {
 		while (!gameEnd) {
 
 			gameEnd = game.playerMove();
+			game.checkKill();
 			game.refreshMaze();
 			if (!gameEnd) {
 				if (!game.dragon.isDead()){
-					//dragonMove();
+					game.dragonMove();
 					game.checkKill();
 					game.refreshMaze();
 				}
-			game.maze.printMaze();
-			gameEnd = game.gameOver();
-			//	updateStatus();
+				game.maze.printMaze();
+				gameEnd = game.gameOver();
+				//	updateStatus();
 			} else
 				System.out.println("\nExit");
 		}
@@ -77,7 +79,7 @@ public class Game {
 
 		while (!validMove){
 
-			System.out.println("\nMove (w-up; a-left; s-down; d-right; q-quit):");
+			System.out.println("\nMove (w-up; a-left; s-down; d-right; e- don't move; q-quit):");
 
 			Scanner moveInput = new Scanner(System.in);
 			String move = moveInput.nextLine();
@@ -115,6 +117,9 @@ public class Game {
 				validMove = true;
 				moveInput.close();
 				return true;
+			case "e":
+				validMove = true;
+				break;
 			default:
 				break;
 			}
@@ -122,14 +127,14 @@ public class Game {
 				System.out.println("\nInvalid Move!");
 			}
 		}
-		
+
 		if (sword.isActive()){
 			if (player.getLine()==sword.getLine() && player.getCol()==sword.getCol()) {
 				player.getArmed();
 				sword.pickSword();
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -150,40 +155,57 @@ public class Game {
 		return true;
 	}
 
-	public boolean checkCellDragon(int line,int col) {
-		//		if (lab[line][col] == 'X') return false;
-		return true;
-	}
-
 	private void dragonMove() {
-		//		int dragonMoves[][] = getDragonMoves();
-		//
-		//		Random rand = new Random();
-		//		int i = rand.nextInt(dragonMoves.length);
-		//
-		//		dragon[0]=dragonMoves[i][0];
-		//		dragon[1]=dragonMoves[i][1];
+		int moves[] = {0,0,0,0};
+		int move;
+		boolean validMove = false;
+		Random pickMove = new Random();
+
+		if (maze.cellIsEmpty(dragon.getLine(), dragon.getCol()-1)) moves[0]=1;
+		if (maze.cellIsEmpty(dragon.getLine()+1, dragon.getCol())) moves[1]=1;
+		if (maze.cellIsEmpty(dragon.getLine(), dragon.getCol()+1)) moves[2]=1;
+		if (maze.cellIsEmpty(dragon.getLine()-1, dragon.getCol())) moves[3]=1;
+
+		while (!validMove){
+			move = pickMove.nextInt(5);
+			switch (move) {
+			case 0:
+				if (moves[0] == 1) {
+					maze.clearCell(dragon.getLine(), dragon.getCol());
+					dragon.moveLeft();
+					validMove = true;
+				}
+				break;
+			case 1:
+				if (moves[1] == 1) {
+					maze.clearCell(dragon.getLine(), dragon.getCol());
+					dragon.moveDown();
+					validMove = true;
+				}
+				break;		
+			case 2:
+				if (moves[2] == 1) {
+					maze.clearCell(dragon.getLine(), dragon.getCol());
+					dragon.moveRight();
+					validMove = true;
+				}
+				break;
+			case 3:
+				if (moves[3] == 1) {
+					maze.clearCell(dragon.getLine(), dragon.getCol());
+					dragon.moveUp();
+					validMove = true;
+				}
+				break;
+			case 4:
+				validMove = true;
+			default:
+				break;
+			}
+		}
 
 	}
 
-	//	private int[][] getDragonMoves() {
-	//		List<int[]> temp = new ArrayList<int[]>();
-	//		int cell[] = null;
-	//		for (int i = 0; i<4; i++) {
-	//			if (checkCellDragon(dragon[0]-1, dragon[1])) {
-	//				cell[0] = dragon[0]-1;
-	//				cell[1] = dragon[1];
-	//				temp.add(cell);
-	//			} else if (checkCellDragon(dragon[0], dragon[1]player[1]-1)) {
-	//
-	//			} else if (checkCellDragon(dragon[0]+1, dragon[1])) {
-	//
-	//			} else if (checkCellDragon(dragon[0], dragon[1]+1)) {
-	//
-	//			}
-	//		}
-	//		return temp;
-	//	}
 
 	private void checkKill() {
 		if (!player.isArmed()) {
@@ -200,12 +222,16 @@ public class Game {
 	}
 
 	private void refreshMaze(){
-		setSwordPosition(sword,maze);
-		//setDragonsPosition(dragons,maze);
-		setDragonPosition(dragon,maze);
-		setPlayerPosition(player,maze);
+		if (dragon.getLine() == sword.getLine() && dragon.getCol() == sword.getCol())
+			maze.setCellValue(dragon.getLine(), dragon.getCol(), 'F');
+		else {
+			setDragonPosition(dragon,maze);
+			setSwordPosition(sword,maze);
+			//setDragonsPosition(dragons,maze);
+		}
+		setPlayerPosition(player,maze);	
 	}
-	
+
 	private boolean gameOver() {
 		if (dragon.isDead()){
 			if (player.getLine()==maze.getExitLine() && player.getCol() == maze.getExitCol()) {
@@ -221,49 +247,4 @@ public class Game {
 		return false;
 	}
 
-	public void printLab(char[][] lab) {
-		//		for (int i=0; i<10; i++) {
-		//			for (int j=0; j<10;j++) {
-		//				if (i==player[0] && j==player[1]) {
-		//					if (player[2] == 0) System.out.print("H");
-		//					else System.out.print("A");
-		//				} else if (i==sword[0] && j==sword[1]) {
-		//					if (player[2]==0) System.out.print("E");
-		//					else System.out.print(" ");
-		//				} else if (i==dragon[0] && j==dragon[1]) {
-		//					if (dragon[2]==1) {
-		//						if (player[2]==0 && sword[0]==dragon[0] && sword[1]==dragon[1]) 
-		//							System.out.print("F");
-		//						else 
-		//							System.out.print("D"); 
-		//					} else 
-		//						System.out.print(" ");
-		//				} else if (i==caveExit[0] && j==caveExit[1]){
-		//					System.out.print("S");
-		//				} else
-		//					System.out.print(lab[i][j]);
-		//			}
-		//			System.out.println();
-		//		}
-
-	}
-
-	//	if (i==player.getLine() && j==player.getCol()) {
-	//		if (!player.isArmed()) System.out.print("H");
-	//		else System.out.print("A");
-	//	} else if (i==sword.getLine() && j==sword.getLine()) {
-	//		if (sword.isAtcive()) System.out.print("E");
-	//		else System.out.print(" ");
-	//	} else if (i==dragon[0] && j==dragon[1]) {
-	//		if (dragon[2]==1) {
-	//			if (player[2]==0 && sword[0]==dragon[0] && sword[1]==dragon[1]) 
-	//				System.out.print("F");
-	//			else 
-	//				System.out.print("D"); 
-	//		} else 
-	//			System.out.print(" ");
-	//	} else if (i==mazeExit[0] && j==mazeExit[1]){
-	//		System.out.print("S");
-	//	} else
-	//		System.out.print(lab[i][j]);
 }

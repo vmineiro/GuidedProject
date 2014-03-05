@@ -39,6 +39,12 @@ public class Maze {
 		return maze[line][col];
 	}
 	
+	public boolean cellIsEmpty(int line,int col){
+		if (maze[line][col] == ' ') return true;
+		else if (maze[line][col] == 'E') return true;
+		else return false;
+	}
+	
 	public int getExitLine(){
 		return mazeExit[0];
 	}
@@ -70,4 +76,21 @@ public class Maze {
 		}
 		return emptyCells;
 	}
+	
+	public List<Position> getEmptyCellsNextTo(int line, int col){
+		
+		List <Position> emptyCells = null;
+		
+		for (int i=0; i < maze.length;i++) {
+			for (int j=0; j < maze[0].length;j++){
+				if (getCellValue(i, j) == ' ') {
+					Position temp = new Position(i,j);
+					emptyCells.add(temp);
+				}
+			}
+		}
+		return emptyCells;
+	}
+	
+	
 }
