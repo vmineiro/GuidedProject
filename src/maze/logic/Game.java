@@ -2,11 +2,13 @@ package maze.logic;
 
 import java.util.Random;
 import java.util.Scanner;
+
+//import maze.logic.Dragon.Mode;
 //import java.util.ArrayList;
 
 public class Game {
 
-	public Maze maze;
+	private Maze maze;
 	private Hero player;
 	//	private ArrayList<Dragon> dragons = null;
 	private Sword sword;
@@ -15,7 +17,7 @@ public class Game {
 	public Game() {	
 		maze = new Maze();
 		player = new Hero(1,1);
-		dragon = new Dragon(3,1, Dragon.Mode.STATIC);
+		dragon = new Dragon(3,1, Dragon.Mode.DINAMIC);
 		//Dragon dragonTemp = new Dragon(3,1, Dragon.Mode.STATIC);
 		//dragons.add(dragonTemp);
 		sword = new Sword(8,1);
@@ -34,29 +36,28 @@ public class Game {
 			gameEnd = game.playerMove();
 			game.checkKill();
 			game.refreshMaze();
-			if (!gameEnd) {
-				if (!game.dragon.isDead()){
+			if (!gameEnd ) {
+				if (game.dragon.getMode() != Dragon.Mode.STATIC || !game.dragon.isAsleep() || !game.dragon.isDead()) {
 					game.dragonMove();
 					game.checkKill();
 					game.refreshMaze();
 				}
 				game.maze.printMaze();
 				gameEnd = game.gameOver();
-				//	updateStatus();
 			} else
 				System.out.println("\nExit");
 		}
 	}	
 
-	private void setPlayerPosition(Hero player, Maze maze) {
+	private void setPlayerPosition() {
 		maze.setCellValue(player.getLine(), player.getCol(), player.getSymbol());
 	}
 
-	private void setSwordPosition(Sword sword, Maze maze) {
+	private void setSwordPosition() {
 		maze.setCellValue(sword.getLine(), sword.getCol(), sword.getSymbol());
 	}
 
-	private void setDragonPosition(Dragon dragon, Maze maze) {
+	private void setDragonPosition() {
 		maze.setCellValue(dragon.getLine(), dragon.getCol(), dragon.getSymbol());
 
 	}
@@ -206,7 +207,6 @@ public class Game {
 
 	}
 
-
 	private void checkKill() {
 		if (!player.isArmed()) {
 			if ((player.getLine()==dragon.getLine() && (player.getCol()==dragon.getCol()-1 || player.getCol()==dragon.getCol()+1))||
@@ -225,11 +225,11 @@ public class Game {
 		if (dragon.getLine() == sword.getLine() && dragon.getCol() == sword.getCol())
 			maze.setCellValue(dragon.getLine(), dragon.getCol(), 'F');
 		else {
-			setDragonPosition(dragon,maze);
-			setSwordPosition(sword,maze);
+			setDragonPosition();
+			setSwordPosition();
 			//setDragonsPosition(dragons,maze);
 		}
-		setPlayerPosition(player,maze);	
+		setPlayerPosition();	
 	}
 
 	private boolean gameOver() {

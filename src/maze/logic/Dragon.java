@@ -11,7 +11,7 @@ public class Dragon extends Character {
 	public Dragon(int line, int col, Mode mode) {
 		super(line,col);
 		sleep = false;
-		mode = Mode.STATIC;
+		mode = Mode.DINAMIC;
 		symbol = 'D';
 	}
 	
@@ -39,6 +39,10 @@ public class Dragon extends Character {
 	public void sleeps(){
 		symbol = 'd';
 		sleep = true;
+	}
+	
+	public Mode getMode() {
+		return mode;
 	}
 
 }
