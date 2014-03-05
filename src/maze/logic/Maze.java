@@ -23,27 +23,53 @@ public class Maze {
 		setCellValue(mazeExit[0], mazeExit[1], 'S');
 	}
 	
+	/**
+	 * 
+	 * Return the board - It isn't used 
+	 * 
+	 * */
 	public char[][] getMaze(){
 		return maze;
 	}
 	
+	/**
+	 * 
+	 * Change the value of the cell with the line "line" and column "col" to the value "value"
+	 * 
+	 * */
 	public void setCellValue(int line, int col, char value){
 		maze[line][col] = value;
 	}
 	
+	/**
+	 * 
+	 * Change the value of the cell with the line "line" and column "col" to the value ' ' 
+	 *  
+	 * */
 	public void clearCell(int line, int col){
 		maze[line][col] = ' ';
 	}
 	
+	/**
+	 * 
+	 * Returns the value of the cell with the line "line" and column "col"
+	 * 
+	 * */
 	public char getCellValue(int line,int col){
 		return maze[line][col];
 	}
 	
+	/**
+	 * 
+	 * Check if the cell with the line "line" and column "col" is valid to be occupied by the dragon/player
+	 * 
+	 * */
 	public boolean cellIsEmpty(int line,int col){
 		if (maze[line][col] == ' ') return true;
 		else if (maze[line][col] == 'E') return true;
 		else return false;
 	}
+	
 	
 	public int getExitLine(){
 		return mazeExit[0];

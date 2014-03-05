@@ -14,6 +14,11 @@ public class Game {
 	private Sword sword;
 	private Dragon dragon;
 
+	/**
+	 * 
+	 * Game Constructor: initializes a maze, one player, one dragon and a sword
+	 * 
+	 * */
 	public Game() {	
 		maze = new Maze();
 		player = new Hero(1,1);
@@ -22,7 +27,13 @@ public class Game {
 		//dragons.add(dragonTemp);
 		sword = new Sword(8,1);
 	}
-
+	
+	/**
+	 * 
+	 * Game Loop
+	 * Initializes a Standard Game by calling the constructor of Game
+	 * 
+	 * */
 	public static void main(String[] args) {
 
 		Game game = new Game();
@@ -49,14 +60,29 @@ public class Game {
 		}
 	}	
 
+	/**
+	 * 
+	 * Set the symbol of the player (H - unarmed; A- armed) in his position
+	 * 
+	 * */
 	private void setPlayerPosition() {
 		maze.setCellValue(player.getLine(), player.getCol(), player.getSymbol());
 	}
 
+	/**
+	 * 
+	 * Set the symbol of the dragon (D - awake; d- asleep) in his position
+	 * 
+	 * */
 	private void setSwordPosition() {
 		maze.setCellValue(sword.getLine(), sword.getCol(), sword.getSymbol());
 	}
 
+	/**
+	 * 
+	 * Set the symbol of the sword (E) in its position
+	 * 
+	 * */
 	private void setDragonPosition() {
 		maze.setCellValue(dragon.getLine(), dragon.getCol(), dragon.getSymbol());
 
@@ -74,6 +100,11 @@ public class Game {
 	//		}
 	//	}
 
+	/**
+	 * 
+	 * Read the player input and when it is a valid input update the player position and clear the previous position in the maze
+	 * 
+	 * */
 	public boolean playerMove() {
 
 		boolean validMove = false;
@@ -139,6 +170,11 @@ public class Game {
 		return false;
 	}
 
+	/**
+	 * 
+	 * Check if the move is valid or not
+	 * 
+	 * */
 	public boolean checkCellPlayer(int line,int col) {
 		if (line == maze.getExitLine() && col == maze.getExitCol()){
 			if (!player.isArmed()) {
@@ -156,6 +192,11 @@ public class Game {
 		return true;
 	}
 
+	/**
+	 * 
+	 * Check if the left, bottom, right and upper cells are valid cells and select a possible move
+	 * 
+	 * */
 	private void dragonMove() {
 		int moves[] = {0,0,0,0};
 		int move;
@@ -207,6 +248,11 @@ public class Game {
 
 	}
 
+	/**
+	 * 
+	 * Check if the player kills the dragon or vice-versa
+	 * 
+	 * */
 	private void checkKill() {
 		if (!player.isArmed()) {
 			if ((player.getLine()==dragon.getLine() && (player.getCol()==dragon.getCol()-1 || player.getCol()==dragon.getCol()+1))||
@@ -221,6 +267,11 @@ public class Game {
 		}
 	}
 
+	/**
+	 * 
+	 * Update the positions of the player, the dragon and sword in the maze
+	 * 
+	 * */
 	private void refreshMaze(){
 		if (dragon.getLine() == sword.getLine() && dragon.getCol() == sword.getCol())
 			maze.setCellValue(dragon.getLine(), dragon.getCol(), 'F');
@@ -232,6 +283,11 @@ public class Game {
 		setPlayerPosition();	
 	}
 
+	/**
+	 * 
+	 * Check if the state of the maze is a end state (Player dead or Dragon dead and the player at cave exit)
+	 * 
+	 * */
 	private boolean gameOver() {
 		if (dragon.isDead()){
 			if (player.getLine()==maze.getExitLine() && player.getCol() == maze.getExitCol()) {
