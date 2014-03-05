@@ -3,9 +3,11 @@ package maze.logic;
 public class Character {
 	
 	private Position position;
+	private boolean active;
 	
 	public Character(int line, int col) {
 		position = new Position(line,col);
+		active = true;
 	}
 	
 	public int getLine(){
@@ -30,6 +32,10 @@ public class Character {
 	
 	public void moveRight(){
 		position.moveRight();
+	}
+	
+	public boolean isActive(){
+		return active;
 	}
 
 }

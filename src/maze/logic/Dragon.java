@@ -2,20 +2,19 @@ package maze.logic;
 
 public class Dragon extends Character {
 
-	private boolean dead;
+	public enum Mode {STATIC,DINAMIC,MIXED};
+	
 	private Mode mode;
 	private boolean sleep;
-	public enum Mode {STATIC,DINAMIC,MIXED};
 	
 	public Dragon(int line, int col, Mode mode) {
 		super(line,col);
 		sleep = false;
-		dead = false;
 		mode = Mode.STATIC;	
 	}
 	
 	public boolean isDead(){
-		return dead;
+		return !isActive();
 	}
 	
 	public boolean isAsleep(){

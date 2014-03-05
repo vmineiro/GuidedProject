@@ -3,6 +3,7 @@ package maze.logic;
 import java.util.List;
 
 public class Maze {
+	private int mazeExit[] = {5,9};
 	
 	private char maze [][] = {
 		{'X','X','X','X','X','X','X','X','X','X'},
@@ -19,7 +20,7 @@ public class Maze {
 	
 	public Maze(){
 		// set maze exit
-		setCellValue(5, 9, 'S');
+		setCellValue(mazeExit[0], mazeExit[1], 'S');
 	}
 	
 	public char[][] getMaze(){
