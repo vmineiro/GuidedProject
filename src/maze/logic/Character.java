@@ -10,12 +10,16 @@ public class Character {
 		active = true;
 	}
 	
-	public int getLine(){
-		return position.getLine();
-	}
+//	public int getLine(){
+//		return position.getLine();
+//	}
+//	
+//	public int getCol(){
+//		return position.getCol();
+//	}
 	
-	public int getCol(){
-		return position.getCol();
+	public Position getPosition(){
+		return position;
 	}
 	
 	public void moveUp(){
