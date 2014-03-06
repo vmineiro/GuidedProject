@@ -2,9 +2,16 @@ package maze.logic;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Maze.
+ */
 public class Maze {
 	
+	/** The maze exit. */
 	private Position mazeExit;
+	
+	/** The maze. */
 	private char maze [][] = {
 		{'X','X','X','X','X','X','X','X','X','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
@@ -18,6 +25,9 @@ public class Maze {
 		{'X','X','X','X','X','X','X','X','X','X'}
 		};	
 	
+	/**
+	 * Instantiates a new maze.
+	 */
 	public Maze(){
 		// set maze exit
 		//setCellValue(mazeExit[0], mazeExit[1], 'S');
@@ -26,30 +36,33 @@ public class Maze {
 	}
 	
 	/**
-	 * 
-	 * Return the board - It isn't used 
-	 * 
-	 * */
+	 * Return the board - It isn't used .
+	 *
+	 * @return the maze
+	 */
 	public char[][] getMaze(){
 		return maze;
 	}
 	
 	/**
-	 * 
-	 * Change the value of the cell with the line "line" and column "col" to the value "value"
-	 * 
-	 * */
+	 * Change the value of the cell with the line "line" and column "col" to the value "value".
+	 *
+	 * @param pos the pos
+	 * @param value the value
+	 */
 //	public void setCellValue(int line, int col, char value){
 //		maze[line][col] = value;
 //	}
 	public void setCellValue(Position pos, char value){
 		maze[pos.getLine()][pos.getCol()] = value;
 	}	
+	
 	/**
-	 * 
 	 * Change the value of the cell with the line "line" and column "col" to the value ' ' 
 	 *  
-	 * */
+	 *
+	 * @param pos the pos
+	 */
 //	public void clearCell(int line, int col){
 //		maze[line][col] = ' ';
 //	}
@@ -58,10 +71,11 @@ public class Maze {
 }
 	
 	/**
-	 * 
-	 * Returns the value of the cell with the line "line" and column "col"
-	 * 
-	 * */
+	 * Returns the value of the cell with the line "line" and column "col".
+	 *
+	 * @param pos the pos
+	 * @return the position value
+	 */
 //	public char getPositionValue(int line,int col){
 //		return maze[line][col];
 //	}
@@ -70,10 +84,11 @@ public class Maze {
 	}
 	
 	/**
-	 * 
-	 * Check if the cell with the line "line" and column "col" is valid to be occupied by the dragon/player
-	 * 
-	 * */
+	 * Check if the cell with the line "line" and column "col" is valid to be occupied by the dragon/player.
+	 *
+	 * @param pos the pos
+	 * @return true, if successful
+	 */
 //	public boolean cellIsEmpty(int line,int col){
 //		if (maze[line][col] == ' ') return true;
 //		else if (maze[line][col] == 'E') return true;
@@ -94,14 +109,17 @@ public class Maze {
 //		return mazeExit[1];
 //	}
 	/**
-	 * 
-	 * Return Cave Exit Position
-	 * 
-	 * */
+ * Return Cave Exit Position.
+ *
+ * @return the exit
+ */
 	public Position getExit(){
 		return mazeExit;
 	}
 	
+	/**
+	 * Prints the maze.
+	 */
 	public void printMaze() {
 		for (int i=0; i<10; i++) {
 			for (int j=0; j<10;j++) {
