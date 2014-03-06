@@ -15,8 +15,8 @@ public class Character {
 	/**
 	 * Instantiates a new character.
 	 *
-	 * @param line the line
-	 * @param col the col
+	 * @param line the line of the maze
+	 * @param col the column of the maze
 	 */
 	public Character(int line, int col) {
 		position = new Position(line,col);
@@ -26,7 +26,7 @@ public class Character {
 	/**
 	 * Gets the position.
 	 *
-	 * @return the position
+	 * @return the position of the character
 	 */
 	public Position getPosition(){
 		return position;
@@ -70,14 +70,14 @@ public class Character {
 	}
 	
 	/**
-	 * Sets the inactive.
+	 * Sets character inactive.
 	 */
 	public void setInactive(){
 		active = false;
 	}
 	
 	/**
-	 * Sets the active.
+	 * Sets character active.
 	 */
 	public void setActive(){
 		active = true;

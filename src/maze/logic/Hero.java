@@ -15,7 +15,7 @@ public class Hero extends Character {
 	/**
 	 * Instantiates a new hero.
 	 *
-	 * @param line the line
+	 * @param line the line 
 	 * @param col the col
 	 */
 	public Hero(int line, int col) {
@@ -60,7 +60,7 @@ public class Hero extends Character {
 	}
 	
 	/**
-	 * Gets the armed.
+	 * Character gets armed.
 	 *
 	 * @return the armed
 	 */
