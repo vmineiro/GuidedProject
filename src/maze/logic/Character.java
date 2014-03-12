@@ -6,6 +6,8 @@ package maze.logic;
  */
 public class Character {
 	
+
+	
 	/** The position. */
 	private Position position;
 	
