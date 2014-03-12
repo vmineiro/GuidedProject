@@ -17,7 +17,7 @@ public class Game {
 	
 	/** The player. */
 	private Hero player;
-	//	private ArrayList<Dragon> dragons = null;
+	//	private ArrayList<Dragon> dragons = new ArrayList<Dragon>();
 	/** The sword. */
 	private Sword sword;
 	
@@ -31,7 +31,7 @@ public class Game {
 		maze = new Maze();
 		player = new Hero(1,1);
 		dragon = new Dragon(3,1, Dragon.Mode.DINAMIC);
-		//Dragon dragonTemp = new Dragon(3,1, Dragon.Mode.STATIC);
+		//Dragon dragonTemp = nDragon(3,1, Dragon.Mode.STATIC);
 		//dragons.add(dragonTemp);
 		sword = new Sword(8,1);
 	}
@@ -260,7 +260,7 @@ public class Game {
 					player.getPosition().equals(dragon.getPosition().bottomPosition()) ||
 					player.getPosition().equals(dragon.getPosition().rightPosition()) ||
 					player.getPosition().equals(dragon.getPosition().upperPosition())) {
-				dragon.dye();
+				dragon.die();
 			}
 		}
 	}

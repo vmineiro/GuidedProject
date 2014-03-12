@@ -67,7 +67,7 @@ MIXED};
 	/**
 	 * Dye.
 	 */
-	public void dye(){
+	public void die(){
 		symbol = ' ';
 		setInactive();
 	}
