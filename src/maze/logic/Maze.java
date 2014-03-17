@@ -1,206 +1,324 @@
-/*
- * 
- */
 package maze.logic;
 
-import java.util.List;
 import java.util.Random;
+import java.util.Stack;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Maze.
- */
+
 public class Maze {
-
-	/** The maze exit. */
-	private Position mazeExit;
-
-	/** The maze. */
-	private char maze [][] = {
-			{'X','X','X','X','X','X','X','X','X','X'},
-			{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-			{'X',' ','X','X',' ','X',' ','X',' ','X'},
-			{'X',' ','X','X',' ','X',' ','X',' ','X'},
-			{'X',' ','X','X',' ','X',' ','X',' ','X'},
-			{'X',' ',' ',' ',' ',' ',' ','X',' ','X'},
-			{'X',' ','X','X',' ','X',' ','X',' ','X'},
-			{'X',' ','X','X',' ','X',' ','X',' ','X'},
-			{'X',' ','X','X',' ',' ',' ',' ',' ','X'},
-			{'X','X','X','X','X','X','X','X','X','X'}
-	};	
-
-	/**
-	 * Instantiates a new maze.
-	 */
-	public Maze(){
-		// set maze exit
-		//setCellValue(mazeExit[0], mazeExit[1], 'S');
-		mazeExit = new Position(5, 9);
-		setCellValue(mazeExit, 'S');
+	
+	private char board [][];
+	private boolean visitedCells [][];
+	private Stack<Position> auxStack = new Stack<Position>();
+	
+	//===========================================================
+	
+	public Maze()
+	{
+		
 	}
-
-	/**
-	 * Return the board - It isn't used .
-	 *
-	 * @return the maze
-	 */
-	public char[][] getMaze(){
-		return maze;
-	}
-
-	/**
-	 * Change the value of the cell with the line "line" and column "col" to the value "value".
-	 *
-	 * @param pos the pos
-	 * @param value the value
-	 */
-	public void setCellValue(Position pos, char value){
-		maze[pos.getLine()][pos.getCol()] = value;
-	}	
-
-	/**
-	 * Change the value of the cell with the line "line" and column "col" to the value ' ' 
-	 *  
-	 *
-	 * @param pos the pos
-	 */
-	public void clearCell(Position pos){
-		maze[pos.getLine()][pos.getCol()] = ' ';
-	}
-
-	/**
-	 * Returns the value of the cell with the line "line" and column "col".
-	 *
-	 * @param pos the pos
-	 * @return the position value
-	 */
-	public char getPositionValue(Position pos){
-		return maze[pos.getLine()][pos.getCol()];
-	}
-
-	/**
-	 * Check if the cell with the line "line" and column "col" is valid to be occupied by the dragon/player.
-	 *
-	 * @param pos the position
-	 * @return true, if successful
-	 */
-	public boolean cellIsEmpty(Position pos){
-		if (maze[pos.getLine()][pos.getCol()] == ' ') return true;
-		else if (maze[pos.getLine()][pos.getCol()] == 'E') return true;
-		else return false;
-	}
-
-	/**
-	 * Return Cave Exit Position.
-	 *
-	 * @return the exit
-	 */
-	public Position getExit(){
-		return mazeExit;
-	}
-
-	/**
-	 * Prints the maze.
-	 */
-	public void printMaze() {
-		for (int i=0; i<10; i++) {
-			for (int j=0; j<10;j++) {
-				System.out.print(maze[i][j]);
+	
+	//===========================================================
+	
+	public void generateMaze(int mazeSize){
+		
+		//FIX: Only use odd numbers for mazeSize
+		if(mazeSize%2==0)
+		{
+			mazeSize = mazeSize+1;
+		}
+		
+		board = new char[mazeSize][mazeSize];
+		visitedCells = new boolean[mazeSize][mazeSize];
+		initBoards();
+		
+		//FIX: Random generation of maze exit position and current position near exit position
+		Position currentPos = new Position(0,0);
+		Position exitPos = new Position(0,0);
+		generateExitPos(exitPos,currentPos);
+	
+		drawPos(exitPos.getLinPos(),exitPos.getColPos(),'S');
+		markVisitedCell(currentPos);
+		
+		Position nextPos;
+		
+		while(checkUnvisitedCells())
+		{
+			if(checkNeighbours(currentPos))
+			{
+				nextPos = chooseRandomCell(currentPos);
+				removeWall(currentPos,nextPos);
+				auxStack.push(currentPos);
+				currentPos = nextPos;
+				markVisitedCell(currentPos);
 			}
+			else if(!auxStack.empty())
+			{
+				currentPos = auxStack.pop();
+			}
+			else
+			{
+				currentPos = randUnvisitedCell();
+				markVisitedCell(currentPos);
+			}
+		}
+		
+		
+	}
+
+	//===========================================================
+	
+	public void initBoards(){
+		
+		for(int i=0; i<board.length; i++)
+		{
+			for(int j=0; j<board.length; j++)
+			{
+				if((i%2==0) || (j%2==0))
+				{
+					board[i][j]='X';
+					visitedCells[i][j]=true;
+				}
+				else
+				{
+					board[i][j]=' ';
+					visitedCells[i][j]=false;
+				}
+			}
+		}
+	}
+	
+	//===========================================================
+	
+	public void markVisitedCell(Position markPos){
+		visitedCells[markPos.getLinPos()][markPos.getColPos()]=true;
+	}
+	
+	//===========================================================
+	
+	public boolean checkUnvisitedCells(){
+		for(int i=0; i<visitedCells.length; i++){
+			for(int j=0; j<visitedCells.length; j++){
+				if(visitedCells[i][j]==false)
+				{
+					return true;
+				}
+			}
+		}
+		return false;	
+	}
+	
+	//===========================================================
+	
+	public boolean checkNeighbours(Position checkPos){
+		if(checkPos.getLinPos()+2<visitedCells.length && visitedCells[checkPos.getLinPos()+2][checkPos.getColPos()]==false)
+		{
+			return true;
+		}
+		else if(checkPos.getLinPos()-2>0 && visitedCells[checkPos.getLinPos()-2][checkPos.getColPos()]==false)
+		{
+			return true;
+		}
+		else if(checkPos.getColPos()+2<visitedCells.length && visitedCells[checkPos.getLinPos()][checkPos.getColPos()+2]==false)
+		{
+			return true;
+		}
+		else if(checkPos.getColPos()-2>0 && visitedCells[checkPos.getLinPos()][checkPos.getColPos()-2]==false)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	//===========================================================
+	
+	public Position chooseRandomCell(Position currPos)
+	{
+		Random rand = new Random();
+		Position randPos = new Position(0,0);
+		boolean endCycle = false;
+		
+		while(!endCycle)
+		{
+			int randCell = rand.nextInt(4)+1;
+			
+			switch(randCell) 
+			{
+				case 1:
+					randPos.setCoord(currPos.getLinPos()+2, currPos.getColPos());
+					break;
+				case 2:
+					randPos.setCoord(currPos.getLinPos()-2, currPos.getColPos());
+					break;
+				case 3:
+					randPos.setCoord(currPos.getLinPos(), currPos.getColPos()+2);
+					break;
+				case 4:
+					randPos.setCoord(currPos.getLinPos(), currPos.getColPos()-2);
+					break;
+				default:
+					break;
+			}
+			
+			if(randPos.getLinPos()>0 && randPos.getLinPos()<board.length && randPos.getColPos()>0 && randPos.getColPos()<board.length)
+			{
+				if(visitedCells[randPos.getLinPos()][randPos.getColPos()]==false)
+				{
+					endCycle = true;
+				}
+			}
+		}
+		
+		return randPos;
+	}
+	
+	//===========================================================
+	
+	public void removeWall(Position currentPos, Position nextPos)
+	{
+		if(currentPos.getLinPos()==nextPos.getLinPos())
+		{
+			board[currentPos.getLinPos()][(currentPos.getColPos()+nextPos.getColPos())/2]=' ';
+		}
+		else if(currentPos.getColPos()==nextPos.getColPos())
+		{
+			board[(currentPos.getLinPos()+nextPos.getLinPos())/2][currentPos.getColPos()]=' ';
+		}
+	}
+	
+	//===========================================================
+	
+	public Position randUnvisitedCell()
+	{
+		Position unvisitedCell = new Position(0,0);
+		
+		for(int i=1; i<visitedCells.length; i=i+2)
+		{
+			for(int j=1; j<visitedCells.length; j=j+2)
+			{
+				if(visitedCells[i][j]==false)
+				{
+					return new Position(i,j);
+				}
+			}
+		}
+		
+		return unvisitedCell;
+	}
+	
+	//===========================================================
+	
+	public void generateExitPos(Position exitPos, Position currentPos)
+	{
+		Random rand = new Random();
+		
+		int exitSide = rand.nextInt(4)+1;
+		int exitVal = 0;
+		boolean oddNumFound = false;
+		
+		while(!oddNumFound)
+		{
+			exitVal = rand.nextInt(board.length-2)+1;
+			
+			if(exitVal%2!=0)
+			{
+				oddNumFound = true;
+			}
+		}
+		
+		switch (exitSide) 
+		{
+			case 1:
+				exitPos.setCoord(0,exitVal);
+				currentPos.setCoord(1,exitVal);
+				break;
+			case 2:
+				exitPos.setCoord(board.length-1,exitVal);
+				currentPos.setCoord(board.length-2,exitVal);
+				break;
+			case 3:
+				exitPos.setCoord(exitVal,0);
+				currentPos.setCoord(exitVal,1);
+				break;
+			case 4:
+				exitPos.setCoord(exitVal,board.length-1);
+				currentPos.setCoord(exitVal, board.length-2);
+				break;
+			default:
+				break;
+		}
+		
+	}
+	
+	//===========================================================
+	
+	public char [][] getMaze()
+	{
+		return board;
+	}
+	
+	//===========================================================
+	
+	public void drawPos(int linDraw, int colDraw, char cElem)
+	{
+		this.board[linDraw][colDraw] = cElem;
+	}
+	
+	//===========================================================
+	
+	public boolean delPos(int nLin, int nCol)
+	{
+		if(board[nLin][nCol] != 'X')
+		{
+			this.board[nLin][nCol] = ' ';
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	//===========================================================
+	
+	public void movElem(int oLin, int oCol, int nLin, int nCol, char cElem)
+	{
+		if(board[oLin][oCol] != 'X' && board[nLin][nCol] != 'X')
+		{
+			delPos(oLin, oCol);
+			drawPos(nLin, nCol, cElem);
+
+		}
+	}
+	
+	//===========================================================
+	
+	public char checkPos(int nLin, int nCol)
+	{
+		return board[nLin][nCol];
+	}
+	
+	//===========================================================
+	
+	public int getMazeSideSize()
+	{
+		return board.length;
+	}
+	
+	//===========================================================
+	
+	public void printBoard()
+	{
+		for(int i=0; i<board.length; i++)
+		{
+			for(int j=0; j<board.length; j++)
+			{
+				System.out.print(this.board[i][j]);
+			}
+
 			System.out.println();
 		}
 	}
-
-	//	public List<Position> getEmptyCells(){
-	//		
-	//		List <Position> emptyCells = null;
-	//		
-	//		for (int i=0; i < maze.length;i++) {
-	//			for (int j=0; j < maze[0].length;j++){
-	//				if (getPositionValue(i, j) == ' ') {
-	//					Position temp = new Position(i,j);
-	//					emptyCells.add(temp);
-	//				}
-	//			}
-	//		}
-	//		return emptyCells;
-	//	}
-
-	//	public List<Position> getEmptyCellsNextTo(int line, int col){
-	//		
-	//		List <Position> emptyCells = null;
-	//		
-	//		for (int i=0; i < maze.length;i++) {
-	//			for (int j=0; j < maze[0].length;j++){
-	//				if (getPositionValue(i, j) == ' ') {
-	//					Position temp = new Position(i,j);
-	//					emptyCells.add(temp);
-	//				}
-	//			}
-	//		}
-	//		return emptyCells;
-	//	}
-
-	/**
-	 * Generate a random square maze
-	 * 
-	 * @param n number of columns and lines of the maze
-	 * @return a valid maze
-	 * */
-	public static char[][] generateMaze(int n){
-		/* Initialize an empty Maze */
-		char tempMaze[][] = new char[n][n];
-
-		/* Fill maze positions as Wall  */
-		fillMaze(tempMaze);
-
-		/* Generate the Maze Exit */
-		int[] mazeExit = generateMazeExit(n);
-		
-		/* Set the Maze Exit */
-		tempMaze[mazeExit[0]][mazeExit[1]] = 'S';
-		
-		/* Generate maze paths */
-		
-		
-		return tempMaze;
-	}
-	
-	/**
-	 * Fill all the cells from a given maze with 'X' value
-	 * 
-	 * @param maze empty maze to fill
-	 * */
-	private static void fillMaze(char[][] maze){
-		int n = maze.length;
-		for (int i = 0; i < n; i++){
-			for (int j = 0; j< n; j++) {
-				maze[i][j] = 'X';
-			}
-		}
-	}
-	
-	/**
-	 * Generate a random maze exit
-	 * 
-	 * @param n dimension of maze
-	 * @return a valid maze exit
-	 * */
-	private static int[] generateMazeExit(int n){
-		Random line = new Random();
-		Random column = new Random();
-		int lineExit, colExit;
-
-		lineExit = line.nextInt(n);
-		if (lineExit == 0 || lineExit == n-1)
-			colExit = column.nextInt(n-1)+1;
-		else
-			colExit = column.nextInt(2)*(n-1);
-		
-		int[] mazeExit = {lineExit,colExit};
-	
-		return mazeExit;
-	}
-
-	
 }

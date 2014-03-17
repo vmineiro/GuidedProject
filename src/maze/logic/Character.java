@@ -1,86 +1,38 @@
 package maze.logic;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Character.
- */
 public class Character {
 	
-	/** The position. */
-	private Position position;
+	private Position positionChar;
+	private char symbolChar;
 	
-	/** The active. */
-	private boolean active;
-	
-	/**
-	 * Instantiates a new character.
-	 *
-	 * @param line the line of the maze
-	 * @param col the column of the maze
-	 */
-	public Character(int line, int col) {
-		position = new Position(line,col);
-		active = true;
+	public Character(int linChar, int colChar, char symChar)
+	{
+		this.positionChar = new Position(linChar,colChar);
+		this.symbolChar = symChar;
 	}
 	
-	/**
-	 * Gets the position.
-	 *
-	 * @return the position of the character
-	 */
-	public Position getPosition(){
-		return position;
+	public int getCharLin()
+	{
+		return positionChar.getLinPos();
 	}
 	
-	/**
-	 * Move up.
-	 */
-	public void moveUp(){
-		position.moveUp();
+	public int getCharCol()
+	{
+		return positionChar.getColPos();
 	}
 	
-	/**
-	 * Move down.
-	 */
-	public void moveDown(){
-		position.moveDown();
+	public void setCharCoord(int nLin, int nCol)
+	{
+		this.positionChar = new Position(nLin, nCol);
 	}
 	
-	/**
-	 * Move left.
-	 */
-	public void moveLeft(){
-		position.moveLeft();
+	public char getCharSymbol()
+	{
+		return symbolChar;
 	}
 	
-	/**
-	 * Move right.
-	 */
-	public void moveRight(){
-		position.moveRight();
+	public void setCharSymbol(char symChar){
+		this.symbolChar = symChar;
 	}
 	
-	/**
-	 * Checks if is active.
-	 *
-	 * @return true, if is active
-	 */
-	public boolean isActive(){
-		return active;
-	}
-	
-	/**
-	 * Sets character inactive.
-	 */
-	public void setInactive(){
-		active = false;
-	}
-	
-	/**
-	 * Sets character active.
-	 */
-	public void setActive(){
-		active = true;
-	}
-
 }
