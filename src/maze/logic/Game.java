@@ -17,13 +17,15 @@ public class Game {
 	
 	/** The player. */
 	private Hero player;
-	//	private ArrayList<Dragon> dragons = new ArrayList<Dragon>();
+	
 	/** The sword. */
 	private Sword sword;
 	
 	/** The dragon. */
 	private Dragon dragon;
-
+	//	private ArrayList<Dragon> dragons = new ArrayList<Dragon>();
+	
+	/** The Eagle. */
 	private Character eagle;
 
 	/**
@@ -131,28 +133,28 @@ public class Game {
 
 			switch (move) {
 			case "a":
-				if (checkPlayerPosition(player.getPosition().leftPosition())) {
+				if (checkPlayerPosition(player.getLeftPosition())) {
 					maze.clearCell(player.getPosition());
 					player.moveLeft();
 					validMove = true;
 				}
 				break;
 			case "s":
-				if (checkPlayerPosition(player.getPosition().bottomPosition())) {
+				if (checkPlayerPosition(player.getBottomPosition())) {
 					maze.clearCell(player.getPosition());
 					player.moveDown();
 					validMove = true;
 				}
 				break;
 			case "d":
-				if (checkPlayerPosition(player.getPosition().rightPosition())) {
+				if (checkPlayerPosition(player.getRightPosition())) {
 					maze.clearCell(player.getPosition());
 					player.moveRight();
 					validMove = true;
 				}
 				break;
 			case "w":
-				if (checkPlayerPosition(player.getPosition().upperPosition())) {
+				if (checkPlayerPosition(player.getUpperPosition())) {
 					maze.clearCell(player.getPosition());
 					player.moveUp();
 					validMove = true;
@@ -186,7 +188,7 @@ public class Game {
 	/**
 	 * Check if the move is valid or not.
 	 *
-	 * @param pos the pos
+	 * @param pos the position where player want to move
 	 * @return true, if successful
 	 */
 	public boolean checkPlayerPosition(Position pos) {
@@ -218,28 +220,28 @@ public class Game {
 			move = pickMove.nextInt(5);
 			switch (move) {
 			case 0:
-				if (maze.cellIsEmpty(dragon.getPosition().leftPosition())) {
+				if (maze.cellIsEmpty(dragon.getLeftPosition())) {
 					maze.clearCell(dragon.getPosition());
 					dragon.moveLeft();
 					validMove = true;
 				}
 				break;
 			case 1:
-				if (maze.cellIsEmpty(dragon.getPosition().bottomPosition())) {
+				if (maze.cellIsEmpty(dragon.getBottomPosition())) {
 					maze.clearCell(dragon.getPosition());
 					dragon.moveDown();
 					validMove = true;
 				}
 				break;		
 			case 2:
-				if (maze.cellIsEmpty(dragon.getPosition().rightPosition())) {
+				if (maze.cellIsEmpty(dragon.getRightPosition())) {
 					maze.clearCell(dragon.getPosition());
 					dragon.moveRight();
 					validMove = true;
 				}
 				break;
 			case 3:
-				if (maze.cellIsEmpty(dragon.getPosition().upperPosition())) {
+				if (maze.cellIsEmpty(dragon.getUpperPosition())) {
 					maze.clearCell(dragon.getPosition());
 					dragon.moveUp();
 					validMove = true;
@@ -259,17 +261,17 @@ public class Game {
 	 */
 	public void checkKill() {
 		if (!player.isArmed()) {
-			if (player.getPosition().equals(dragon.getPosition().leftPosition()) ||
-					player.getPosition().equals(dragon.getPosition().bottomPosition()) ||
-					player.getPosition().equals(dragon.getPosition().rightPosition()) ||
-					player.getPosition().equals(dragon.getPosition().upperPosition())) {
+			if (player.getPosition().equals(dragon.getLeftPosition()) ||
+					player.getPosition().equals(dragon.getBottomPosition()) ||
+					player.getPosition().equals(dragon.getRightPosition()) ||
+					player.getPosition().equals(dragon.getUpperPosition())) {
 				player.die();
 			}
 		} else {
-			if (player.getPosition().equals(dragon.getPosition().leftPosition()) ||
-					player.getPosition().equals(dragon.getPosition().bottomPosition()) ||
-					player.getPosition().equals(dragon.getPosition().rightPosition()) ||
-					player.getPosition().equals(dragon.getPosition().upperPosition())) {
+			if (player.getPosition().equals(dragon.getLeftPosition()) ||
+					player.getPosition().equals(dragon.getBottomPosition()) ||
+					player.getPosition().equals(dragon.getRightPosition()) ||
+					player.getPosition().equals(dragon.getUpperPosition())) {
 				dragon.die();
 			}
 		}
@@ -293,9 +295,11 @@ public class Game {
 
 	private void updatePositions() {
 		updatePosition(player);
+		updatePosition(eagle);
+		
+		// será necessário???
 		updatePosition(sword);
 		updatePosition(dragon);
-		updatePosition(eagle);
 	}
 
 	/**
