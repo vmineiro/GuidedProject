@@ -11,6 +11,9 @@ public class Character {
 	
 	/** The active. */
 	private boolean active;
+
+	/** The symbol. */
+	protected char symbol;
 	
 	/**
 	 * Instantiates a new character.
@@ -20,6 +23,11 @@ public class Character {
 	 */
 	public Character(int line, int col) {
 		position = new Position(line,col);
+		active = true;
+	}
+	
+	public Character(Position pos) {
+		position = pos;
 		active = true;
 	}
 	
@@ -81,6 +89,23 @@ public class Character {
 	 */
 	public void setActive(){
 		active = true;
+	}
+
+	/**
+	 * Die.
+	 */
+	public void die() {
+		symbol = ' ';
+		setInactive();
+	}
+
+	/**
+	 * Gets the symbol.
+	 *
+	 * @return the symbol
+	 */
+	public char getSymbol() {
+		return symbol;
 	}
 
 }

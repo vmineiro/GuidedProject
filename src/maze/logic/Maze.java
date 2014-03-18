@@ -13,10 +13,10 @@ import java.util.Random;
 public class Maze {
 
 	/** The maze exit. */
-	private Position mazeExit;
+	private static Position mazeExit;
 
 	/** The maze. */
-	private char maze [][] = {
+	private static char maze [][] = {
 			{'X','X','X','X','X','X','X','X','X','X'},
 			{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 			{'X',' ','X','X',' ','X',' ','X',' ','X'},
@@ -28,6 +28,8 @@ public class Maze {
 			{'X',' ','X','X',' ',' ',' ',' ',' ','X'},
 			{'X','X','X','X','X','X','X','X','X','X'}
 	};	
+
+	private static boolean[][] visitedMaze;
 
 	/**
 	 * Instantiates a new maze.
@@ -51,7 +53,7 @@ public class Maze {
 	/**
 	 * Change the value of the cell with the line "line" and column "col" to the value "value".
 	 *
-	 * @param pos the pos
+	 * @param pos the position
 	 * @param value the value
 	 */
 	public void setCellValue(Position pos, char value){
@@ -149,33 +151,75 @@ public class Maze {
 	 * */
 	public static char[][] generateMaze(int n){
 		/* Initialize an empty Maze */
-		char tempMaze[][] = new char[n][n];
+		maze = new char[n][n];
+		visitedMaze = new boolean[n][n];
 
 		/* Fill maze positions as Wall  */
-		fillMaze(tempMaze);
+		fillMaze(maze,visitedMaze);
 
 		/* Generate the Maze Exit */
-		int[] mazeExit = generateMazeExit(n);
+		mazeExit = generateMazeExit(n);
 		
 		/* Set the Maze Exit */
-		tempMaze[mazeExit[0]][mazeExit[1]] = 'S';
+		maze[mazeExit.getLine()][mazeExit.getCol()] = 'S';
 		
 		/* Generate maze paths */
-		
-		
-		return tempMaze;
+		visitedMaze[mazeExit.getLine()][mazeExit.getCol()] = true;
+		if (mazeExit.getLine() == 0) 
+			maze = generatePath(mazeExit.bottomPosition());
+		else if (mazeExit.getLine() == n-1)
+			maze= generatePath(mazeExit.upperPosition());
+		else if (mazeExit.getCol() == 0)
+			maze = generatePath(mazeExit.rightPosition());
+		else 
+			maze = generatePath(mazeExit.leftPosition());
+			
+		return maze;
 	}
 	
+	private static boolean unvisitedCells(boolean[][] visitedMaze) {
+		for (boolean[] line : visitedMaze){
+			for (boolean cell : line){
+				if (!cell) return true;
+			}
+		}
+		return false;
+	}
+
+	private static char[][] generatePath(Position pos) {
+		visitedMaze[pos.getLine()][pos.getLine()] = true;
+		while (unvisitedCells(visitedMaze)){
+			int nearCells = unvisitedCellNear(pos);
+			if (nearCells > 0){
+				
+			}
+			
+		}
+		return maze;
+	}
+
+	private static int unvisitedCellNear(Position pos) {
+		int line = pos.getLine();
+		int col = pos.getCol();
+		int nCells = 0;
+		if (!visitedMaze[line][col-1]) nCells++;
+		if (!visitedMaze[line+1][col]) nCells++;
+		if (!visitedMaze[line][col+1]) nCells++;
+		if (!visitedMaze[line+1][col]) nCells++;
+		return nCells;
+	}
+
 	/**
 	 * Fill all the cells from a given maze with 'X' value
 	 * 
 	 * @param maze empty maze to fill
 	 * */
-	private static void fillMaze(char[][] maze){
+	private static void fillMaze(char[][] maze, boolean [][] visited){
 		int n = maze.length;
 		for (int i = 0; i < n; i++){
 			for (int j = 0; j< n; j++) {
 				maze[i][j] = 'X';
+				visited[i][j] = false;
 			}
 		}
 	}
@@ -186,21 +230,23 @@ public class Maze {
 	 * @param n dimension of maze
 	 * @return a valid maze exit
 	 * */
-	private static int[] generateMazeExit(int n){
+	public static Position generateMazeExit(int n){
 		Random line = new Random();
 		Random column = new Random();
 		int lineExit, colExit;
 
 		lineExit = line.nextInt(n);
 		if (lineExit == 0 || lineExit == n-1)
-			colExit = column.nextInt(n-1)+1;
+			colExit = column.nextInt(n-2)+1;
 		else
 			colExit = column.nextInt(2)*(n-1);
 		
-		int[] mazeExit = {lineExit,colExit};
+		mazeExit = new Position(lineExit,colExit);
 	
 		return mazeExit;
 	}
+	
+	
 
 	
 }

@@ -1,5 +1,7 @@
 package maze.logic;
 
+import maze.logic.Dragon.Mode;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Dragon.
@@ -9,19 +11,17 @@ public class Dragon extends Character {
 	/**
 	 * The Enum Mode.
 	 */
-	public enum Mode {/** The static. */
-STATIC,/** The dinamic. */
-DINAMIC,/** The mixed. */
-MIXED};
+	public enum Mode {
+		/** The static. */ STATIC,
+		/** The dinamic. */ DINAMIC,
+		/** The mixed. */MIXED
+		};
 	
 	/** The mode. */
 	private Mode mode;
 	
 	/** The sleep. */
 	private boolean sleep;
-	
-	/** The symbol. */
-	private char symbol;
 	
 	/**
 	 * Instantiates a new dragon.
@@ -37,15 +37,13 @@ MIXED};
 		symbol = 'D';
 	}
 	
-	/**
-	 * Gets the symbol.
-	 *
-	 * @return the symbol
-	 */
-	public char getSymbol(){
-		return symbol;
+	public Dragon(Position pos, Mode mod) {
+		super(pos);
+		mode = mod;
+		mode = Mode.DINAMIC;
+		symbol = 'D';
 	}
-	
+
 	/**
 	 * Checks if is dead.
 	 *
@@ -62,14 +60,6 @@ MIXED};
 	 */
 	public boolean isAsleep(){
 		return sleep;
-	}
-	
-	/**
-	 * Dye.
-	 */
-	public void die(){
-		symbol = ' ';
-		setInactive();
 	}
 	
 	/**

@@ -9,9 +9,6 @@ public class Hero extends Character {
 	/** The armed. */
 	private boolean armed;
 	
-	/** The symbol. */
-	private char symbol;
-	
 	/**
 	 * Instantiates a new hero.
 	 *
@@ -24,6 +21,12 @@ public class Hero extends Character {
 		symbol = 'H';
 	}
 	
+	public Hero(Position pos) {
+		super(pos);
+		armed = false;
+		symbol = 'H';
+	}
+
 	/**
 	 * Checks if is armed.
 	 *
@@ -52,14 +55,6 @@ public class Hero extends Character {
 	}
 	
 	/**
-	 * Dye.
-	 */
-	public void dye() {
-		symbol = ' ';
-		setInactive();
-	}
-	
-	/**
 	 * Character gets armed.
 	 *
 	 * @return the armed
@@ -69,12 +64,7 @@ public class Hero extends Character {
 		armed = true;
 	}
 	
-	/**
-	 * Gets the symbol.
-	 *
-	 * @return the symbol
-	 */
-	public char getSymbol(){
-		return symbol;
+	public void launchEagle(){
+		
 	}
 }

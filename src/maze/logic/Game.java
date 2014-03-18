@@ -24,16 +24,19 @@ public class Game {
 	/** The dragon. */
 	private Dragon dragon;
 
+	private Character eagle;
+
 	/**
 	 * Game Constructor: initializes a maze, one player, one dragon and a sword.
 	 */
 	public Game() {	
 		maze = new Maze();
-		player = new Hero(1,1);
-		dragon = new Dragon(3,1, Dragon.Mode.DINAMIC);
+		player = new Hero(new Position(1,1));
+		dragon = new Dragon(new Position(3,1), Dragon.Mode.DINAMIC);
 		//Dragon dragonTemp = nDragon(3,1, Dragon.Mode.STATIC);
 		//dragons.add(dragonTemp);
-		sword = new Sword(8,1);
+		sword = new Sword(new Position(8,1));
+		eagle = new Eagle(player.getPosition());
 	}
 
 	/**
@@ -54,7 +57,7 @@ public class Game {
 
 			gameEnd = game.playerMove();
 			game.checkKill();
-			game.setPlayerPosition();
+			game.updatePosition(game.player);
 			//game.refreshMaze();
 			if (!gameEnd ) {
 				if (game.dragon.getMode() != Dragon.Mode.STATIC || !game.dragon.isAsleep() || !game.dragon.isDead()) {
@@ -88,6 +91,13 @@ public class Game {
 	 */
 	private void setDragonPosition() {
 		maze.setCellValue(dragon.getPosition(), dragon.getSymbol());
+	}
+	
+	/**
+	 * Set the symbol of the sword (E) in its position.
+	 */
+	private void updatePosition(Character character){
+		maze.setCellValue(character.getPosition(), character.getSymbol());
 	}
 
 
@@ -253,7 +263,7 @@ public class Game {
 					player.getPosition().equals(dragon.getPosition().bottomPosition()) ||
 					player.getPosition().equals(dragon.getPosition().rightPosition()) ||
 					player.getPosition().equals(dragon.getPosition().upperPosition())) {
-				player.dye();
+				player.die();
 			}
 		} else {
 			if (player.getPosition().equals(dragon.getPosition().leftPosition()) ||
@@ -275,10 +285,18 @@ public class Game {
 			setDragonPosition();
 			setSwordPosition();
 			//setDragonsPosition(dragons,maze);
+			updatePositions();
 		}
 		setPlayerPosition();	
 	}
 
+
+	private void updatePositions() {
+		updatePosition(player);
+		updatePosition(sword);
+		updatePosition(dragon);
+		updatePosition(eagle);
+	}
 
 	/**
 	 * Check if the state of the maze is a end state (Player dead or Dragon dead and the player at cave exit).

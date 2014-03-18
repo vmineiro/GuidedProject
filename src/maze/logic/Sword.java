@@ -9,14 +9,11 @@ public class Sword extends Character {
 	/** The active. */
 	private boolean active;
 	
-	/** The symbol. */
-	private char symbol;
-	
 	/**
 	 * Instantiates a new sword.
 	 *
 	 * @param line the line
-	 * @param col the col
+	 * @param col the column
 	 */
 	public Sword(int line, int col){
 		super(line,col);
@@ -24,10 +21,16 @@ public class Sword extends Character {
 		symbol = 'E';
 	}
 	
+	public Sword(Position pos) {
+		super(pos);
+		active = true;
+		symbol = 'E';
+	}
+
 	/**
-	 * Checks if is atcive.
+	 * Checks if is active.
 	 *
-	 * @return true, if is atcive
+	 * @return true, if is active
 	 */
 	public boolean isAtcive(){
 		return active;
@@ -39,15 +42,6 @@ public class Sword extends Character {
 	public void pickSword(){
 		symbol = ' ';
 		active = false;
-	}
-
-	/**
-	 * Gets the symbol.
-	 *
-	 * @return the symbol
-	 */
-	public char getSymbol() {
-		return symbol;
 	}
 
 }
