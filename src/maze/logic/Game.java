@@ -1,7 +1,6 @@
 package maze.logic;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Game {
 	
@@ -156,37 +155,56 @@ public class Game {
 	//
 	//=========================================================
 	
-	public void inputPlay(String keyIn)
+	public void moveHeroUp()
+	{
+		int nLinHero = heroGame.getCharLin()-1;
+		int nColHero = heroGame.getCharCol();
+		
+		heroPlay(nLinHero, nColHero);
+	}
+
+	//=========================================================
+	//
+	//=========================================================
+	
+	public void moveHeroDown()
+	{
+		int nLinHero = heroGame.getCharLin()+1;
+		int nColHero = heroGame.getCharCol();
+		
+		heroPlay(nLinHero, nColHero);
+	}
+
+	//=========================================================
+	//
+	//=========================================================
+	
+	public void moveHeroRight()
+	{
+		int nLinHero = heroGame.getCharLin();
+		int nColHero = heroGame.getCharCol()+1;
+		
+		heroPlay(nLinHero, nColHero);
+	}
+
+	//=========================================================
+	//
+	//=========================================================
+	
+	public void moveHeroLeft()
+	{
+		int nLinHero = heroGame.getCharLin();
+		int nColHero = heroGame.getCharCol()-1;
+		
+		heroPlay(nLinHero, nColHero);
+	}
+
+	//=========================================================
+	//
+	//=========================================================
+	
+	public void heroPlay(int nLinHero, int nColHero)
 	{	
-		int nLinHero;
-		int nColHero;
-		
-		if(keyIn.equals("s"))
-		{ 
-			nLinHero = heroGame.getCharLin()+1;
-			nColHero = heroGame.getCharCol();
-		}
-		else if(keyIn.equals("w"))
-		{
-			nLinHero = heroGame.getCharLin()-1;
-			nColHero = heroGame.getCharCol();
-		}
-		else if(keyIn.equals("d"))
-		{
-			nLinHero = heroGame.getCharLin();
-			nColHero = heroGame.getCharCol()+1;
-		}
-		else if(keyIn.equals("a"))
-		{
-			nLinHero = heroGame.getCharLin();
-			nColHero = heroGame.getCharCol()-1;
-		}
-		else
-		{
-			nLinHero = heroGame.getCharLin();
-			nColHero = heroGame.getCharCol();
-		}
-		
 		char charPos = mazeGame.checkPos(nLinHero, nColHero);
 		
 		switch (charPos){
@@ -293,47 +311,6 @@ public class Game {
 				setEndGame();				
 			}
 		}
-	}
-	
-	//=========================================================
-	//
-	//=========================================================
-
-	public static void main(String[] args) {
-		
-		Game game = new Game();
-		
-		int mazeSize;
-		System.out.println("Enter N for NxN Maze:");
-		Scanner sc1 = new Scanner(System.in);
-		mazeSize = sc1.nextInt();
-				
-		game.initGame(mazeSize);
-		
-		game.getMaze().printBoard();
-		
-		while(game.checkRunGame())
-		{
-			String keyIn = "";
-			System.out.println("Next Move:");
-			Scanner sc = new Scanner(System.in);
-			keyIn = sc.nextLine();
-			
-			if(!keyIn.equals("q"))
-			{
-				game.inputPlay(keyIn);
-				game.updateDragon();
-				game.updateGame();
-				game.getMaze().printBoard();
-			}
-			else
-			{
-				break;
-			}	
-		}
-		
-		System.out.println("Game Over");
-		
 	}
 
 }
