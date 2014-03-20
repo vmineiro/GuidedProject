@@ -90,7 +90,15 @@ public class Game {
 	
 	public void initGame(int mazeSize)
 	{	
-		mazeGame.generateMaze(mazeSize);
+		if(mazeSize != 0)
+		{
+			mazeGame.generateMaze(mazeSize);
+		}
+		else
+		{
+			mazeGame.standardMaze();
+		}
+		
 		generateChar(heroGame);
 		generateChar(swordGame);
 		generateChar(dragonGame);

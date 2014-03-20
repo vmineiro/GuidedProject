@@ -36,12 +36,17 @@ public class CLInterface {
 	
 	public static void standardOption(Game game)
 	{
-		
+		game.initGame(0);
 	}
 	
 	public static void randomOption(Game game)
 	{
-		
+		int mazeSize;
+		System.out.println("Enter N for NxN Maze:");
+		Scanner sc1 = new Scanner(System.in);
+		mazeSize = sc1.nextInt();
+
+		game.initGame(mazeSize);
 	}
 
 	public static void main(String[] args) 
@@ -50,18 +55,6 @@ public class CLInterface {
 		
 		mainMenu(game);
 	
-	
-		
-		int mazeSize;
-		System.out.println("Enter N for NxN Maze:");
-		Scanner sc1 = new Scanner(System.in);
-		mazeSize = sc1.nextInt();
-
-		game.initGame(mazeSize);
-		
-		
-		
-
 		game.getMaze().printBoard();
 
 		while(game.checkRunGame())
