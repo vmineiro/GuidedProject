@@ -72,8 +72,8 @@ public class Game {
 
 		while(!charPosFound)
 		{
-			charLin = rand.nextInt(mazeGame.getMazeSideSize()-2)+1;
-			charCol = rand.nextInt(mazeGame.getMazeSideSize()-2)+1;
+			charLin = rand.nextInt(mazeGame.getBoard().length-2)+1;
+			charCol = rand.nextInt(mazeGame.getBoard().length-2)+1;
 
 			if(mazeGame.checkPos(charLin, charCol)==' ')
 			{
@@ -90,13 +90,17 @@ public class Game {
 	
 	public void initGame(int mazeSize)
 	{	
-		if(mazeSize != 0)
+		MazeBuilder mBuild = new MazeBuilder();
+		
+		if(mazeSize > 0)
 		{
-			mazeGame.generateMaze(mazeSize);
+			mBuild.setRandomMaze(mazeSize);
+			mazeGame = mBuild.getResult();
 		}
 		else
 		{
-			mazeGame.standardMaze();
+			mBuild.setStandardMaze();
+			mazeGame = mBuild.getResult();
 		}
 		
 		generateChar(heroGame);
