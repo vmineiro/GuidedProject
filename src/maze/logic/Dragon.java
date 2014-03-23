@@ -37,6 +37,12 @@ public class Dragon extends Character {
 		symbol = 'D';
 	}
 	
+	/**
+	 * Instantiates a new dragon.
+	 *
+	 * @param pos the pos
+	 * @param mod the mod
+	 */
 	public Dragon(Position pos, Mode mod) {
 		super(pos);
 		mode = mod;

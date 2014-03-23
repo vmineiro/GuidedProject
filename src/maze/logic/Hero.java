@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package maze.logic;
 
 // TODO: Auto-generated Javadoc
@@ -21,6 +24,11 @@ public class Hero extends Character {
 		symbol = 'H';
 	}
 	
+	/**
+	 * Instantiates a new hero.
+	 *
+	 * @param pos the pos
+	 */
 	public Hero(Position pos) {
 		super(pos);
 		armed = false;
@@ -64,6 +72,9 @@ public class Hero extends Character {
 		armed = true;
 	}
 	
+	/**
+	 * Launch eagle.
+	 */
 	public void launchEagle(){
 		
 	}

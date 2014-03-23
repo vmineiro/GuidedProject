@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package game.tests;
 
 import maze.logic.*;
@@ -6,6 +9,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MazeTests.
+ */
 public class MazeTests {
 
 //	@Test
@@ -83,4 +90,35 @@ public class MazeTests {
 //			System.out.println("( " + exit[0] + ", " + exit[1]+")");
 //		}		
 //	}
+	
+	/**
+ * Generate maze test.
+ */
+@Test
+	public void generateMazeTest(){
+		
+		MazeGenerator maze01 = new MazeGenerator(5);
+		maze01.drawMaze();
+		MazeGenerator maze02 = new MazeGenerator(10);
+		maze02.drawMaze();
+		MazeGenerator maze03 = new MazeGenerator(15);
+		maze03.drawMaze();
+		MazeGenerator maze04 = new MazeGenerator(20);
+		maze04.drawMaze();
+		MazeGenerator maze05 = new MazeGenerator(20);
+		maze05.drawMaze();		
+	}
+	
+//	@Test
+//	public void generatePositionsTest(){
+//		int[] positonsOrders;
+//		for (int i = 0; i < 5; i++){
+//			positonsOrders = MazeGenerator.generatePositionsOrder();
+//			System.out.print("[");
+//			for (int j : positonsOrders){
+//				System.out.print(j+",");
+//			}
+//			System.out.println("]");
+//		}	
+//	}	
 }

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package maze.logic;
 
 // TODO: Auto-generated Javadoc
@@ -26,6 +29,11 @@ public class Character {
 		active = true;
 	}
 	
+	/**
+	 * Instantiates a new character.
+	 *
+	 * @param pos the pos
+	 */
 	public Character(Position pos) {
 		position = pos;
 		active = true;
@@ -38,6 +46,15 @@ public class Character {
 	 */
 	public Position getPosition(){
 		return position;
+	}
+	
+	/**
+	 * Set position.
+	 *
+	 * @return the position of the character
+	 */
+	public void setPosition(Position pos){
+		position = pos;
 	}
 	
 	/**

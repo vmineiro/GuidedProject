@@ -24,6 +24,17 @@ public class Position {
 	}
 	
 	/**
+	 * Set a new position.
+	 *
+	 * @param nLin the n lin
+	 * @param nCol the new column
+	 */
+	public void setCoord(int nLin, int nCol){
+		this.line = nLin;
+		this.col = nCol;
+	}
+	
+	/**
 	 * Gets the line.
 	 *
 	 * @return the line
