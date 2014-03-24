@@ -23,7 +23,7 @@ public class CLInterface {
 
 			if(menuOption==1)
 			{
-				game.initGame(0);
+				game.initGame(0,1);
 				validOption = true;
 			}
 			else if(menuOption==2)
@@ -35,19 +35,33 @@ public class CLInterface {
 
 	}
 
-	public static void standardOption(Game game)
-	{
-		game.initGame(0);
-	}
-
 	public static void randomOption(Game game)
 	{
 		int mazeSize;
 		System.out.println("Enter N for NxN Maze:");
 		Scanner sc1 = new Scanner(System.in);
 		mazeSize = sc1.nextInt();
-
-		game.initGame(mazeSize);
+		
+		boolean validOption = false;
+		int mode;
+		
+		System.out.println("Select your option:");
+		System.out.println("Dragon Mode:");
+		System.out.println("1 - Static");
+		System.out.println("2 - Dinamic");
+		System.out.println("3 - Mixed");
+		
+		while(!validOption)	{
+		
+			mode = sc1.nextInt();
+			if (mode > 0 && mode < 4){
+				validOption = true;
+				game.initGame(mazeSize, mode);
+			} else {
+				System.out.println("Invalid Mode. Choose another mode.");
+			}
+		}
+		
 	}
 
 	public static void main(String[] args) 
@@ -55,26 +69,118 @@ public class CLInterface {
 		Game game = new Game();
 
 		mainMenu(game);
-		
+
 		game.updatePositions();
-		game.getMaze().printMaze();
-		
+		game.printMaze();
+
 		boolean gameEnd = false;
 
 		while(!gameEnd){
-			gameEnd = game.playerMove();
+			gameEnd = playerMove(game);
 			game.checkKill();
 			game.updatePosition(game.getPlayer());
+			
 			if (!gameEnd ) {
-				if (game.getDragon().getMode() != Dragon.Mode.STATIC || !game.getDragon().isAsleep() || !game.getDragon().isDead()) {
+
+				if (game.getEagle().isActive()) game.eagleMove();
+				
+				if (!game.getDragon().isDead()) {
 					game.dragonMove();
-					game.checkKill();
-					game.refreshMaze();
 				}
-				game.getMaze().printMaze();
+				
+				game.refreshMaze();
+				game.printMaze();
 				gameEnd = game.gameOver();
+				
 			} else
 				System.out.println("\nExit");
 		}
+	}
+
+	/**
+	 * Read the player input and when it is a valid input update the player position and clear the previous position in the maze.
+	 * @param game 
+	 *
+	 * @return true, if successful
+	 */
+	public static boolean playerMove(Game game) {
+
+		boolean validMove = false;
+
+		while (!validMove){
+
+			System.out.println("\nMove (w-up; a-left; s-down; d-right; e- launch eagle; f- don't move; q-quit):");
+
+			Scanner moveInput = new Scanner(System.in);
+			String move = moveInput.nextLine();
+
+			switch (move) {
+			case "a":
+				if (game.checkPlayerPosition(game.getPlayer().getLeftPosition())) {
+					game.getMaze().clearCell(game.getPlayer().getPosition());
+					game.getPlayer().moveLeft();
+					validMove = true;
+				}
+				break;
+			case "s":
+				if (game.checkPlayerPosition(game.getPlayer().getBottomPosition())) {
+					game.getMaze().clearCell(game.getPlayer().getPosition());
+					game.getPlayer().moveDown();
+					validMove = true;
+				}
+				break;
+			case "d":
+				if (game.checkPlayerPosition(game.getPlayer().getRightPosition())) {
+					game.getMaze().clearCell(game.getPlayer().getPosition());
+					game.getPlayer().moveRight();
+					validMove = true;
+				}
+				break;
+			case "w":
+				if (game.checkPlayerPosition(game.getPlayer().getUpperPosition())) {
+					game.getMaze().clearCell(game.getPlayer().getPosition());
+					game.getPlayer().moveUp();
+					validMove = true;
+				}
+				break;
+			case "e":
+				game.getPlayer().launchEagle();
+				System.out.println("Eagle Launched");
+				game.getEagle().setPosition(game.getPlayer().getPosition());
+				game.getEagle().getSword(game.getSword().getPosition());
+				validMove = true;
+				break;
+			case "q":
+				validMove = true;
+				moveInput.close();
+				return true;
+			case "f":
+				validMove = true;
+				break;
+			default:
+				break;
+			}
+			if (validMove == false) {
+				System.out.println("\nInvalid Move!");
+			}
+		}
+
+		if (game.getEagle().isActive() && !game.getEagle().onWay()){
+			if (game.getPlayer().getPosition().equals(game.getSword().getPosition())){
+				game.getPlayer().getArmed();
+				game.getSword().picked();
+				game.getEagle().setInactive();
+				game.getPlayer().pickEagle();
+			}
+		}
+
+		if (game.getSword().isActive()){
+			if (game.getPlayer().getPosition().equals(game.getSword().getPosition())) {
+				game.getPlayer().getArmed();
+				game.getSword().picked();
+			}
+		}
+
+		return false;
 	}
 }

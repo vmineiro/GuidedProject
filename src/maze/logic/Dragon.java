@@ -32,11 +32,15 @@ public class Dragon extends Character {
 	 */
 	public Dragon(int line, int col, Mode mode) {
 		super(line,col);
+		setMode(mode);
 		sleep = false;
-		mode = Mode.DINAMIC;
 		symbol = "D ";
 	}
 	
+	public void setMode(Mode mode2) {
+		mode = mode2;
+	}
+
 	/**
 	 * Instantiates a new dragon.
 	 *
@@ -45,8 +49,8 @@ public class Dragon extends Character {
 	 */
 	public Dragon(Position pos, Mode mod) {
 		super(pos);
-		mode = mod;
-		mode = Mode.DINAMIC;
+		setMode(mode);
+		sleep = false;
 		symbol = "D ";
 	}
 
@@ -90,6 +94,15 @@ public class Dragon extends Character {
 	 */
 	public Mode getMode() {
 		return mode;
+	}
+
+	public void changeStatus() {
+		sleep = !sleep;
+		if (sleep) {
+			symbol = "d ";
+		} else {
+			symbol = "D ";
+		}
 	}
 
 }

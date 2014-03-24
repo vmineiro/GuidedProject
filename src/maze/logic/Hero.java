@@ -68,7 +68,11 @@ public class Hero extends Character {
 	 * @return the armed
 	 */
 	public void getArmed() {
-		symbol = "A ";
+		if (symbol.equals("Ha")){
+			symbol = "Aa";
+		} else {
+			symbol = "A ";
+		}
 		armed = true;
 	}
 	
@@ -77,5 +81,10 @@ public class Hero extends Character {
 	 */
 	public void launchEagle(){
 		symbol = "H ";
+	}
+
+	public void pickEagle() {
+		symbol = "Aa";
+		armed = true;
 	}
 }

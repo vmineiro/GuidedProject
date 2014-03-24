@@ -9,9 +9,6 @@ package maze.logic;
  */
 public class Sword extends Character {
 	
-	/** The active. */
-	private boolean active;
-	
 	/**
 	 * Instantiates a new sword.
 	 *
@@ -20,7 +17,7 @@ public class Sword extends Character {
 	 */
 	public Sword(int line, int col){
 		super(line,col);
-		active = true;
+		setActive();
 		symbol = "E ";
 	}
 	
@@ -31,25 +28,16 @@ public class Sword extends Character {
 	 */
 	public Sword(Position pos) {
 		super(pos);
-		active = true;
+		setActive();
 		symbol = "E ";
 	}
 
 	/**
-	 * Checks if is active.
-	 *
-	 * @return true, if is active
-	 */
-	public boolean isAtcive(){
-		return active;
-	}
-	
-	/**
 	 * Pick sword.
 	 */
-	public void pickSword(){
+	public void picked(){
 		symbol = "  ";
-		active = false;
+		setInactive();
 	}
 
 }

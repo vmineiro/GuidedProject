@@ -134,5 +134,9 @@ public class Position {
 		if (this.line == pos1.getLine() && this.col == pos1.getCol()) return true;
 		return false;
 	}
+	
+	public void printPosition(){
+		System.out.println("(" + line + ", " + col + ")");
+	}
 
 }

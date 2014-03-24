@@ -3,6 +3,8 @@ package maze.logic;
 import java.util.Random;
 import java.util.Scanner;
 
+import maze.logic.Dragon.Mode;
+
 // TODO: Auto-generated Javadoc
 //import maze.logic.Dragon.Mode;
 //import java.util.ArrayList;
@@ -34,25 +36,33 @@ public class Game {
 	public Game() {
 		maze = new Maze();
 		player = new Hero(new Position(1,1));
-		dragon = new Dragon(new Position(3,1), Dragon.Mode.DINAMIC);
+		dragon = new Dragon(new Position(3,1), Dragon.Mode.STATIC);
 		sword = new Sword(new Position(8,1));
 		eagle = new Eagle(player.getPosition());
 	}
 
-	public void initGame(int opt) {
+	public void initGame(int opt, int mode) {
 		MazeGenerator tempMaze;
 		if (opt == 0){
 			tempMaze = new MazeGenerator();
 			maze = tempMaze.getMaze();
 			player.setPosition(new Position(1, 1));
 			dragon.setPosition(new Position(3, 1));
+			dragon.setMode(Mode.STATIC);
 			sword.setPosition(new Position(8, 1));
 		} else{
 			tempMaze = new MazeGenerator(opt);
 			maze = tempMaze.getMaze();
 			player.setPosition(maze.randomPosition());
-			dragon.setPosition(maze.randomDragonPosition());
 			sword.setPosition(maze.randomPosition());
+			dragon.setPosition(maze.randomDragonPosition());
+			if (mode == 1) {
+				dragon.setMode(Mode.STATIC);
+			} else if (mode == 2) {
+				dragon.setMode(Mode.DINAMIC);
+			} else {
+				dragon.setMode(Mode.MIXED);
+			}
 		}
 	}
 
@@ -69,6 +79,14 @@ public class Game {
 
 	public Dragon getDragon(){
 		return dragon;
+	}
+
+	public Eagle getEagle() {
+		return eagle;
+	}
+
+	public Sword getSword() {
+		return sword;
 	}
 
 	/**
@@ -106,83 +124,6 @@ public class Game {
 
 
 	/**
-	 * Read the player input and when it is a valid input update the player position and clear the previous position in the maze.
-	 *
-	 * @return true, if successful
-	 */
-	public boolean playerMove() {
-
-		boolean validMove = false;
-
-		while (!validMove){
-
-			System.out.println("\nMove (w-up; a-left; s-down; d-right; e- launch eagle; f- don't move; q-quit):");
-
-			Scanner moveInput = new Scanner(System.in);
-			String move = moveInput.nextLine();
-
-			switch (move) {
-			case "a":
-				if (checkPlayerPosition(player.getLeftPosition())) {
-					maze.clearCell(player.getPosition());
-					player.moveLeft();
-					validMove = true;
-				}
-				break;
-			case "s":
-				if (checkPlayerPosition(player.getBottomPosition())) {
-					maze.clearCell(player.getPosition());
-					player.moveDown();
-					validMove = true;
-				}
-				break;
-			case "d":
-				if (checkPlayerPosition(player.getRightPosition())) {
-					maze.clearCell(player.getPosition());
-					player.moveRight();
-					validMove = true;
-				}
-				break;
-			case "w":
-				if (checkPlayerPosition(player.getUpperPosition())) {
-					maze.clearCell(player.getPosition());
-					player.moveUp();
-					validMove = true;
-				}
-				break;
-			case "e":
-					player.launchEagle();
-					eagle.setPosition(player.getPosition());
-					eagle.setPath(sword.getPosition());
-					validMove = true;
-				break;
-			case "q":
-				validMove = true;
-				moveInput.close();
-				return true;
-			case "f":
-				validMove = true;
-				break;
-			default:
-				break;
-			}
-			if (validMove == false) {
-				System.out.println("\nInvalid Move!");
-			}
-		}
-
-		if (sword.isActive()){
-			if (player.getPosition().equals(sword.getPosition())) {
-				player.getArmed();
-				sword.pickSword();
-			}
-		}
-
-		return false;
-	}
-
-
-	/**
 	 * Check if the move is valid or not.
 	 *
 	 * @param pos the position where player want to move
@@ -210,6 +151,21 @@ public class Game {
 	 * Check if the left, bottom, right and upper cells are valid cells and select a possible move.
 	 */
 	public void dragonMove() {
+
+		if (dragon.getMode() == Mode.STATIC) return;
+
+		Random randomNr = new Random();
+
+		if (dragon.getMode() == Mode.MIXED) {
+			int changeStatus = randomNr.nextInt(10);
+			if (changeStatus % 3 == 0) {
+				dragon.changeStatus();
+			}
+		}
+
+
+		if (dragon.isAsleep()) return;
+
 		int move;
 		boolean validMove = false;
 		Random pickMove = new Random();
@@ -251,6 +207,8 @@ public class Game {
 				break;
 			}
 		}
+
+		checkKill();
 	}
 
 
@@ -259,7 +217,8 @@ public class Game {
 	 */
 
 	public void checkKill() {
-		if (!player.isArmed()) {
+
+		if (!player.isArmed() && !dragon.isAsleep()) {
 			if (player.getPosition().equals(dragon.getLeftPosition()) ||
 					player.getPosition().equals(dragon.getBottomPosition()) ||
 					player.getPosition().equals(dragon.getRightPosition()) ||
@@ -274,6 +233,14 @@ public class Game {
 				dragon.die();
 			}
 		}
+		if (!eagle.onWay() && eagle.isActive()){
+			if (eagle.getPosition().equals(dragon.getLeftPosition()) ||
+					eagle.getPosition().equals(dragon.getBottomPosition()) ||
+					eagle.getPosition().equals(dragon.getRightPosition()) ||
+					eagle.getPosition().equals(dragon.getUpperPosition())) {
+				eagle.die();
+			}
+		}
 	}
 
 
@@ -286,7 +253,6 @@ public class Game {
 		else {
 			setDragonPosition();
 			setSwordPosition();
-			//setDragonsPosition(dragons,maze);
 			updatePositions();
 		}
 		setPlayerPosition();	
@@ -298,10 +264,8 @@ public class Game {
 	 */
 	public void updatePositions() {
 		updatePosition(player);
-		//updatePosition(eagle);
-
-		// será necessário atualizar a posição da espada???
-		updatePosition(sword);
+		if (sword.isActive()) updatePosition(sword);
+		if (eagle.isActive()) updatePosition(eagle);
 		updatePosition(dragon);
 	}
 
@@ -326,10 +290,25 @@ public class Game {
 		return false;
 	}
 
+	public void eagleMove() {
 
+		if (!eagle.onWay()) {
+			sword.setPosition(eagle.getPosition());
+			sword.setActive();
+		} else {
+			if (eagle.getPosition().equals(sword.getPosition())){
+				sword.picked();
+			}
+			maze.setCellValue(eagle.getPosition(), eagle.getLastCell());
+			eagle.move();
+			eagle.setLastCell(maze.getPositionValue(eagle.getPosition()));
+		}
 
+	}
 
-
+	public void printMaze() {
+		maze.printMaze();	
+	}
 
 
 }

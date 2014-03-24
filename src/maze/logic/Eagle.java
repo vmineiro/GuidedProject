@@ -12,11 +12,15 @@ import sun.misc.Queue;
  */
 public class Eagle extends Character {
 
+	boolean onWay;
+	
 	private ArrayList<Position> swordPath;
 
 	private Stack<Position> returnPath;
 
 	boolean hasSword;
+
+	private String lastCell;
 
 	/**
 	 * Instantiates a new eagle.
@@ -25,47 +29,52 @@ public class Eagle extends Character {
 	 */
 	public Eagle(Position position) {
 		super(position);
-		this.setInactive();
+		setInactive();
 		hasSword = false;
+		onWay = false;
 		swordPath = new ArrayList<Position>();
 		returnPath = new Stack<Position>();
+		lastCell = "  ";
+	}
+	
+	public boolean onWay(){
+		return onWay;
+	}
+	
+	public void move(){
+		if (hasSword){
+			if (returnPath.isEmpty()){
+				onWay = false;
+				hasSword = false;
+			} else{
+				moveBack();
+			}
+		} else {
+			if (swordPath.isEmpty()){
+				symbol = "Ea";
+				hasSword = true;
+				moveBack();
+			} else{
+			moveToSword();
+			}
+		}
+	}
+	
+	public void moveToSword(){
+		setPosition(swordPath.get(0));
+		swordPath.remove(0);
+	}
+	
+	public void moveBack(){
+		setPosition(returnPath.pop());
 	}
 
-	/**
-	 * Checks if is flying.
-	 *
-	 * @return true, if is flying
-	 */
-	public boolean isFlying(){
-		return isActive();
-	}
-
-	public void getSword() {
-		symbol = "Aa";
-		hasSword = true;
-	}
-
-	public void dropSword() {
-		hasSword = false;
-		setInactive();
-	}
-
-	/**
-	 * Land.
-	 */
-	public void land(){
-		setInactive();
-	}
-
-	/**
-	 * Launch.
-	 */
-	public void launch(){
+	public void getSword(Position swordPosition) {
+		
+		onWay = true;
 		setActive();
-	}
-
-	public void setPath(Position swordPosition) {
-
+		symbol = " a";
+		
 		int x0 = this.getPosition().getCol();
 		int y0 = this.getPosition().getLine();
 		int x1 = swordPosition.getCol();
@@ -268,6 +277,18 @@ public class Eagle extends Character {
 
 	public Stack<Position> getReturnPath() {
 		return returnPath;
+	}
+
+	public void setLastCell(String positionValue) {
+		lastCell = positionValue;
+	}
+
+	public String getLastCell() {
+		return lastCell;
+	}
+	
+	public void die(){
+		setInactive();
 	}
 
 }
