@@ -195,7 +195,7 @@ public class Game {
 					return true;
 			}
 		}
-		if (maze.getPositionValue(pos) == 'X') return false;
+		if (maze.getPositionValue(pos).equals("XX")) return false;
 		return true;
 	}
 
@@ -277,7 +277,7 @@ public class Game {
 	 */
 	public void refreshMaze(){
 		if (dragon.getPosition().equals(sword.getPosition()))
-			maze.setCellValue(dragon.getPosition(), 'F');
+			maze.setCellValue(dragon.getPosition(), "F ");
 		else {
 			setDragonPosition();
 			setSwordPosition();

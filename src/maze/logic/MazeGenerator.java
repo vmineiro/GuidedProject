@@ -26,17 +26,17 @@ public class MazeGenerator {
 
 	public MazeGenerator() {
 		maze = new Maze();
-		char[][] lab = {
-				{'X','X','X','X','X','X','X','X','X','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X',' ','X','X',' ','X',' ','X',' ','X'},
-				{'X',' ','X','X',' ','X',' ','X',' ','X'},
-				{'X',' ','X','X',' ','X',' ','X',' ','X'},
-				{'X',' ',' ',' ',' ',' ',' ','X',' ','S'},
-				{'X',' ','X','X',' ','X',' ','X',' ','X'},
-				{'X',' ','X','X',' ','X',' ','X',' ','X'},
-				{'X',' ','X','X',' ',' ',' ',' ',' ','X'},
-				{'X','X','X','X','X','X','X','X','X','X'}
+		String[][] lab = {
+				{"XX","XX","XX","XX","XX","XX","XX","XX","XX","XX"},
+				{"XX","  ","  ","  ","  ","  ","  ","  ","  ","XX"},
+				{"XX","  ","XX","XX","  ","XX","  ","XX","  ","XX"},
+				{"XX","  ","XX","XX","  ","XX","  ","XX","  ","XX"},
+				{"XX","  ","XX","XX","  ","XX","  ","XX","  ","XX"},
+				{"XX","  ","  ","  ","  ","  ","  ","XX","  ","SS"},
+				{"XX","  ","XX","XX","  ","XX","  ","XX","  ","XX"},
+				{"XX","  ","XX","XX","  ","XX","  ","XX","  ","XX"},
+				{"XX","  ","XX","XX","  ","  ","  ","  ","  ","XX"},
+				{"XX","XX","XX","XX","XX","XX","XX","XX","XX","XX"}
 		};
 		maze.setExit(new Position(5, 9));
 		maze.setMaze(lab);
@@ -52,9 +52,9 @@ public class MazeGenerator {
 	 * @param n number of columns and lines of the maze
 	 * @return a valid maze
 	 */
-	public static char[][] generateMaze(int n, Position mazeExit){
+	public static String[][] generateMaze(int n, Position mazeExit){
 		/* Initialize an empty Maze */
-		char[][] lab = new char[n][n];
+		String[][] lab = new String[n][n];
 
 		/* create a bound variable */
 		int bound = n-1;
@@ -63,7 +63,7 @@ public class MazeGenerator {
 		fillMaze(lab, n);
 
 		/* Set the Maze Exit */
-		lab[mazeExit.getLine()][mazeExit.getCol()] = 'S';
+		lab[mazeExit.getLine()][mazeExit.getCol()] = "SS";
 
 		/* Generate maze paths */
 		//visitedMaze[mazeExit.getLine()][mazeExit.getCol()] = true;
@@ -86,12 +86,12 @@ public class MazeGenerator {
 	 * @param lab 
 	 * @param bound the bound
 	 */
-	private static void generatePath(Position pos, char[][] lab, int bound) {
+	private static void generatePath(Position pos, String[][] lab, int bound) {
 
 		/* check if the Position is a valid position */
 		if(!validPathPosition(pos, lab, bound)) return;
 
-		lab[pos.getLine()][pos.getCol()] = ' ';
+		lab[pos.getLine()][pos.getCol()] = "  ";
 		int[] positonsOrders; 
 		positonsOrders = generatePositionsOrder();
 
@@ -162,7 +162,7 @@ public class MazeGenerator {
 	 * @param bound the bound
 	 * @return true, if successful
 	 */
-	private static boolean validPathPosition(Position pos, char[][] lab, int bound) {
+	private static boolean validPathPosition(Position pos, String[][] lab, int bound) {
 		int col = pos.getCol();
 		int lin = pos.getLine();
 
@@ -170,45 +170,45 @@ public class MazeGenerator {
 		if (lin == 0 || col == 0 || lin == bound || col == bound) return false;
 
 		// check if the position is repeated
-		if (lab[lin][col] == ' ') return false;
+		if (lab[lin][col].equals("  ")) return false;
 
 		// check  top left square 2x2
-		if (lab[lin-1][col] == ' ' && lab[lin-1][col-1] == ' ' && lab[lin][col-1] == ' ') return false;
+		if (lab[lin-1][col].equals("  ") && lab[lin-1][col-1].equals("  ") && lab[lin][col-1].equals("  ")) return false;
 
 		// check  bottom left square 2x2
-		if (lab[lin][col-1] == ' ' && lab[lin+1][col-1] == ' ' && lab[lin+1][col] == ' ') return false;
+		if (lab[lin][col-1].equals("  ") && lab[lin+1][col-1].equals("  ") && lab[lin+1][col].equals("  ")) return false;
 
 		// check  top right square 2x2
-		if (lab[lin+1][col] == ' ' && lab[lin+1][col+1] == ' ' && lab[lin][col+1] == ' ') return false;
+		if (lab[lin+1][col].equals("  ") && lab[lin+1][col+1].equals("  ") && lab[lin][col+1].equals("  ")) return false;
 
 		// check  top right square 2x2
-		if (lab[lin][col+1] == ' ' && lab[lin-1][col+1] == ' ' && lab[lin-1][col] == ' ') return false;
+		if (lab[lin][col+1].equals("  ") && lab[lin-1][col+1].equals("  ") && lab[lin-1][col].equals("  ")) return false;
 
 		// check  top left diagonal
-		if (lab[lin-1][col] == 'X' && lab[lin-1][col-1] == ' ' && lab[lin][col-1] == 'X') return false;
+		if (lab[lin-1][col].equals("  ") && lab[lin-1][col-1].equals("  ") && lab[lin][col-1].equals("  ")) return false;
 
 		// check  bottom left diagonal
-		if (lab[lin][col-1] == 'X' && lab[lin+1][col-1] == ' ' && lab[lin+1][col] == 'X') return false;
+		if (lab[lin][col-1].equals("  ") && lab[lin+1][col-1].equals("  ") && lab[lin+1][col].equals("  ")) return false;
 
 		// check  top right diagonal
-		if (lab[lin+1][col] == 'X' && lab[lin+1][col+1] == ' ' && lab[lin][col+1] == 'X') return false;
+		if (lab[lin+1][col].equals("  ") && lab[lin+1][col+1].equals("  ") && lab[lin][col+1].equals("  ")) return false;
 
 		// check  top right diagonal
-		if (lab[lin][col+1] == 'X' && lab[lin-1][col+1] == ' ' && lab[lin-1][col] == 'X') return false;
+		if (lab[lin][col+1].equals("  ") && lab[lin-1][col+1].equals("  ") && lab[lin-1][col].equals("  ")) return false;
 
 		return true;
 	}
 
 	/**
-	 * Fill all the cells from a given maze with 'X' value.
+	 * Fill all the cells from a given maze with "XX" value.
 	 * @param lab 
 	 *
 	 * @param n the n
 	 */
-	private static void fillMaze(char[][] lab, int n){
+	private static void fillMaze(String[][] lab, int n){
 		for (int i = 0; i < n; i++){
 			for (int j = 0; j< n; j++) {
-				lab[i][j] = 'X';
+				lab[i][j] = "XX";
 			}
 		}
 	}

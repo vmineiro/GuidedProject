@@ -21,7 +21,7 @@ public class Sword extends Character {
 	public Sword(int line, int col){
 		super(line,col);
 		active = true;
-		symbol = 'E';
+		symbol = "E ";
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class Sword extends Character {
 	public Sword(Position pos) {
 		super(pos);
 		active = true;
-		symbol = 'E';
+		symbol = "E ";
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class Sword extends Character {
 	 * Pick sword.
 	 */
 	public void pickSword(){
-		symbol = ' ';
+		symbol = "  ";
 		active = false;
 	}
 

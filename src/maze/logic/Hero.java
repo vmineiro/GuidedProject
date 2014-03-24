@@ -21,7 +21,7 @@ public class Hero extends Character {
 	public Hero(int line, int col) {
 		super(line, col);
 		armed = false;
-		symbol = 'H';
+		symbol = "H ";
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class Hero extends Character {
 	public Hero(Position pos) {
 		super(pos);
 		armed = false;
-		symbol = 'H';
+		symbol = "H ";
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class Hero extends Character {
 	 * @return the armed
 	 */
 	public void getArmed() {
-		symbol = 'A';
+		symbol = "A ";
 		armed = true;
 	}
 	

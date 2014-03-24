@@ -34,7 +34,7 @@ public class Dragon extends Character {
 		super(line,col);
 		sleep = false;
 		mode = Mode.DINAMIC;
-		symbol = 'D';
+		symbol = "D ";
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class Dragon extends Character {
 		super(pos);
 		mode = mod;
 		mode = Mode.DINAMIC;
-		symbol = 'D';
+		symbol = "D ";
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class Dragon extends Character {
 	 * Sleeps.
 	 */
 	public void sleeps(){
-		symbol = 'd';
+		symbol = "d ";
 		sleep = true;
 	}
 	

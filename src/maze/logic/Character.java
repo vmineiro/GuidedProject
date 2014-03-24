@@ -16,7 +16,7 @@ public class Character {
 	private boolean active;
 
 	/** The symbol. */
-	protected char symbol;
+	protected String symbol;
 	
 	/**
 	 * Instantiates a new character.
@@ -148,7 +148,7 @@ public class Character {
 	 * Die.
 	 */
 	public void die() {
-		symbol = ' ';
+		symbol = "  ";
 		setInactive();
 	}
 
@@ -157,7 +157,7 @@ public class Character {
 	 *
 	 * @return the symbol
 	 */
-	public char getSymbol() {
+	public String getSymbol() {
 		return symbol;
 	}
 

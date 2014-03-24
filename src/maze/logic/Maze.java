@@ -13,7 +13,7 @@ import java.util.Random;
 public class Maze {
 
 	/** The maze. */
-	private static char maze [][];
+	private static String maze [][];
 	
 	/** The maze exit. */
 	private Position mazeExit;
@@ -26,7 +26,7 @@ public class Maze {
 	 *
 	 * @return the maze
 	 */
-	public char[][] getMaze(){
+	public String[][] getMaze(){
 		return maze;
 	}
 
@@ -35,7 +35,7 @@ public class Maze {
 	 *
 	 * @return the maze
 	 */
-	public void setMaze(char[][] lab){
+	public void setMaze(String[][] lab){
 		maze = lab;
 	}
 	
@@ -45,7 +45,7 @@ public class Maze {
 	 * @param pos the position
 	 * @param value the value
 	 */
-	public void setCellValue(Position pos, char value){
+	public void setCellValue(Position pos, String value){
 		maze[pos.getLine()][pos.getCol()] = value;
 	}	
 
@@ -56,7 +56,7 @@ public class Maze {
 	 * @param pos the pos
 	 */
 	public void clearCell(Position pos){
-		maze[pos.getLine()][pos.getCol()] = ' ';
+		maze[pos.getLine()][pos.getCol()] = "  ";
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class Maze {
 	 * @param pos the pos
 	 * @return the position value
 	 */
-	public char getPositionValue(Position pos){
+	public String getPositionValue(Position pos){
 		return maze[pos.getLine()][pos.getCol()];
 	}
 
@@ -76,8 +76,8 @@ public class Maze {
 	 * @return true, if successful
 	 */
 	public boolean cellIsEmpty(Position pos){
-		if (maze[pos.getLine()][pos.getCol()] == ' ') return true;
-		else if (maze[pos.getLine()][pos.getCol()] == 'E') return true;
+		if (maze[pos.getLine()][pos.getCol()].equals("  ")) return true;
+		else if (maze[pos.getLine()][pos.getCol()].equals("E ")) return true;
 		else return false;
 	}
 
@@ -123,7 +123,7 @@ public class Maze {
 			linePos = number.nextInt(mazeSize-2)+1;
 			colPos = number.nextInt(mazeSize-2)+1;
 			temp = new Position(linePos,colPos);
-			if (getPositionValue(temp) == ' ') validPos = true;
+			if (getPositionValue(temp).equals("  ")) validPos = true;
 		} while (!validPos);
 		
 		return temp;
@@ -134,7 +134,7 @@ public class Maze {
 		boolean validPos = false;
 		do {
 			temp = randomPosition();
-			if (getPositionValue(temp.leftPosition()) != 'H' && getPositionValue(temp.bottomPosition()) != 'H' && getPositionValue(temp.rightPosition()) != 'H' && getPositionValue(temp.upperPosition()) != 'H') validPos = true;
+			if (!getPositionValue(temp.leftPosition()).equals("H ") && !getPositionValue(temp.bottomPosition()).equals("H ") && !getPositionValue(temp.rightPosition()).equals("H ") && !getPositionValue(temp.upperPosition()).equals("H ")) validPos = true;
 		} while (!validPos);
 		return temp;
 	}
