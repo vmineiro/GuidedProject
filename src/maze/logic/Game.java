@@ -25,8 +25,8 @@ public class Game {
 	private Dragon dragon;
 	//	private ArrayList<Dragon> dragons = new ArrayList<Dragon>();
 
-	//	/** The Eagle. */
-	//	private Character eagle;
+	/** The Eagle. */
+	private Eagle eagle;
 
 	/**
 	 * Game Constructor: initializes a maze, one player, one dragon and a sword.
@@ -36,7 +36,7 @@ public class Game {
 		player = new Hero(new Position(1,1));
 		dragon = new Dragon(new Position(3,1), Dragon.Mode.DINAMIC);
 		sword = new Sword(new Position(8,1));
-		//eagle = new Eagle(player.getPosition());
+		eagle = new Eagle(player.getPosition());
 	}
 
 	public void initGame(int opt) {
@@ -116,7 +116,7 @@ public class Game {
 
 		while (!validMove){
 
-			System.out.println("\nMove (w-up; a-left; s-down; d-right; e- don't move; q-quit):");
+			System.out.println("\nMove (w-up; a-left; s-down; d-right; e- launch eagle; f- don't move; q-quit):");
 
 			Scanner moveInput = new Scanner(System.in);
 			String move = moveInput.nextLine();
@@ -150,11 +150,17 @@ public class Game {
 					validMove = true;
 				}
 				break;
+			case "e":
+					player.launchEagle();
+					eagle.setPosition(player.getPosition());
+					eagle.setPath(sword.getPosition());
+					validMove = true;
+				break;
 			case "q":
 				validMove = true;
 				moveInput.close();
 				return true;
-			case "e":
+			case "f":
 				validMove = true;
 				break;
 			default:
@@ -245,7 +251,6 @@ public class Game {
 				break;
 			}
 		}
-
 	}
 
 
