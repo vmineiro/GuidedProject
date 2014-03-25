@@ -12,6 +12,9 @@ public class Hero extends Character {
 	/** The armed. */
 	private boolean armed;
 	
+	/** The armed. */
+	private boolean eagleLaunched;
+	
 	/**
 	 * Instantiates a new hero.
 	 *
@@ -22,6 +25,7 @@ public class Hero extends Character {
 		super(line, col);
 		armed = false;
 		symbol = "Ha";
+		eagleLaunched = false;
 	}
 	
 	/**
@@ -33,6 +37,7 @@ public class Hero extends Character {
 		super(pos);
 		armed = false;
 		symbol = "Ha";
+		eagleLaunched = false;
 	}
 
 	/**
@@ -81,10 +86,15 @@ public class Hero extends Character {
 	 */
 	public void launchEagle(){
 		symbol = "H ";
+		eagleLaunched = true;
 	}
 
 	public void pickEagle() {
 		symbol = "Aa";
 		armed = true;
+	}
+	
+	public boolean eagleLaunched(){
+		return eagleLaunched;
 	}
 }

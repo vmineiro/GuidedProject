@@ -212,6 +212,29 @@ public class Game {
 	}
 
 
+	public void eagleMove() {
+		if (eagle.onWay) {
+			maze.setCellValue(eagle.getPosition(), eagle.getLastCell());
+			eagle.move();
+			if (eagle.getPosition().equals(sword.getPosition())){
+				eagle.setLastCell("  ");
+			} else {
+			eagle.setLastCell(maze.getPositionValue(eagle.getPosition()));
+			}
+		}
+		if (!eagle.onWay()) {
+			sword.droped(eagle.getPosition());
+		}
+		
+		if (eagle.getPosition().equals(sword.getPosition())){
+			sword.picked();
+		}
+	}
+
+	public void printMaze() {
+		maze.printMaze();	
+	}
+	
 	/**
 	 * Check if the player kills the dragon or vice-versa.
 	 */
@@ -239,6 +262,7 @@ public class Game {
 					eagle.getPosition().equals(dragon.getRightPosition()) ||
 					eagle.getPosition().equals(dragon.getUpperPosition())) {
 				eagle.die();
+				sword.droped(eagle.getPosition());
 			}
 		}
 	}
@@ -248,11 +272,16 @@ public class Game {
 	 * Update the positions of the player, the dragon and sword in the maze.
 	 */
 	public void refreshMaze(){
-		if (dragon.getPosition().equals(sword.getPosition()))
-			maze.setCellValue(dragon.getPosition(), "F ");
+		if (sword.isActive()){
+			if (dragon.getPosition().equals(sword.getPosition()))
+				maze.setCellValue(dragon.getPosition(), "F ");
+			else {
+				setDragonPosition();
+				setSwordPosition();
+				updatePositions();
+			}
+		}
 		else {
-			setDragonPosition();
-			setSwordPosition();
 			updatePositions();
 		}
 		setPlayerPosition();	
@@ -263,10 +292,15 @@ public class Game {
 	 * Update positions.
 	 */
 	public void updatePositions() {
-		updatePosition(player);
-		if (sword.isActive()) updatePosition(sword);
-		if (eagle.isActive()) updatePosition(eagle);
 		updatePosition(dragon);
+		if (sword.isActive()) {
+			if (dragon.getPosition().equals(sword.getPosition()))
+				maze.setCellValue(dragon.getPosition(), "F ");
+			else
+				updatePosition(sword);		
+		}
+		if (eagle.isActive()) updatePosition(eagle);
+		updatePosition(player);
 	}
 
 
@@ -288,26 +322,6 @@ public class Game {
 			return true;
 		}
 		return false;
-	}
-
-	public void eagleMove() {
-
-		if (!eagle.onWay()) {
-			sword.setPosition(eagle.getPosition());
-			sword.setActive();
-		} else {
-			if (eagle.getPosition().equals(sword.getPosition())){
-				sword.picked();
-			}
-			maze.setCellValue(eagle.getPosition(), eagle.getLastCell());
-			eagle.move();
-			eagle.setLastCell(maze.getPositionValue(eagle.getPosition()));
-		}
-
-	}
-
-	public void printMaze() {
-		maze.printMaze();	
 	}
 
 

@@ -88,7 +88,7 @@ public class CLInterface {
 					game.dragonMove();
 				}
 				
-				game.refreshMaze();
+				game.updatePositions();
 				game.printMaze();
 				gameEnd = game.gameOver();
 				
@@ -144,11 +144,14 @@ public class CLInterface {
 				}
 				break;
 			case "e":
-				game.getPlayer().launchEagle();
-				System.out.println("Eagle Launched");
-				game.getEagle().setPosition(game.getPlayer().getPosition());
-				game.getEagle().getSword(game.getSword().getPosition());
-				validMove = true;
+				if (!game.getPlayer().eagleLaunched()) {
+					game.getPlayer().launchEagle();
+					System.out.println("Eagle Launched");
+					game.getEagle().setPosition(game.getPlayer().getPosition());
+					game.getEagle().getSword(game.getSword().getPosition());
+					game.eagleMove();
+					validMove = true;
+				}
 				break;
 			case "q":
 				validMove = true;

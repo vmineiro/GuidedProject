@@ -54,6 +54,7 @@ public class Eagle extends Character {
 				symbol = "Ea";
 				hasSword = true;
 				moveBack();
+				lastCell = "  ";
 			} else{
 			moveToSword();
 			}
@@ -287,7 +288,9 @@ public class Eagle extends Character {
 		return lastCell;
 	}
 	
+	@Override
 	public void die(){
+		symbol = "  ";
 		setInactive();
 	}
 

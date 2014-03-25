@@ -40,4 +40,10 @@ public class Sword extends Character {
 		setInactive();
 	}
 
+	public void droped(Position position) {
+		setPosition(position);
+		setActive();
+		symbol = "E ";
+	}
+
 }
