@@ -10,6 +10,9 @@ import maze.logic.Eagle;
 import maze.logic.Position;
 import maze.logic.Sword;
 
+/**
+ * The Class EagleTests.
+ */
 public class EagleTests {
 
 	//	@Test

@@ -9,6 +9,7 @@ import java.util.Stack;
  */
 public class MazeGenerator {
 
+	/** The maze. */
 	private Maze maze;
 
 	/**
@@ -24,6 +25,9 @@ public class MazeGenerator {
 		maze.setMaze(generateMaze(n, mazeExit));
 	}
 
+	/**
+	 * Instantiates a new maze generator.
+	 */
 	public MazeGenerator() {
 		maze = new Maze();
 		String[][] lab = {
@@ -42,6 +46,11 @@ public class MazeGenerator {
 		maze.setMaze(lab);
 	}
 	
+	/**
+	 * Gets the maze.
+	 *
+	 * @return the maze
+	 */
 	public Maze getMaze(){
 		return maze;
 	}
@@ -50,6 +59,7 @@ public class MazeGenerator {
 	 * Generate a random square maze.
 	 *
 	 * @param n number of columns and lines of the maze
+	 * @param mazeExit the maze exit
 	 * @return a valid maze
 	 */
 	public static String[][] generateMaze(int n, Position mazeExit){
@@ -83,7 +93,7 @@ public class MazeGenerator {
 	 * Generate path.
 	 *
 	 * @param pos the pos
-	 * @param lab 
+	 * @param lab the lab
 	 * @param bound the bound
 	 */
 	private static void generatePath(Position pos, String[][] lab, int bound) {
@@ -157,8 +167,7 @@ public class MazeGenerator {
 	 * Valid path position.
 	 *
 	 * @param pos the pos
-	 * @param bound 
-	 * @param lab 
+	 * @param lab the lab
 	 * @param bound the bound
 	 * @return true, if successful
 	 */
@@ -201,8 +210,8 @@ public class MazeGenerator {
 
 	/**
 	 * Fill all the cells from a given maze with "XX" value.
-	 * @param lab 
 	 *
+	 * @param lab the lab
 	 * @param n the n
 	 */
 	private static void fillMaze(String[][] lab, int n){

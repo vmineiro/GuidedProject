@@ -18,6 +18,9 @@ public class Maze {
 	/** The maze exit. */
 	private Position mazeExit;
 	
+	/**
+	 * Instantiates a new maze.
+	 */
 	public Maze(){
 	}
 
@@ -33,6 +36,7 @@ public class Maze {
 	/**
 	 * Set the board - It isn't used .
 	 *
+	 * @param lab the new maze
 	 * @return the maze
 	 */
 	public void setMaze(String[][] lab){
@@ -93,6 +97,7 @@ public class Maze {
 	/**
 	 * Return Cave Exit Position.
 	 *
+	 * @param pos the new exit
 	 * @return the exit
 	 */
 	public void setExit(Position pos){
@@ -112,6 +117,11 @@ public class Maze {
 		}
 	}
 
+	/**
+	 * Random position.
+	 *
+	 * @return the position
+	 */
 	public Position randomPosition() {
 		Random number = new Random();
 		int mazeSize = maze.length;
@@ -129,6 +139,11 @@ public class Maze {
 		return temp;
 	}
 
+	/**
+	 * Random dragon position.
+	 *
+	 * @return the position
+	 */
 	public Position randomDragonPosition() {
 		Position temp;
 		boolean validPos = false;

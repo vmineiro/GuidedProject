@@ -37,6 +37,11 @@ public class Dragon extends Character {
 		symbol = "D ";
 	}
 	
+	/**
+	 * Sets the mode.
+	 *
+	 * @param mode2 the new mode
+	 */
 	public void setMode(Mode mode2) {
 		mode = mode2;
 	}
@@ -96,6 +101,9 @@ public class Dragon extends Character {
 		return mode;
 	}
 
+	/**
+	 * Change status.
+	 */
 	public void changeStatus() {
 		sleep = !sleep;
 		if (sleep) {

@@ -41,6 +41,12 @@ public class Game {
 		eagle = new Eagle(player.getPosition());
 	}
 
+	/**
+	 * Inits the game.
+	 *
+	 * @param opt the opt
+	 * @param mode the mode
+	 */
 	public void initGame(int opt, int mode) {
 		MazeGenerator tempMaze;
 		if (opt == 0){
@@ -54,7 +60,9 @@ public class Game {
 			tempMaze = new MazeGenerator(opt);
 			maze = tempMaze.getMaze();
 			player.setPosition(maze.randomPosition());
+			updatePosition(player);
 			sword.setPosition(maze.randomPosition());
+			updatePosition(sword);
 			dragon.setPosition(maze.randomDragonPosition());
 			if (mode == 1) {
 				dragon.setMode(Mode.STATIC);
@@ -63,28 +71,54 @@ public class Game {
 			} else {
 				dragon.setMode(Mode.MIXED);
 			}
+			updatePosition(dragon);
 		}
 	}
 
 
+	/**
+	 * Gets the maze.
+	 *
+	 * @return the maze
+	 */
 	public Maze getMaze(){
 		return maze;
 	}
 
 
+	/**
+	 * Gets the player.
+	 *
+	 * @return the player
+	 */
 	public Hero getPlayer(){
 		return player;
 	}
 
 
+	/**
+	 * Gets the dragon.
+	 *
+	 * @return the dragon
+	 */
 	public Dragon getDragon(){
 		return dragon;
 	}
 
+	/**
+	 * Gets the eagle.
+	 *
+	 * @return the eagle
+	 */
 	public Eagle getEagle() {
 		return eagle;
 	}
 
+	/**
+	 * Gets the sword.
+	 *
+	 * @return the sword
+	 */
 	public Sword getSword() {
 		return sword;
 	}
@@ -212,6 +246,9 @@ public class Game {
 	}
 
 
+	/**
+	 * Eagle move.
+	 */
 	public void eagleMove() {
 		if (eagle.onWay) {
 			maze.setCellValue(eagle.getPosition(), eagle.getLastCell());
@@ -231,6 +268,9 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Prints the maze.
+	 */
 	public void printMaze() {
 		maze.printMaze();	
 	}

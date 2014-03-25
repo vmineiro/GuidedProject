@@ -51,6 +51,7 @@ public class Character {
 	/**
 	 * Set position.
 	 *
+	 * @param pos the new position
 	 * @return the position of the character
 	 */
 	public void setPosition(Position pos){

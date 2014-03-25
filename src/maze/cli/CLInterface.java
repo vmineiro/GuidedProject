@@ -5,8 +5,17 @@ import maze.logic.*;
 import java.util.Scanner;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CLInterface.
+ */
 public class CLInterface {
 
+	/**
+	 * Main menu.
+	 *
+	 * @param game the game
+	 */
 	public static void mainMenu(Game game)
 	{
 		boolean validOption = false;
@@ -35,6 +44,11 @@ public class CLInterface {
 
 	}
 
+	/**
+	 * Random option.
+	 *
+	 * @param game the game
+	 */
 	public static void randomOption(Game game)
 	{
 		int mazeSize;
@@ -64,6 +78,11 @@ public class CLInterface {
 		
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) 
 	{
 		Game game = new Game();
@@ -99,8 +118,8 @@ public class CLInterface {
 
 	/**
 	 * Read the player input and when it is a valid input update the player position and clear the previous position in the maze.
-	 * @param game 
 	 *
+	 * @param game the game
 	 * @return true, if successful
 	 */
 	public static boolean playerMove(Game game) {

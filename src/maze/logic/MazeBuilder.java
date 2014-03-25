@@ -3,15 +3,26 @@ package maze.logic;
 import java.util.Random;
 import java.util.Stack;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MazeBuilder.
+ */
 public class MazeBuilder {
 
+	/** The maze. */
 	private Maze2 maze;
 
+	/** The visited cells. */
 	private boolean visitedCells [][];
+	
+	/** The aux stack. */
 	private Stack<Position> auxStack = new Stack<Position>();
 
 	//===========================================================
 
+	/**
+	 * Instantiates a new maze builder.
+	 */
 	public MazeBuilder()
 	{
 		this.maze = new Maze2();
@@ -19,6 +30,11 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Gets the result.
+	 *
+	 * @return the result
+	 */
 	public Maze2 getResult()
 	{
 		return maze;
@@ -26,6 +42,9 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Sets the standard maze.
+	 */
 	public void setStandardMaze()
 	{
 		char [][] standard = {
@@ -46,6 +65,11 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Sets the random maze.
+	 *
+	 * @param mazeSize the new random maze
+	 */
 	public void setRandomMaze(int mazeSize)
 	{
 		//FIX: Only use odd numbers for mazeSize
@@ -92,6 +116,9 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Inits the boards.
+	 */
 	public void initBoards(){
 
 		for(int i=0; i<maze.getBoard().length; i++)
@@ -114,6 +141,11 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Mark visited cell.
+	 *
+	 * @param markPos the mark pos
+	 */
 	public void markVisitedCell(Position markPos)
 	{
 		visitedCells[markPos.getLine()][markPos.getCol()]=true;
@@ -121,6 +153,11 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Check unvisited cells.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean checkUnvisitedCells(){
 		for(int i=0; i<visitedCells.length; i++){
 			for(int j=0; j<visitedCells.length; j++){
@@ -135,6 +172,12 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Check neighbours.
+	 *
+	 * @param checkPos the check pos
+	 * @return true, if successful
+	 */
 	public boolean checkNeighbours(Position checkPos){
 		if(checkPos.getLine()+2<visitedCells.length && visitedCells[checkPos.getLine()+2][checkPos.getCol()]==false)
 		{
@@ -160,6 +203,12 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Choose random cell.
+	 *
+	 * @param currPos the curr pos
+	 * @return the position
+	 */
 	public Position chooseRandomCell(Position currPos)
 	{
 		Random rand = new Random();
@@ -202,6 +251,12 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Removes the wall.
+	 *
+	 * @param currentPos the current pos
+	 * @param nextPos the next pos
+	 */
 	public void removeWall(Position currentPos, Position nextPos)
 	{
 		if(currentPos.getLine()==nextPos.getLine())
@@ -216,6 +271,11 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Rand unvisited cell.
+	 *
+	 * @return the position
+	 */
 	public Position randUnvisitedCell()
 	{
 		Position unvisitedCell = new Position(0,0);
@@ -236,6 +296,12 @@ public class MazeBuilder {
 
 	//===========================================================
 
+	/**
+	 * Generate exit pos.
+	 *
+	 * @param exitPos the exit pos
+	 * @param currentPos the current pos
+	 */
 	public void generateExitPos(Position exitPos, Position currentPos)
 	{
 		Random rand = new Random();

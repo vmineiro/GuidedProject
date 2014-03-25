@@ -12,14 +12,19 @@ import sun.misc.Queue;
  */
 public class Eagle extends Character {
 
+	/** The on way. */
 	boolean onWay;
 	
+	/** The sword path. */
 	private ArrayList<Position> swordPath;
 
+	/** The return path. */
 	private Stack<Position> returnPath;
 
+	/** The has sword. */
 	boolean hasSword;
 
+	/** The last cell. */
 	private String lastCell;
 
 	/**
@@ -37,10 +42,18 @@ public class Eagle extends Character {
 		lastCell = "  ";
 	}
 	
+	/**
+	 * On way.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean onWay(){
 		return onWay;
 	}
 	
+	/**
+	 * Move.
+	 */
 	public void move(){
 		if (hasSword){
 			if (returnPath.isEmpty()){
@@ -61,15 +74,27 @@ public class Eagle extends Character {
 		}
 	}
 	
+	/**
+	 * Move to sword.
+	 */
 	public void moveToSword(){
 		setPosition(swordPath.get(0));
 		swordPath.remove(0);
 	}
 	
+	/**
+	 * Move back.
+	 */
 	public void moveBack(){
 		setPosition(returnPath.pop());
 	}
 
+	/**
+	 * Gets the sword.
+	 *
+	 * @param swordPosition the sword position
+	 * @return the sword
+	 */
 	public void getSword(Position swordPosition) {
 		
 		onWay = true;
@@ -272,22 +297,45 @@ public class Eagle extends Character {
 
 	}
 
+	/**
+	 * Gets the sword path.
+	 *
+	 * @return the sword path
+	 */
 	public ArrayList<Position> getSwordPath() {
 		return swordPath;
 	}
 
+	/**
+	 * Gets the return path.
+	 *
+	 * @return the return path
+	 */
 	public Stack<Position> getReturnPath() {
 		return returnPath;
 	}
 
+	/**
+	 * Sets the last cell.
+	 *
+	 * @param positionValue the new last cell
+	 */
 	public void setLastCell(String positionValue) {
 		lastCell = positionValue;
 	}
 
+	/**
+	 * Gets the last cell.
+	 *
+	 * @return the last cell
+	 */
 	public String getLastCell() {
 		return lastCell;
 	}
 	
+	/* (non-Javadoc)
+	 * @see maze.logic.Character#die()
+	 */
 	@Override
 	public void die(){
 		symbol = "  ";

@@ -135,6 +135,9 @@ public class Position {
 		return false;
 	}
 	
+	/**
+	 * Prints the position.
+	 */
 	public void printPosition(){
 		System.out.println("(" + line + ", " + col + ")");
 	}

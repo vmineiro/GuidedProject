@@ -89,11 +89,19 @@ public class Hero extends Character {
 		eagleLaunched = true;
 	}
 
+	/**
+	 * Pick eagle.
+	 */
 	public void pickEagle() {
 		symbol = "Aa";
 		armed = true;
 	}
 	
+	/**
+	 * Eagle launched.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean eagleLaunched(){
 		return eagleLaunched;
 	}

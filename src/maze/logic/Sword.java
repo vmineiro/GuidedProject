@@ -40,6 +40,11 @@ public class Sword extends Character {
 		setInactive();
 	}
 
+	/**
+	 * Droped.
+	 *
+	 * @param position the position
+	 */
 	public void droped(Position position) {
 		setPosition(position);
 		setActive();
