@@ -1,30 +1,16 @@
-/*
- * 
- */
 package maze.logic;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Sword.
  */
 public class Sword extends Character {
 	
-	/**
-	 * Instantiates a new sword.
-	 *
-	 * @param line the line
-	 * @param col the column
-	 */
-	public Sword(int line, int col){
-		super(line,col);
-		setActive();
-		symbol = "E ";
-	}
 	
 	/**
 	 * Instantiates a new sword.
 	 *
-	 * @param pos the pos
+	 * @param pos the initial position
 	 */
 	public Sword(Position pos) {
 		super(pos);
@@ -32,6 +18,7 @@ public class Sword extends Character {
 		symbol = "E ";
 	}
 
+	
 	/**
 	 * Pick sword.
 	 */
@@ -39,6 +26,7 @@ public class Sword extends Character {
 		symbol = "  ";
 		setInactive();
 	}
+	
 
 	/**
 	 * Droped.

@@ -1,37 +1,24 @@
-/*
- * 
- */
 package maze.logic;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Hero.
  */
 public class Hero extends Character {
 	
+	
 	/** The armed. */
 	private boolean armed;
+	
 	
 	/** The armed. */
 	private boolean eagleLaunched;
 	
-	/**
-	 * Instantiates a new hero.
-	 *
-	 * @param line the line 
-	 * @param col the col
-	 */
-	public Hero(int line, int col) {
-		super(line, col);
-		armed = false;
-		symbol = "Ha";
-		eagleLaunched = false;
-	}
 	
 	/**
 	 * Instantiates a new hero.
 	 *
-	 * @param pos the pos
+	 * @param pos the initial position
 	 */
 	public Hero(Position pos) {
 		super(pos);
@@ -40,46 +27,21 @@ public class Hero extends Character {
 		eagleLaunched = false;
 	}
 
-	/**
-	 * Checks if is armed.
-	 *
-	 * @return true, if is armed
-	 */
-	public boolean isArmed() {
-		return armed;
-	}
 	
 	/**
-	 * Checks if is dead.
-	 *
-	 * @return true, if is dead
-	 */
-	public boolean isDead(){
-		return !isActive();
-	}
-
-	/**
-	 * Valid move.
-	 *
-	 * @return true, if successful
-	 */
-	public boolean validMove(){
-		return false;
-	}
-	
-	/**
-	 * Character gets armed.
+	 * Character gets armed without eagle help.
 	 *
 	 * @return the armed
 	 */
 	public void getArmed() {
-		if (symbol.equals("Ha")){
+		if (symbol.equals("Ha")){		/* In case of eagle wasn't launched */
 			symbol = "Aa";
 		} else {
-			symbol = "A ";
+			symbol = "A ";				/* In case of eagle died */
 		}
 		armed = true;
 	}
+	
 	
 	/**
 	 * Launch eagle.
@@ -89,6 +51,7 @@ public class Hero extends Character {
 		eagleLaunched = true;
 	}
 
+	
 	/**
 	 * Pick eagle.
 	 */
@@ -97,12 +60,34 @@ public class Hero extends Character {
 		armed = true;
 	}
 	
+
 	/**
-	 * Eagle launched.
+	 * Check if is armed.
+	 *
+	 * @return true, if is armed
+	 */
+	public boolean isArmed() {
+		return armed;
+	}
+	
+	
+	/**
+	 * Check if is dead.
+	 *
+	 * @return true, if is dead
+	 */
+	public boolean isDead(){
+		return !isActive();
+	}
+	
+	
+	/**
+	 * Check if the eagle was launched.
 	 *
 	 * @return true, if successful
 	 */
 	public boolean eagleLaunched(){
 		return eagleLaunched;
 	}
+	
 }

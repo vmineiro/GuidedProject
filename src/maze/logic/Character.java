@@ -1,62 +1,54 @@
-/*
- * 
- */
 package maze.logic;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Character.
  */
 public class Character {
 	
-	/** The position. */
+	
+	/** The position of Character. */
 	private Position position;
 	
-	/** The active. */
+	
+	/** The status of Character. */
 	private boolean active;
 
-	/** The symbol. */
+	
+	/** The symbol to represent the Character in the Maze. */
 	protected String symbol;
 	
-	/**
-	 * Instantiates a new character.
-	 *
-	 * @param line the line of the maze
-	 * @param col the column of the maze
-	 */
-	public Character(int line, int col) {
-		position = new Position(line,col);
-		active = true;
-	}
 	
 	/**
 	 * Instantiates a new character.
 	 *
-	 * @param pos the pos
+	 * @param pos the initial position of character
 	 */
 	public Character(Position pos) {
 		position = pos;
 		active = true;
 	}
 	
-	/**
-	 * Gets the position.
-	 *
-	 * @return the position of the character
-	 */
-	public Position getPosition(){
-		return position;
-	}
 	
 	/**
 	 * Set position.
 	 *
 	 * @param pos the new position
-	 * @return the position of the character
 	 */
 	public void setPosition(Position pos){
 		position = pos;
 	}
+	
+	
+	/**
+	 * Gets the position.
+	 *
+	 * @return the actual position
+	 */
+	public Position getPosition(){
+		return position;
+	}
+
 	
 	/**
 	 * Gets the left position.
@@ -76,6 +68,7 @@ public class Character {
 		return position.bottomPosition();
 	}
 	
+	
 	/**
 	 * Gets the right position.
 	 *
@@ -85,6 +78,7 @@ public class Character {
 		return position.rightPosition();
 	}
 	
+	
 	/**
 	 * Gets the upper position.
 	 *
@@ -93,34 +87,26 @@ public class Character {
 	public Position getUpperPosition(){
 		return position.upperPosition();
 	}
+
 	
 	/**
-	 * Move up.
+	 * Gets the symbol.
+	 *
+	 * @return the symbol
 	 */
-	public void moveUp(){
-		position.moveUp();
+	public String getSymbol() {
+		return symbol;
 	}
 	
+
 	/**
-	 * Move down.
+	 * Die.
 	 */
-	public void moveDown(){
-		position.moveDown();
+	public void die() {
+		symbol = "  ";
+		setInactive();
 	}
 	
-	/**
-	 * Move left.
-	 */
-	public void moveLeft(){
-		position.moveLeft();
-	}
-	
-	/**
-	 * Move right.
-	 */
-	public void moveRight(){
-		position.moveRight();
-	}
 	
 	/**
 	 * Checks if is active.
@@ -131,6 +117,7 @@ public class Character {
 		return active;
 	}
 	
+	
 	/**
 	 * Sets character inactive.
 	 */
@@ -138,28 +125,44 @@ public class Character {
 		active = false;
 	}
 	
+	
 	/**
 	 * Sets character active.
 	 */
 	public void setActive(){
 		active = true;
 	}
-
+	
+	
 	/**
-	 * Die.
+	 * Move up.
 	 */
-	public void die() {
-		symbol = "  ";
-		setInactive();
+	public void moveUp(){
+		position.moveUp();
 	}
-
+	
+	
 	/**
-	 * Gets the symbol.
-	 *
-	 * @return the symbol
+	 * Move down.
 	 */
-	public String getSymbol() {
-		return symbol;
+	public void moveDown(){
+		position.moveDown();
+	}
+	
+	
+	/**
+	 * Move left.
+	 */
+	public void moveLeft(){
+		position.moveLeft();
+	}
+	
+	
+	/**
+	 * Move right.
+	 */
+	public void moveRight(){
+		position.moveRight();
 	}
 
 }

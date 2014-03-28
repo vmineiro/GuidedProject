@@ -1,9 +1,8 @@
 package maze.cli;
 
+
 import maze.logic.*;
-
 import java.util.Scanner;
-
 
 // TODO: Auto-generated Javadoc
 /**
@@ -11,6 +10,7 @@ import java.util.Scanner;
  */
 public class CLInterface {
 
+	
 	/**
 	 * Main menu.
 	 *
@@ -44,6 +44,7 @@ public class CLInterface {
 
 	}
 
+	
 	/**
 	 * Random option.
 	 *
@@ -78,6 +79,7 @@ public class CLInterface {
 		
 	}
 
+	
 	/**
 	 * The main method.
 	 *
@@ -116,6 +118,7 @@ public class CLInterface {
 		}
 	}
 
+	
 	/**
 	 * Read the player input and when it is a valid input update the player position and clear the previous position in the maze.
 	 *
@@ -164,11 +167,7 @@ public class CLInterface {
 				break;
 			case "e":
 				if (!game.getPlayer().eagleLaunched()) {
-					game.getPlayer().launchEagle();
-					System.out.println("Eagle Launched");
-					game.getEagle().setPosition(game.getPlayer().getPosition());
-					game.getEagle().getSword(game.getSword().getPosition());
-					game.eagleMove();
+					game.eagleLaunched();
 					validMove = true;
 				}
 				break;
@@ -187,15 +186,6 @@ public class CLInterface {
 			}
 		}
 
-		if (game.getEagle().isActive() && !game.getEagle().onWay()){
-			if (game.getPlayer().getPosition().equals(game.getSword().getPosition())){
-				game.getPlayer().getArmed();
-				game.getSword().picked();
-				game.getEagle().setInactive();
-				game.getPlayer().pickEagle();
-			}
-		}
-
 		if (game.getSword().isActive()){
 			if (game.getPlayer().getPosition().equals(game.getSword().getPosition())) {
 				game.getPlayer().getArmed();
@@ -205,4 +195,5 @@ public class CLInterface {
 
 		return false;
 	}
+	
 }

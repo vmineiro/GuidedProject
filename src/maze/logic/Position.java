@@ -1,41 +1,46 @@
 package maze.logic;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Position.
  */
 public class Position {
 
-	/** The line. */
+	
+	/** The line index. */
 	private int line;
 	
-	/** The col. */
+	
+	/** The column index. */
 	private int col;
+	
 	
 	/**
 	 * Instantiates a new position.
 	 *
-	 * @param line the line
-	 * @param col the col
+	 * @param line the line index
+	 * @param col the column index
 	 */
 	public Position(int line, int col) {
 		this.line = line;
 		this.col = col;
 	}
 	
+	
 	/**
-	 * Set a new position.
+	 * Set new coordinates.
 	 *
-	 * @param nLin the n lin
-	 * @param nCol the new column
+	 * @param nLin the line index
+	 * @param nCol the column index
 	 */
 	public void setCoord(int nLin, int nCol){
 		this.line = nLin;
 		this.col = nCol;
 	}
 	
+	
 	/**
-	 * Gets the line.
+	 * Gets the line index.
 	 *
 	 * @return the line
 	 */
@@ -43,14 +48,16 @@ public class Position {
 		return line;
 	}
 	
+	
 	/**
-	 * Gets the col.
+	 * Gets the column index.
 	 *
 	 * @return the col
 	 */
 	public int getCol() {
 		return col;
 	}
+	
 	
 	/**
 	 * Move up.
@@ -59,12 +66,14 @@ public class Position {
 		line--;
 	}
 	
+	
 	/**
 	 * Move down.
 	 */
 	public void moveDown(){
 		line++;
 	}
+	
 	
 	/**
 	 * Move left.
@@ -73,6 +82,7 @@ public class Position {
 		col--;
 	}
 	
+	
 	/**
 	 * Move right.
 	 */
@@ -80,8 +90,9 @@ public class Position {
 		col++;
 	}
 	
+	
 	/**
-	 * Upper position.
+	 * Get the upper position.
 	 *
 	 * @return the position
 	 */
@@ -91,8 +102,9 @@ public class Position {
 		return temp;
 	}
 	
+	
 	/**
-	 * Bottom position.
+	 * Get the  bottom position.
 	 *
 	 * @return the position
 	 */
@@ -102,8 +114,9 @@ public class Position {
 		return temp;
 	}
 	
+	
 	/**
-	 * Left position.
+	 * Get the left position.
 	 *
 	 * @return the position
 	 */
@@ -113,8 +126,9 @@ public class Position {
 		return temp;
 	}
 	
+	
 	/**
-	 * Right position.
+	 * Get the right position.
 	 *
 	 * @return the position
 	 */
@@ -124,8 +138,9 @@ public class Position {
 		return temp;
 	}
 	
+	
 	/**
-	 * Equals.
+	 * Compare this position with Position pos1 and if the line index and the column index have the same value return true.
 	 *
 	 * @param pos1 the pos1
 	 * @return true, if successful
@@ -135,8 +150,9 @@ public class Position {
 		return false;
 	}
 	
+	
 	/**
-	 * Prints the position.
+	 * Prints the position. Used for debugging
 	 */
 	public void printPosition(){
 		System.out.println("(" + line + ", " + col + ")");

@@ -1,22 +1,22 @@
-/*
- * 
- */
 package maze.logic;
 
-import java.util.List;
+
 import java.util.Random;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Maze.
  */
 public class Maze {
 
+	
 	/** The maze. */
 	private static String maze [][];
 	
+	
 	/** The maze exit. */
 	private Position mazeExit;
+	
 	
 	/**
 	 * Instantiates a new maze.
@@ -24,17 +24,9 @@ public class Maze {
 	public Maze(){
 	}
 
+	
 	/**
-	 * Return the board - It isn't used .
-	 *
-	 * @return the maze
-	 */
-	public String[][] getMaze(){
-		return maze;
-	}
-
-	/**
-	 * Set the board - It isn't used .
+	 * Set the board - Used on Maze Generator.
 	 *
 	 * @param lab the new maze
 	 * @return the maze
@@ -42,6 +34,7 @@ public class Maze {
 	public void setMaze(String[][] lab){
 		maze = lab;
 	}
+	
 	
 	/**
 	 * Change the value of the cell with the line "line" and column "col" to the value "value".
@@ -53,16 +46,17 @@ public class Maze {
 		maze[pos.getLine()][pos.getCol()] = value;
 	}	
 
+	
 	/**
-	 * Change the value of the cell with the line "line" and column "col" to the value ' ' 
-	 *  
+	 * Change the value of the cell with the line "line" and column "col" to the value ' '  
 	 *
-	 * @param pos the pos
+	 * @param pos the position to clear
 	 */
 	public void clearCell(Position pos){
 		maze[pos.getLine()][pos.getCol()] = "  ";
 	}
 
+	
 	/**
 	 * Returns the value of the cell with the line "line" and column "col".
 	 *
@@ -72,6 +66,7 @@ public class Maze {
 	public String getPositionValue(Position pos){
 		return maze[pos.getLine()][pos.getCol()];
 	}
+	
 
 	/**
 	 * Check if the cell with the line "line" and column "col" is valid to be occupied by the dragon/player.
@@ -84,6 +79,7 @@ public class Maze {
 		else if (maze[pos.getLine()][pos.getCol()].equals("E ")) return true;
 		else return false;
 	}
+	
 
 	/**
 	 * Return Cave Exit Position.
@@ -93,6 +89,7 @@ public class Maze {
 	public Position getExit(){
 		return mazeExit;
 	}
+	
 	
 	/**
 	 * Return Cave Exit Position.
@@ -104,6 +101,7 @@ public class Maze {
 		mazeExit = pos;
 	}
 
+	
 	/**
 	 * Prints the maze.
 	 */
@@ -116,41 +114,52 @@ public class Maze {
 			System.out.println();
 		}
 	}
+	
 
 	/**
-	 * Random position.
+	 * Pick an empty random position.
 	 *
-	 * @return the position
+	 * @return a valid position
 	 */
 	public Position randomPosition() {
+		
 		Random number = new Random();
 		int mazeSize = maze.length;
 		int linePos, colPos;
 		boolean validPos = false;
-		Position temp;
+		Position temp;													/* initialize a temporary position */
 		
 		do {
-			linePos = number.nextInt(mazeSize-2)+1;
-			colPos = number.nextInt(mazeSize-2)+1;
+			linePos = number.nextInt(mazeSize-2)+1;						/* pick a random inner line */
+			colPos = number.nextInt(mazeSize-2)+1;						/* pick a random inner column */
 			temp = new Position(linePos,colPos);
-			if (getPositionValue(temp).equals("  ")) validPos = true;
+			if (getPositionValue(temp).equals("  ")) validPos = true;	/* compare the value of the maze position */
 		} while (!validPos);
 		
 		return temp;
 	}
 
+	
 	/**
-	 * Random dragon position.
+	 * Pick Random position for the dragon. The dragon can't be place near the player
 	 *
-	 * @return the position
+	 * @return a valid position for the dragon
 	 */
 	public Position randomDragonPosition() {
-		Position temp;
+		
+		Position temp;															/* initialize a temporary position */
 		boolean validPos = false;
+		
 		do {
 			temp = randomPosition();
-			if (!getPositionValue(temp.leftPosition()).equals("H ") && !getPositionValue(temp.bottomPosition()).equals("H ") && !getPositionValue(temp.rightPosition()).equals("H ") && !getPositionValue(temp.upperPosition()).equals("H ")) validPos = true;
+			if (!getPositionValue(temp.leftPosition()).equals("H ") &&			/* left position check */
+					!getPositionValue(temp.bottomPosition()).equals("H ") &&	/* bottom position check */
+					!getPositionValue(temp.rightPosition()).equals("H ") &&		/* right position check */
+					!getPositionValue(temp.upperPosition()).equals("H ")){		/* upper position check */
+				validPos = true;
+			}
 		} while (!validPos);
+		
 		return temp;
 	}
 	

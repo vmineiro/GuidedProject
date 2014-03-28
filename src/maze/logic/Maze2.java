@@ -1,6 +1,6 @@
 package maze.logic;
 
-// TODO: Auto-generated Javadoc
+// TODO: Combine with the Maze
 /**
  * The Class Maze2.
  */
