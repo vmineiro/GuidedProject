@@ -32,7 +32,7 @@ public class CLInterface {
 
 			if(menuOption==1)
 			{
-				game.initGame(0,1);
+				game.initGame(0,1,1);
 				validOption = true;
 			}
 			else if(menuOption==2)
@@ -70,8 +70,17 @@ public class CLInterface {
 		
 			mode = sc1.nextInt();
 			if (mode > 0 && mode < 4){
-				validOption = true;
-				game.initGame(mazeSize, mode);
+				while(!validOption){
+					System.out.println("Number of Dragons [1-10]:");
+					int nD = sc1.nextInt();
+					if (nD > 0 && nD < 11){
+						validOption = true;
+						game.initGame(mazeSize, mode, nD);
+					} else {
+						System.out.println("Invalid number of Dragons.");
+					}
+				}
+				
 			} else {
 				System.out.println("Invalid Mode. Choose another mode.");
 			}
@@ -105,9 +114,7 @@ public class CLInterface {
 
 				if (game.getEagle().isActive()) game.eagleMove();
 				
-				if (!game.getDragon().isDead()) {
-					game.dragonMove();
-				}
+				game.dragonsMove();
 				
 				game.updatePositions();
 				game.printMaze();

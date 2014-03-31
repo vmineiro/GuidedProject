@@ -33,7 +33,7 @@ public class Dragon extends Character {
 	 */
 	public Dragon(Position pos, Mode mod) {
 		super(pos);
-		setMode(mode);
+		setMode(mod);
 		sleep = false;
 		symbol = "D ";
 	}
