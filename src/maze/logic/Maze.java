@@ -152,10 +152,10 @@ public class Maze {
 		
 		do {
 			temp = randomPosition();
-			if (!getPositionValue(temp.leftPosition()).equals("H ") &&			/* left position check */
-					!getPositionValue(temp.bottomPosition()).equals("H ") &&	/* bottom position check */
-					!getPositionValue(temp.rightPosition()).equals("H ") &&		/* right position check */
-					!getPositionValue(temp.upperPosition()).equals("H ")){		/* upper position check */
+			if (!getPositionValue(temp.leftPosition()).equals("Ha") &&			/* left position check */
+					!getPositionValue(temp.bottomPosition()).equals("Ha") &&	/* bottom position check */
+					!getPositionValue(temp.rightPosition()).equals("Ha") &&		/* right position check */
+					!getPositionValue(temp.upperPosition()).equals("Ha")){		/* upper position check */
 				validPos = true;
 			}
 		} while (!validPos);

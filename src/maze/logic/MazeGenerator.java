@@ -259,7 +259,7 @@ public class MazeGenerator {
 	 * @param n dimension of maze
 	 * @return a valid maze exit
 	 */
-	private static Position generateMazeExit(int n){
+	public static Position generateMazeExit(int n){
 		Random line = new Random();
 		Random column = new Random();
 		int lineExit, colExit;
