@@ -28,7 +28,6 @@ public class Game {
 
 
 	/** The dragon. */
-	// private Dragon dragon;
 	private ArrayList<Dragon> dragons;
 
 
@@ -42,7 +41,6 @@ public class Game {
 	public Game() {
 		maze = new Maze();
 		player = new Hero(new Position(0,0));
-		// dragon = new Dragon(new Position(0,0), Dragon.Mode.STATIC);
 		dragons = new ArrayList<Dragon>();
 		sword = new Sword(new Position(0,0));
 		eagle = new Eagle(player.getPosition());
@@ -110,15 +108,6 @@ public class Game {
 			}
 
 		}
-	}
-
-
-
-	/**
-	 * Prints the maze.
-	 */
-	public void printMaze() {
-		maze.printMaze();	
 	}
 
 
@@ -459,11 +448,13 @@ public class Game {
 		}
 
 		if (eagle.isActive()) {
-			if (maze.getPositionValue(sword.getPosition()).equals("D ") && !eagle.isReturning()){
+			if (maze.getPositionValue(eagle.getPosition()).equals("D ") && !eagle.isReturning()){
 				maze.setCellValue(eagle.getPosition(), "Da");
-			} else if (maze.getPositionValue(sword.getPosition()).equals("d ") && !eagle.isReturning()){
+			} else if (maze.getPositionValue(eagle.getPosition()).equals("d ") && !eagle.isReturning()){
 				maze.setCellValue(eagle.getPosition(), "da");
-			} else if (maze.getPositionValue(sword.getPosition()).equals("F ")) {
+			} else if (maze.getPositionValue(eagle.getPosition()).equals("XX") && !eagle.isReturning()){
+				maze.setCellValue(eagle.getPosition(), "Xa");
+			} else if (maze.getPositionValue(eagle.getPosition()).equals("F ")) {
 				maze.setCellValue(eagle.getPosition(), "Fa");
 			} else if (player.getPosition().equals(eagle.getPosition())) {
 				maze.setCellValue(player.getPosition(), "Ha");
@@ -545,39 +536,6 @@ public class Game {
 	 */
 	public void addDragon(Dragon dragon) {
 		dragons.add(dragon);	
-	}
-
-
-	/**
-	 * Input Handler.
-	 *
-	 * @param move the move
-	 * @return true, if successful
-	 */
-	public boolean inputHandler(char input) {
-		
-		switch (input) {
-		case 'a':
-			movePlayer(Direction.LEFT);
-			break;
-		case 's':
-			movePlayer(Direction.DOWN);
-			break;
-		case 'd':
-			movePlayer(Direction.RIGHT);
-			break;
-		case 'w':
-			movePlayer(Direction.UP);
-			break;
-		case 'e':
-			eagleLaunched();
-			break;
-		case 'q':
-			return true;
-		default:
-			break;
-		}	
-		return false;
 	}
 
 }

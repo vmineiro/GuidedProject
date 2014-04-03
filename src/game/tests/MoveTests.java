@@ -144,8 +144,6 @@ public class MoveTests {
 	@Test
 	public void dragonDeadTest(){
 		
-		gameTesting.printMaze();
-		
 		/* Dragon sleep Test */
 		assertFalse(gameTesting.getDragons().get(0).isAsleep());
 		assertTrue(gameTesting.getDragons().get(0).getPosition().equals(new Position(3,3)));

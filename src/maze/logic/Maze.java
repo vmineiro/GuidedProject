@@ -37,6 +37,17 @@ public class Maze {
 	
 	
 	/**
+	 * Set the board - Used on Maze Generator.
+	 *
+	 * @param lab the new maze
+	 * @return the maze
+	 */
+	public String[][] getMaze(){
+		return maze;
+	}
+	
+	
+	/**
 	 * Change the value of the cell with the line "line" and column "col" to the value "value".
 	 *
 	 * @param pos the position

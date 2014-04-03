@@ -1,6 +1,8 @@
 package maze.cli;
 
 import maze.logic.*;
+import maze.logic.Character.Direction;
+
 import java.util.Scanner;
 
 // TODO: Auto-generated Javadoc
@@ -8,6 +10,43 @@ import java.util.Scanner;
  * The Class CLInterface.
  */
 public class CLInterface {
+	
+	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
+	public static void main(String[] args) {
+		
+		boolean validOption = false;
+		System.out.println("MAZE - GAME");
+		System.out.println();
+		System.out.println("1 - Command Line Interface");
+		System.out.println("2 - Graphic User Interface");
+		System.out.println();
+
+		Scanner sc0 = new Scanner(System.in);
+		
+		while(!validOption)
+		{
+			System.out.println("Select your option:");
+			
+			int menuOption = sc0.nextInt();
+
+			if(menuOption == 1)
+			{
+				startGame();
+				validOption = true;
+			}
+			else if(menuOption==2)
+			{
+				//maze.gui.StarGameWindow.startGame();
+				validOption = true;
+			}
+		}
+		
+	}
 
 
 	/**
@@ -18,17 +57,17 @@ public class CLInterface {
 	public static void mainMenu(Game game)
 	{
 		boolean validOption = false;
-		System.out.println("MAZE - GAME");
 		System.out.println();
 		System.out.println("1 - Standard Maze");
 		System.out.println("2 - Random generated Maze");
+		System.out.println();
 
 		Scanner sc0 = new Scanner(System.in);
 		
 		while(!validOption)
 		{
 			System.out.println("Select your option:");
-			//Scanner sc0 = new Scanner(System.in);
+			
 			int menuOption = sc0.nextInt();
 
 			if(menuOption==1)
@@ -42,8 +81,6 @@ public class CLInterface {
 				validOption = true;
 			}
 		}
-		
-		//sc0.close();
 
 	}
 
@@ -62,6 +99,7 @@ public class CLInterface {
 
 		while (!validOption){
 
+			System.out.println();
 			System.out.println("Enter N for NxN Maze [10 - 30]:");
 			mazeSize = sc1.nextInt();
 
@@ -71,11 +109,13 @@ public class CLInterface {
 
 				int mode;
 
-				System.out.println("Select your option:");
+				System.out.println();
 				System.out.println("Dragon Mode:");
 				System.out.println("1 - Static");
 				System.out.println("2 - Dinamic");
 				System.out.println("3 - Mixed");
+				System.out.println();
+				System.out.println("Select your option:");
 
 				while(!validOption)	{
 
@@ -84,7 +124,8 @@ public class CLInterface {
 					if (mode > 0 && mode < 4){
 
 						while(!validOption){
-
+							
+							System.out.println();
 							System.out.println("Number of Dragons [1-15]:");
 
 							int nD = sc1.nextInt();
@@ -114,14 +155,14 @@ public class CLInterface {
 	 *
 	 * @param args the arguments
 	 */
-	public static void main(String[] args) 
-	{
+	public static void startGame() {
+		
 		Game game = new Game();
 
 		mainMenu(game);
 
 		game.updatePositions();
-		game.printMaze();
+		printMaze(game);
 
 		boolean gameEnd = false;
 
@@ -136,7 +177,7 @@ public class CLInterface {
 				game.dragonsMove();
 
 				game.updatePositions();
-				game.printMaze();
+				printMaze(game);
 				gameEnd = game.gameOver();
 
 			} else
@@ -158,16 +199,49 @@ public class CLInterface {
 		Scanner moveInput = new Scanner(System.in);
 		String move = moveInput.nextLine();
 		
-		char input;
 		
-		if (move.equals("")){
-			input = ' ';
-		} else {
-			input= move.charAt(0);
+		switch (move) {
+		case "a":
+			game.movePlayer(Direction.LEFT);
+			break;
+		case "s":
+			game.movePlayer(Direction.DOWN);
+			break;
+		case "d":
+			game.movePlayer(Direction.RIGHT);
+			break;
+		case "w":
+			game.movePlayer(Direction.UP);
+			break;
+		case "e":
+			game.eagleLaunched();
+			break;
+		case "q":
+			return true;
+		default:
+			break;
+		}	
+		return false;
+
+	}
+	
+	/**
+	 * Prints the maze.
+	 * @param game 
+	 */
+	public static void printMaze(Game game) {
+		
+		String [][] maze =game.getMaze().getMaze();
+		
+		System.out.println();
+		
+		int n = maze.length;
+		for (int i=0; i<n; i++) {
+			for (int j=0; j<n;j++) {
+				System.out.print(maze[i][j]);
+			}
+			System.out.println();
 		}
-
-		return game.inputHandler(input);
-
 	}
 
 }
