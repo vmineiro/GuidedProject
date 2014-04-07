@@ -3,31 +3,6 @@ package maze.logic;
 import java.util.Random;
 import java.util.Stack;
 
-<<<<<<< HEAD
-public class MazeBuilder {
-	
-	private Maze maze;
-	
-	private boolean visitedCells [][];
-	private Stack<Position> auxStack = new Stack<Position>();
-	
-	//===========================================================
-	
-	public MazeBuilder()
-	{
-		this.maze = new Maze();
-	}
-	
-	//===========================================================
-	
-	public Maze getResult()
-	{
-		return maze;
-	}
-	
-	//===========================================================
-	
-=======
 // TODO: Combine with Maze Generator - Two types of Maze
 /**
  * The Class MazeBuilder.
@@ -70,7 +45,6 @@ public class MazeBuilder {
 	/**
 	 * Sets the standard maze.
 	 */
->>>>>>> Vitor
 	public void setStandardMaze()
 	{
 		char [][] standard = {
@@ -85,14 +59,6 @@ public class MazeBuilder {
 				{'X',' ','X','X',' ',' ',' ',' ',' ','X'},
 				{'X','X','X','X','X','X','X','X','X','X'}
 		};
-<<<<<<< HEAD
-		
-		maze.setBoard(standard);
-	}
-	
-	//===========================================================
-	
-=======
 
 		maze.setBoard(standard);
 	}
@@ -104,7 +70,6 @@ public class MazeBuilder {
 	 *
 	 * @param mazeSize the new random maze
 	 */
->>>>>>> Vitor
 	public void setRandomMaze(int mazeSize)
 	{
 		//FIX: Only use odd numbers for mazeSize
@@ -122,11 +87,7 @@ public class MazeBuilder {
 		Position exitPos = new Position(0,0);
 		generateExitPos(exitPos,currentPos);
 
-<<<<<<< HEAD
-		maze.drawPos(exitPos.getLinPos(),exitPos.getColPos(),'S');
-=======
 		maze.drawPos(exitPos.getLine(),exitPos.getCol(),'S');
->>>>>>> Vitor
 		markVisitedCell(currentPos);
 
 		Position nextPos;
@@ -152,18 +113,12 @@ public class MazeBuilder {
 			}
 		}
 	}
-<<<<<<< HEAD
-	
-	//===========================================================
-
-=======
 
 	//===========================================================
 
 	/**
 	 * Inits the boards.
 	 */
->>>>>>> Vitor
 	public void initBoards(){
 
 		for(int i=0; i<maze.getBoard().length; i++)
@@ -186,11 +141,6 @@ public class MazeBuilder {
 
 	//===========================================================
 
-<<<<<<< HEAD
-	public void markVisitedCell(Position markPos)
-	{
-		visitedCells[markPos.getLinPos()][markPos.getColPos()]=true;
-=======
 	/**
 	 * Mark visited cell.
 	 *
@@ -199,19 +149,16 @@ public class MazeBuilder {
 	public void markVisitedCell(Position markPos)
 	{
 		visitedCells[markPos.getLine()][markPos.getCol()]=true;
->>>>>>> Vitor
 	}
 
 	//===========================================================
 
-<<<<<<< HEAD
-=======
+
 	/**
 	 * Check unvisited cells.
 	 *
 	 * @return true, if successful
 	 */
->>>>>>> Vitor
 	public boolean checkUnvisitedCells(){
 		for(int i=0; i<visitedCells.length; i++){
 			for(int j=0; j<visitedCells.length; j++){
@@ -226,22 +173,6 @@ public class MazeBuilder {
 
 	//===========================================================
 
-<<<<<<< HEAD
-	public boolean checkNeighbours(Position checkPos){
-		if(checkPos.getLinPos()+2<visitedCells.length && visitedCells[checkPos.getLinPos()+2][checkPos.getColPos()]==false)
-		{
-			return true;
-		}
-		else if(checkPos.getLinPos()-2>0 && visitedCells[checkPos.getLinPos()-2][checkPos.getColPos()]==false)
-		{
-			return true;
-		}
-		else if(checkPos.getColPos()+2<visitedCells.length && visitedCells[checkPos.getLinPos()][checkPos.getColPos()+2]==false)
-		{
-			return true;
-		}
-		else if(checkPos.getColPos()-2>0 && visitedCells[checkPos.getLinPos()][checkPos.getColPos()-2]==false)
-=======
 	/**
 	 * Check neighbours.
 	 *
@@ -262,7 +193,6 @@ public class MazeBuilder {
 			return true;
 		}
 		else if(checkPos.getCol()-2>0 && visitedCells[checkPos.getLine()][checkPos.getCol()-2]==false)
->>>>>>> Vitor
 		{
 			return true;
 		}
@@ -271,11 +201,6 @@ public class MazeBuilder {
 			return false;
 		}
 	}
-<<<<<<< HEAD
-	
-	//===========================================================
-
-=======
 
 	//===========================================================
 
@@ -285,7 +210,6 @@ public class MazeBuilder {
 	 * @param currPos the curr pos
 	 * @return the position
 	 */
->>>>>>> Vitor
 	public Position chooseRandomCell(Position currPos)
 	{
 		Random rand = new Random();
@@ -299,18 +223,6 @@ public class MazeBuilder {
 			switch(randCell) 
 			{
 			case 1:
-<<<<<<< HEAD
-				randPos.setCoord(currPos.getLinPos()+2, currPos.getColPos());
-				break;
-			case 2:
-				randPos.setCoord(currPos.getLinPos()-2, currPos.getColPos());
-				break;
-			case 3:
-				randPos.setCoord(currPos.getLinPos(), currPos.getColPos()+2);
-				break;
-			case 4:
-				randPos.setCoord(currPos.getLinPos(), currPos.getColPos()-2);
-=======
 				randPos.setCoord(currPos.getLine()+2, currPos.getCol());
 				break;
 			case 2:
@@ -321,21 +233,14 @@ public class MazeBuilder {
 				break;
 			case 4:
 				randPos.setCoord(currPos.getLine(), currPos.getCol()-2);
->>>>>>> Vitor
 				break;
 			default:
 				break;
 			}
 
-<<<<<<< HEAD
-			if(randPos.getLinPos()>0 && randPos.getLinPos()<maze.getBoard().length && randPos.getColPos()>0 && randPos.getColPos()<maze.getBoard().length)
-			{
-				if(visitedCells[randPos.getLinPos()][randPos.getColPos()]==false)
-=======
 			if(randPos.getLine()>0 && randPos.getLine()<maze.getBoard().length && randPos.getCol()>0 && randPos.getCol()<maze.getBoard().length)
 			{
 				if(visitedCells[randPos.getLine()][randPos.getCol()]==false)
->>>>>>> Vitor
 				{
 					endCycle = true;
 				}
@@ -344,25 +249,6 @@ public class MazeBuilder {
 
 		return randPos;
 	}
-<<<<<<< HEAD
-	
-	//===========================================================
-
-	public void removeWall(Position currentPos, Position nextPos)
-	{
-		if(currentPos.getLinPos()==nextPos.getLinPos())
-		{
-			maze.getBoard()[currentPos.getLinPos()][(currentPos.getColPos()+nextPos.getColPos())/2]=' ';
-		}
-		else if(currentPos.getColPos()==nextPos.getColPos())
-		{
-			maze.getBoard()[(currentPos.getLinPos()+nextPos.getLinPos())/2][currentPos.getColPos()]=' ';
-		}
-	}
-	
-	//===========================================================
-
-=======
 
 	//===========================================================
 
@@ -391,7 +277,6 @@ public class MazeBuilder {
 	 *
 	 * @return the position
 	 */
->>>>>>> Vitor
 	public Position randUnvisitedCell()
 	{
 		Position unvisitedCell = new Position(0,0);
@@ -409,11 +294,6 @@ public class MazeBuilder {
 
 		return unvisitedCell;
 	}
-<<<<<<< HEAD
-	
-	//===========================================================
-
-=======
 
 	//===========================================================
 
@@ -423,7 +303,6 @@ public class MazeBuilder {
 	 * @param exitPos the exit pos
 	 * @param currentPos the current pos
 	 */
->>>>>>> Vitor
 	public void generateExitPos(Position exitPos, Position currentPos)
 	{
 		Random rand = new Random();
@@ -465,8 +344,5 @@ public class MazeBuilder {
 		}
 
 	}
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> Vitor

@@ -1,13 +1,6 @@
 package maze.logic;
 
-<<<<<<< HEAD
-public class Sword extends Character {
-	
-	public Sword(int linSword, int colSword)
-	{
-		super(linSword, colSword, 'E');
-	}
-=======
+
 
 /**
  * The Class Sword.
@@ -47,5 +40,4 @@ public class Sword extends Character {
 		symbol = "E ";
 	}
 
->>>>>>> Vitor
 }

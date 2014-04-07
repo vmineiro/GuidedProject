@@ -1,43 +1,5 @@
 package maze.logic;
 
-<<<<<<< HEAD
-public class Character {
-	
-	private Position positionChar;
-	private char symbolChar;
-	
-	public Character(int linChar, int colChar, char symChar)
-	{
-		this.positionChar = new Position(linChar,colChar);
-		this.symbolChar = symChar;
-	}
-	
-	public int getCharLin()
-	{
-		return positionChar.getLinPos();
-	}
-	
-	public int getCharCol()
-	{
-		return positionChar.getColPos();
-	}
-	
-	public void setCharCoord(int nLin, int nCol)
-	{
-		this.positionChar = new Position(nLin, nCol);
-	}
-	
-	public char getCharSymbol()
-	{
-		return symbolChar;
-	}
-	
-	public void setCharSymbol(char symChar){
-		this.symbolChar = symChar;
-	}
-	
-=======
-
 /**
  * The Class Character.
  */
@@ -229,37 +191,4 @@ public class Character {
 		}
 	}
 
-
-//	/**
-//	 * Move up.
-//	 */
-//	public void moveUp(){
-//		position.moveUp();
-//	}
-//
-//
-//	/**
-//	 * Move down.
-//	 */
-//	public void moveDown(){
-//		position.moveDown();
-//	}
-//
-//
-//	/**
-//	 * Move left.
-//	 */
-//	public void moveLeft(){
-//		position.moveLeft();
-//	}
-//
-//
-//	/**
-//	 * Move right.
-//	 */
-//	public void moveRight(){
-//		position.moveRight();
-//	}
-
->>>>>>> Vitor
 }

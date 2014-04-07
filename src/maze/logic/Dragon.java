@@ -1,13 +1,5 @@
 package maze.logic;
 
-<<<<<<< HEAD
-public class Dragon extends Character{
-	
-	public Dragon(int linDragon, int colDragon){
-		super(linDragon, colDragon,'D');
-	}
-		
-=======
 
 /**
  * The Class Dragon.
@@ -99,5 +91,4 @@ public class Dragon extends Character {
 		}
 	}
 
->>>>>>> Vitor
 }

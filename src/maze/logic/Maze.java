@@ -1,21 +1,5 @@
 package maze.logic;
 
-<<<<<<< HEAD
-public class Maze {
-	
-	private char board [][];
-	
-	//===========================================================
-	
-	public Maze(){}
-	
-	//===========================================================
-	
-	public void setBoard(char[][] nBoard)
-	{
-		this.board = nBoard;
-=======
-
 import java.util.Random;
 
 
@@ -91,58 +75,9 @@ public class Maze {
 	 */
 	public String getPositionValue(Position pos){
 		return maze[pos.getLine()][pos.getCol()];
->>>>>>> Vitor
 	}
 	
-
-<<<<<<< HEAD
-	//===========================================================
 	
-	public char [][] getBoard()
-	{
-		return board;
-	}
-	
-	//===========================================================
-	
-	public void drawPos(int linDraw, int colDraw, char cElem)
-	{
-		this.board[linDraw][colDraw] = cElem;
-	}
-	
-	//===========================================================
-	
-	public boolean delPos(int nLin, int nCol)
-	{
-		if(board[nLin][nCol] != 'X')
-		{
-			this.board[nLin][nCol] = ' ';
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-	//===========================================================
-	
-	public void movElem(int oLin, int oCol, int nLin, int nCol, char cElem)
-	{
-		if(board[oLin][oCol] != 'X' && board[nLin][nCol] != 'X')
-		{
-			delPos(oLin, oCol);
-			drawPos(nLin, nCol, cElem);
-
-		}
-	}
-	
-	//===========================================================
-	
-	public char checkPos(int nLin, int nCol)
-	{
-		return board[nLin][nCol];
-=======
 	/**
 	 * Check if the cell with the line "line" and column "col" is valid to be occupied by the dragon/player.
 	 *
@@ -236,21 +171,6 @@ public class Maze {
 		} while (!validPos);
 		
 		return temp;
->>>>>>> Vitor
 	}
-	
-	//===========================================================
-	
-	public void printBoard()
-	{
-		for(int i=0; i<board.length; i++)
-		{
-			for(int j=0; j<board.length; j++)
-			{
-				System.out.print(this.board[i][j]);
-			}
 
-			System.out.println();
-		}
-	}
 }
