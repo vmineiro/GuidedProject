@@ -18,15 +18,17 @@ import javax.swing.JSlider;
 import javax.swing.JSeparator;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 
 public class NewGamePanel extends JPanel {
+	private final ButtonGroup gameTypeButtonGroup = new ButtonGroup();
 
 	/**
 	 * Create the panel.
 	 */
 	public NewGamePanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {440};
+		gridBagLayout.columnWidths = new int[] {432};
 		gridBagLayout.rowHeights = new int[] {70, 110, 70, 30};
 		gridBagLayout.columnWeights = new double[]{0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
@@ -42,10 +44,12 @@ public class NewGamePanel extends JPanel {
 		gameType.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JRadioButton rdbtnStandardGame = new JRadioButton("Standard Game");
+		gameTypeButtonGroup.add(rdbtnStandardGame);
 		rdbtnStandardGame.setHorizontalAlignment(SwingConstants.CENTER);
 		gameType.add(rdbtnStandardGame);
 		
 		JRadioButton rdbtnPersonalizedGame = new JRadioButton("Personalized Game");
+		gameTypeButtonGroup.add(rdbtnPersonalizedGame);
 		rdbtnPersonalizedGame.setHorizontalAlignment(SwingConstants.LEFT);
 		gameType.add(rdbtnPersonalizedGame);
 		
@@ -65,7 +69,7 @@ public class NewGamePanel extends JPanel {
 		JPanel panel = new JPanel();
 		mazeSettings.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] {67, 272};
+		gbl_panel.columnWidths = new int[] {67, 240};
 		gbl_panel.rowHeights = new int[] {40, 40};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0};
@@ -161,6 +165,12 @@ public class NewGamePanel extends JPanel {
 		gbc_navigationOptions.gridx = 0;
 		gbc_navigationOptions.gridy = 3;
 		add(navigationOptions, gbc_navigationOptions);
+		
+		JButton btnMazeEditor = new JButton("Maze Editor");
+		navigationOptions.add(btnMazeEditor);
+		
+		Component horizontalStrut = Box.createHorizontalStrut(110);
+		navigationOptions.add(horizontalStrut);
 		
 		JButton btnBack = new JButton("Back");
 		navigationOptions.add(btnBack);

@@ -1,17 +1,29 @@
 package maze.gui;
 
+import maze.gui.*;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 public class GUInterface {
 
 	private JFrame frame;
+	
+	private MainMenuPanel mainMenu;
+	
+	private MazePanel gamePanel;
+	
+	private JMenuBar menuBar;
+	
 
 	/**
 	 * Launch the application.
@@ -46,7 +58,7 @@ public class GUInterface {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
 		JMenu mnFile = new JMenu("File");
@@ -84,6 +96,8 @@ public class GUInterface {
 		
 		JMenuItem mntmAbout = new JMenuItem("About");
 		mnAbout.add(mntmAbout);
+		
+		
 	}
 
 }
