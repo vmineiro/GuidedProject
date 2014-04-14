@@ -55,25 +55,17 @@ public class MoveTests {
 	public void heroMoveTest(){
 
 		Hero player = new Hero(new Position(4,4));
-
+		
 		/* Initial Position Test */
 		assertTrue(player.getPosition().equals(new Position(4,4)));
 		
-		/* Move Left Test */
-		player.move(Direction.LEFT);
-		assertTrue(player.getPosition().equals(new Position(4,3)));
-		
-		/* Move Down Test */
-		player.move(Direction.DOWN);
-		assertTrue(player.getPosition().equals(new Position(5,3)));
-		
-		/* Move Right Test */
-		player.move(Direction.RIGHT);
-		assertTrue(player.getPosition().equals(new Position(5,4)));
-		
-		/* Move Up Test */
-		player.move(Direction.UP);
-		assertTrue(player.getPosition().equals(new Position(4,4)));
+		Direction[] moves = {Direction.DOWN, Direction.RIGHT, Direction.LEFT,Direction.UP};
+		Position[] positions ={new Position(5,4),new Position(5,5),new Position(5,4),new Position(4,4)};
+
+		for (int i = 0 ; i < 4 ; i++){
+			player.move(moves[i]);
+			assertTrue(player.getPosition().equals(positions[i]));
+		}
 
 	}
 	
@@ -124,6 +116,7 @@ public class MoveTests {
 		
 	}
 	
+	
 	@Test
 	public void heroDeadTest(){
 		
@@ -144,6 +137,7 @@ public class MoveTests {
 		
 	}
 	
+	
 	@Test
 	public void dragonDeadTest(){
 		
@@ -161,28 +155,31 @@ public class MoveTests {
 		assertFalse(gameTesting.getPlayer().isDead());
 		assertTrue(gameTesting.getDragons().get(0).isDead());
 		
-		
 	}
+	
 	
 	@Test
 	public void winTest(){
 		
+		Direction[] moves = {Direction.DOWN, Direction.DOWN, Direction.RIGHT, Direction.LEFT,Direction.UP,Direction.LEFT};
+		
+		//gameTesting.getMaze().printMaze();
+		
 		/* Hero Moves */
-		gameTesting.movePlayer(Direction.DOWN);
-		gameTesting.movePlayer(Direction.DOWN);
-		gameTesting.movePlayer(Direction.RIGHT);
-		gameTesting.movePlayer(Direction.LEFT);
-		gameTesting.movePlayer(Direction.UP);
-		gameTesting.movePlayer(Direction.LEFT);
+		for (int i = 0; i < 6; i++){
+			assertFalse(gameTesting.gameOver());
+			gameTesting.movePlayer(moves[i]);
+			//gameTesting.getMaze().printMaze();
+		}
 		
 		assertTrue(gameTesting.gameOver());
 		
 		/* Hero alive and Dragon Dead */
 		assertFalse(gameTesting.getPlayer().isDead());
-		assertTrue(gameTesting.getDragons().get(0).isDead());
-		
+		assertTrue(gameTesting.getDragons().get(0).isDead());	
 		
 	}
+	
 	
 	@Test
 	public void exitTest(){
@@ -194,10 +191,8 @@ public class MoveTests {
 		assertFalse(gameTesting.gameOver());
 		
 		/* Hero and Dragon Dead */
-		assertTrue(gameTesting.getPlayer().getPosition().equals(new Position(2,1)));
+		assertTrue(gameTesting.getPlayer().getPosition().equals(new Position(2,1)));		
 		
-		
-	}
-	
+	}	
 	
 }

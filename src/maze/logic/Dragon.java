@@ -94,7 +94,7 @@ public class Dragon extends Character {
 	/**
 	 * Dragon falls asleep
 	 */
-	private void fallsAsleep() {
+	public void fallsAsleep() {
 		sleep = true;
 		symbol = "d ";
 	}
@@ -103,7 +103,7 @@ public class Dragon extends Character {
 	/**
 	 * Dragon Awakes
 	 */
-	private void awake() {
+	public void awake() {
 		sleep = false;
 		symbol = "D ";
 	}

@@ -123,18 +123,18 @@ public class MazeBuilder {
 	 */
 	public void initBoards(){
 
-		for(int i=0; i<maze.getMaze().length; i++)
+		for(int i=0; i<maze.getBoard().length; i++)
 		{
-			for(int j=0; j<maze.getMaze().length; j++)
+			for(int j=0; j<maze.getBoard().length; j++)
 			{
 				if((i%2==0) || (j%2==0))
 				{
-					maze.getMaze()[i][j]="XX";
+					maze.getBoard()[i][j]="XX";
 					visitedCells[i][j]=true;
 				}
 				else
 				{
-					maze.getMaze()[i][j]="  ";
+					maze.getBoard()[i][j]="  ";
 					visitedCells[i][j]=false;
 				}
 			}
@@ -240,7 +240,7 @@ public class MazeBuilder {
 				break;
 			}
 
-			if(randPos.getLine()>0 && randPos.getLine()<maze.getMaze().length && randPos.getCol()>0 && randPos.getCol()<maze.getMaze().length)
+			if(randPos.getLine()>0 && randPos.getLine()<maze.getBoard().length && randPos.getCol()>0 && randPos.getCol()<maze.getBoard().length)
 			{
 				if(visitedCells[randPos.getLine()][randPos.getCol()]==false)
 				{
@@ -264,11 +264,11 @@ public class MazeBuilder {
 	{
 		if(currentPos.getLine()==nextPos.getLine())
 		{
-			maze.getMaze()[currentPos.getLine()][(currentPos.getCol()+nextPos.getCol())/2]= "  ";
+			maze.getBoard()[currentPos.getLine()][(currentPos.getCol()+nextPos.getCol())/2]= "  ";
 		}
 		else if(currentPos.getCol()==nextPos.getCol())
 		{
-			maze.getMaze()[(currentPos.getLine()+nextPos.getLine())/2][currentPos.getCol()]= "  ";
+			maze.getBoard()[(currentPos.getLine()+nextPos.getLine())/2][currentPos.getCol()]= "  ";
 		}
 	}
 
@@ -315,7 +315,7 @@ public class MazeBuilder {
 
 		while(!oddNumFound)
 		{
-			exitVal = rand.nextInt(maze.getMaze().length-2)+1;
+			exitVal = rand.nextInt(maze.getBoard().length-2)+1;
 
 			if(exitVal%2!=0)
 			{
@@ -330,16 +330,16 @@ public class MazeBuilder {
 			currentPos.setCoord(1,exitVal);
 			break;
 		case 2:
-			exitPos.setCoord(maze.getMaze().length-1,exitVal);
-			currentPos.setCoord(maze.getMaze().length-2,exitVal);
+			exitPos.setCoord(maze.getBoard().length-1,exitVal);
+			currentPos.setCoord(maze.getBoard().length-2,exitVal);
 			break;
 		case 3:
 			exitPos.setCoord(exitVal,0);
 			currentPos.setCoord(exitVal,1);
 			break;
 		case 4:
-			exitPos.setCoord(exitVal,maze.getMaze().length-1);
-			currentPos.setCoord(exitVal, maze.getMaze().length-2);
+			exitPos.setCoord(exitVal,maze.getBoard().length-1);
+			currentPos.setCoord(exitVal, maze.getBoard().length-2);
 			break;
 		default:
 			break;

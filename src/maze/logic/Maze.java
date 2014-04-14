@@ -10,7 +10,7 @@ public class Maze {
 
 	
 	/** The maze. */
-	private static String maze [][];
+	private static String board [][];
 	
 	
 	/** The maze exit. */
@@ -31,7 +31,7 @@ public class Maze {
 	 * @return the maze
 	 */
 	public void setMaze(String[][] lab){
-		maze = lab;
+		board = lab;
 	}
 	
 	
@@ -41,8 +41,8 @@ public class Maze {
 	 * @param lab the new maze
 	 * @return the maze
 	 */
-	public String[][] getMaze(){
-		return maze;
+	public String[][] getBoard(){
+		return board;
 	}
 	
 	
@@ -53,7 +53,7 @@ public class Maze {
 	 * @param value the value
 	 */
 	public void setCellValue(Position pos, String value){
-		maze[pos.getLine()][pos.getCol()] = value;
+		board[pos.getLine()][pos.getCol()] = value;
 	}	
 
 	
@@ -63,7 +63,7 @@ public class Maze {
 	 * @param pos the position to clear
 	 */
 	public void clearCell(Position pos){
-		maze[pos.getLine()][pos.getCol()] = "  ";
+		board[pos.getLine()][pos.getCol()] = "  ";
 	}
 
 	
@@ -74,7 +74,7 @@ public class Maze {
 	 * @return the position value
 	 */
 	public String getPositionValue(Position pos){
-		return maze[pos.getLine()][pos.getCol()];
+		return board[pos.getLine()][pos.getCol()];
 	}
 	
 	
@@ -85,8 +85,8 @@ public class Maze {
 	 * @return true, if successful
 	 */
 	public boolean cellIsEmpty(Position pos){
-		if (maze[pos.getLine()][pos.getCol()].equals("  ")) return true;
-		else if (maze[pos.getLine()][pos.getCol()].equals("E ")) return true;
+		if (board[pos.getLine()][pos.getCol()].equals("  ")) return true;
+		else if (board[pos.getLine()][pos.getCol()].equals("E ")) return true;
 		else return false;
 	}
 	
@@ -116,10 +116,10 @@ public class Maze {
 	 * Prints the maze.
 	 */
 	public void printMaze() {
-		int n = maze.length;
+		int n = board.length;
 		for (int i=0; i<n; i++) {
 			for (int j=0; j<n;j++) {
-				System.out.print(maze[i][j]);
+				System.out.print(board[i][j]);
 			}
 			System.out.println();
 		}
@@ -134,7 +134,7 @@ public class Maze {
 	public Position randomPosition() {
 		
 		Random number = new Random();
-		int mazeSize = maze.length;
+		int mazeSize = board.length;
 		int linePos, colPos;
 		boolean validPos = false;
 		Position temp;													/* initialize a temporary position */
