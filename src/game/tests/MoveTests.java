@@ -3,7 +3,9 @@ package game.tests;
 import static org.junit.Assert.*;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import maze.logic.*;
@@ -13,7 +15,7 @@ import maze.logic.Character.Direction;
 public class MoveTests {
 	
 	Game gameTesting;
-
+	
 	
 	@Before
 	public void setUp() throws Exception {
@@ -45,6 +47,7 @@ public class MoveTests {
 	
 	@After
 	public void tearDown() throws Exception {
+		
 	}
 
 	
@@ -174,7 +177,7 @@ public class MoveTests {
 		
 		assertTrue(gameTesting.gameOver());
 		
-		/* Hero and Dragon Dead */
+		/* Hero alive and Dragon Dead */
 		assertFalse(gameTesting.getPlayer().isDead());
 		assertTrue(gameTesting.getDragons().get(0).isDead());
 		

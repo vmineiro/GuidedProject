@@ -50,24 +50,23 @@ public class Game {
 	/**
 	 * Initializes the game according to the selected settings in the interface.
 	 *
-	 * @param opt the option selected (standard = 0  or random maze = size of maze)
+	 * @param mazeSize the option selected (standard = 0  or random maze = size of maze)
 	 * @param mode the mode of the dragon
 	 * @param nDragons the n dragons
+	 * @param builder 
 	 */
-	public void initGame(int opt, int mode, int nDragons) {
+	public void initGame(int mazeSize, int mode, int nDragons, int builder) {
 
-		/* initialize a temporary maze to be build */
-		MazeGenerator tempMaze;
+		if (mazeSize == 0){
 
-		if (opt == 0){
-
+			/* initialize a temporary maze to be build */
+			MazeGenerator tempMaze;
+			
 			/* set the standard maze */
-
 			tempMaze = new MazeGenerator();		
 			maze = tempMaze.getMaze();
 
 			/* set the positions of character and the dragon mode */
-
 			player.setPosition(new Position(1, 1));
 			sword.setPosition(new Position(8, 1));
 			Dragon dragon = new Dragon(new Position(3, 1), Mode.STATIC);
@@ -76,10 +75,26 @@ public class Game {
 
 		} else {
 
-			/* set a random maze with size of "opt" */
-
-			tempMaze = new MazeGenerator(opt);
-			maze = tempMaze.getMaze();
+			if (builder == 1) {
+				
+				/* initialize a temporary maze to be build */
+				MazeBuilder tempMaze = new MazeBuilder();
+				
+				/* set a random maze with size of "mazeSize" */
+				tempMaze.setRandomMaze(mazeSize);
+				
+				maze = tempMaze.getResult();
+				
+			} else {
+				/* initialize a temporary maze to be build */
+				MazeGenerator tempMaze;
+				
+				/* set the standard maze */
+				tempMaze = new MazeGenerator(mazeSize);		
+				maze = tempMaze.getMaze();
+				
+			}
+			
 
 			/* set the positions of character and the dragon mode */
 			player.setPosition(maze.randomPosition());
@@ -228,10 +243,14 @@ public class Game {
 		for (Dragon dragon : dragons){
 			dragonMove(dragon);
 		}
+		
+		/* check if the dragon kill any Character (hero or eagle) or if the dragon dies. */
+		checkKill();	
 	}
 
 
 	/**
+	 * Dragon strategy management 
 	 * Check if the left, bottom, right and upper cells are valid cells and select a possible move.
 	 *
 	 * @param dragon the dragon
@@ -277,43 +296,58 @@ public class Game {
 			move = randomNr.nextInt(5);
 			switch (move) {
 			case 0:
-				if (maze.cellIsEmpty(dragon.getPosition(Direction.LEFT))) {
-					maze.clearCell(dragon.getPosition());
-					dragon.move(Direction.LEFT);
+				moveDragon(dragon,Direction.LEFT);
+//				if (maze.cellIsEmpty(dragon.getPosition(Direction.LEFT))) {
+//					maze.clearCell(dragon.getPosition());
+//					dragon.move(Direction.LEFT);
 					validMove = true;
-				}
+//				}
 				break;
 			case 1:
-				if (maze.cellIsEmpty(dragon.getPosition(Direction.DOWN))) {
-					maze.clearCell(dragon.getPosition());
-					dragon.move(Direction.DOWN);
+				moveDragon(dragon,Direction.DOWN);
+//				if (maze.cellIsEmpty(dragon.getPosition(Direction.DOWN))) {
+//					maze.clearCell(dragon.getPosition());
+//					dragon.move(Direction.DOWN);
 					validMove = true;
-				}
+//				}
 				break;		
 			case 2:
-				if (maze.cellIsEmpty(dragon.getPosition(Direction.RIGHT))) {
-					maze.clearCell(dragon.getPosition());
-					dragon.move(Direction.RIGHT);
+				moveDragon(dragon,Direction.RIGHT);
+//				if (maze.cellIsEmpty(dragon.getPosition(Direction.RIGHT))) {
+//					maze.clearCell(dragon.getPosition());
+//					dragon.move(Direction.RIGHT);
 					validMove = true;
-				}
+//				}
 				break;
 			case 3:
-				if (maze.cellIsEmpty(dragon.getPosition(Direction.UP))) {
-					maze.clearCell(dragon.getPosition());
-					dragon.move(Direction.UP);
+				moveDragon(dragon,Direction.UP);
+//				if (maze.cellIsEmpty(dragon.getPosition(Direction.UP))) {
+//					maze.clearCell(dragon.getPosition());
+//					dragon.move(Direction.UP);
 					validMove = true;
-				}
+//				}
 				break;
 			case 4:
 				validMove = true;
 			default:
 				break;
 			}
+		}	
+
+	}
+
+	
+	/**
+	 * Dragon move.
+	 */
+	private void moveDragon(Dragon dragon, Direction dir) {
+		if (maze.cellIsEmpty(dragon.getPosition(dir))) {
+			maze.clearCell(dragon.getPosition());
+			dragon.move(dir);
+
+			updatePosition(dragon);
 		}
-
-		/* check if the dragon kill any Character (hero or eagle) or if the dragon dies. */
-		checkKill();
-
+		
 	}
 
 
