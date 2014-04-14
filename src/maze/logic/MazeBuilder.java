@@ -10,7 +10,7 @@ import java.util.Stack;
 public class MazeBuilder {
 
 	/** The maze. */
-	private Maze2 maze;
+	private Maze maze;
 
 	/** The visited cells. */
 	private boolean visitedCells [][];
@@ -25,7 +25,7 @@ public class MazeBuilder {
 	 */
 	public MazeBuilder()
 	{
-		this.maze = new Maze2();
+		this.maze = new Maze();
 	}
 
 	//===========================================================
@@ -35,7 +35,7 @@ public class MazeBuilder {
 	 *
 	 * @return the result
 	 */
-	public Maze2 getResult()
+	public Maze getResult()
 	{
 		return maze;
 	}
@@ -47,20 +47,21 @@ public class MazeBuilder {
 	 */
 	public void setStandardMaze()
 	{
-		char [][] standard = {
-				{'X','X','X','X','X','X','X','X','X','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X',' ','X','X',' ','X',' ','X',' ','X'},
-				{'X',' ','X','X',' ','X',' ','X',' ','X'},
-				{'X',' ','X','X',' ','X',' ','X',' ','X'},
-				{'X',' ',' ',' ',' ',' ',' ','X',' ','S'},
-				{'X',' ','X','X',' ','X',' ','X',' ','X'},
-				{'X',' ','X','X',' ','X',' ','X',' ','X'},
-				{'X',' ','X','X',' ',' ',' ',' ',' ','X'},
-				{'X','X','X','X','X','X','X','X','X','X'}
+		String[][] standard = {
+				{"XX","XX","XX","XX","XX","XX","XX","XX","XX","XX"},
+				{"XX","  ","  ","  ","  ","  ","  ","  ","  ","XX"},
+				{"XX","  ","XX","XX","  ","XX","  ","XX","  ","XX"},
+				{"XX","  ","XX","XX","  ","XX","  ","XX","  ","XX"},
+				{"XX","  ","XX","XX","  ","XX","  ","XX","  ","XX"},
+				{"XX","  ","  ","  ","  ","  ","  ","XX","  ","SS"},
+				{"XX","  ","XX","XX","  ","XX","  ","XX","  ","XX"},
+				{"XX","  ","XX","XX","  ","XX","  ","XX","  ","XX"},
+				{"XX","  ","XX","XX","  ","  ","  ","  ","  ","XX"},
+				{"XX","XX","XX","XX","XX","XX","XX","XX","XX","XX"}
 		};
 
-		maze.setBoard(standard);
+		maze.setMaze(standard);
+		maze.setExit(new Position(5,9));
 	}
 
 	//===========================================================
@@ -78,7 +79,7 @@ public class MazeBuilder {
 			mazeSize = mazeSize+1;
 		}
 
-		maze.setBoard(new char[mazeSize][mazeSize]);
+		maze.setMaze(new String[mazeSize][mazeSize]);
 		visitedCells = new boolean[mazeSize][mazeSize];
 		initBoards();
 
@@ -87,7 +88,8 @@ public class MazeBuilder {
 		Position exitPos = new Position(0,0);
 		generateExitPos(exitPos,currentPos);
 
-		maze.drawPos(exitPos.getLine(),exitPos.getCol(),'S');
+		maze.setExit(exitPos);
+		maze.setCellValue(new Position(exitPos.getLine(),exitPos.getCol()),"SS");
 		markVisitedCell(currentPos);
 
 		Position nextPos;
@@ -127,12 +129,12 @@ public class MazeBuilder {
 			{
 				if((i%2==0) || (j%2==0))
 				{
-					maze.getBoard()[i][j]='X';
+					maze.getBoard()[i][j]="XX";
 					visitedCells[i][j]=true;
 				}
 				else
 				{
-					maze.getBoard()[i][j]=' ';
+					maze.getBoard()[i][j]="  ";
 					visitedCells[i][j]=false;
 				}
 			}
@@ -262,11 +264,11 @@ public class MazeBuilder {
 	{
 		if(currentPos.getLine()==nextPos.getLine())
 		{
-			maze.getBoard()[currentPos.getLine()][(currentPos.getCol()+nextPos.getCol())/2]=' ';
+			maze.getBoard()[currentPos.getLine()][(currentPos.getCol()+nextPos.getCol())/2]= "  ";
 		}
 		else if(currentPos.getCol()==nextPos.getCol())
 		{
-			maze.getBoard()[(currentPos.getLine()+nextPos.getLine())/2][currentPos.getCol()]=' ';
+			maze.getBoard()[(currentPos.getLine()+nextPos.getLine())/2][currentPos.getCol()]= "  ";
 		}
 	}
 

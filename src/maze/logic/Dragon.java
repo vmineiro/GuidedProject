@@ -83,12 +83,29 @@ public class Dragon extends Character {
 	 * Change the sleep status.
 	 */
 	public void changeStatus() {
-		sleep = !sleep;
 		if (sleep) {
-			symbol = "d ";
+			awake();
 		} else {
-			symbol = "D ";
+			fallsAsleep();
 		}
+	}
+	
+
+	/**
+	 * Dragon falls asleep
+	 */
+	public void fallsAsleep() {
+		sleep = true;
+		symbol = "d ";
+	}
+
+
+	/**
+	 * Dragon Awakes
+	 */
+	public void awake() {
+		sleep = false;
+		symbol = "D ";
 	}
 
 }

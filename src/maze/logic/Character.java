@@ -83,45 +83,6 @@ public class Character {
 	}
 
 
-//	/**
-//	 * Gets the left position.
-//	 *
-//	 * @return the left position of the character
-//	 */
-//	public Position getLeftPosition(){
-//		return position.leftPosition();
-//	}
-//
-//	/**
-//	 * Gets the bottom position.
-//	 *
-//	 * @return the bottom position of the character
-//	 */
-//	public Position getBottomPosition(){
-//		return position.bottomPosition();
-//	}
-//
-//
-//	/**
-//	 * Gets the right position.
-//	 *
-//	 * @return the right position of the character
-//	 */
-//	public Position getRightPosition(){
-//		return position.rightPosition();
-//	}
-//
-//
-//	/**
-//	 * Gets the upper position.
-//	 *
-//	 * @return the upper position of the character
-//	 */
-//	public Position getUpperPosition(){
-//		return position.upperPosition();
-//	}
-
-
 	/**
 	 * Gets the symbol.
 	 *
@@ -173,22 +134,7 @@ public class Character {
 	 * @param dir the move direction
 	 */
 	public void move(Direction dir){
-		switch (dir){
-		case LEFT:
-			position.moveLeft();
-			break;
-		case DOWN:
-			position.moveDown();
-			break;
-		case RIGHT:
-			position.moveRight();
-			break;
-		case UP:
-			position.moveUp();
-			break;
-		default:
-			break;
-		}
+		position.move(dir);
 	}
 
 }

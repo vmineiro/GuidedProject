@@ -10,15 +10,15 @@ import java.util.Scanner;
  * The Class CLInterface.
  */
 public class CLInterface {
-	
-	
+
+
 	/**
 	 * The main method.
 	 *
 	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
-		
+
 		boolean validOption = false;
 		System.out.println("MAZE - GAME");
 		System.out.println();
@@ -27,11 +27,11 @@ public class CLInterface {
 		System.out.println();
 
 		Scanner sc0 = new Scanner(System.in);
-		
+
 		while(!validOption)
 		{
 			System.out.println("Select your option:");
-			
+
 			int menuOption = sc0.nextInt();
 
 			if(menuOption == 1)
@@ -45,7 +45,7 @@ public class CLInterface {
 				validOption = true;
 			}
 		}
-		
+
 	}
 
 
@@ -64,90 +64,133 @@ public class CLInterface {
 
 		Scanner sc0 = new Scanner(System.in);
 
-		
+
 		while(!validOption)
 		{
 			System.out.println("Select your option:");
-			
+
 			int menuOption = sc0.nextInt();
 
 			if(menuOption==1)
 			{
-				game.initGame(0,1,1);
+				game.initGame(0,1,1,0);
 				validOption = true;
 			}
 			else if(menuOption==2)
 			{
-				randomOption(game);
+				int mazeBuilder = selectMazeBuilder();
+				int mazeSize = selectMazeSize();
+				int numDragons = selectNumberDragons();
+				int dragonsMode = selectDragonsMode();
+
+				game.initGame(mazeSize, dragonsMode, numDragons, mazeBuilder);
 				validOption = true;
 			}
 		}
 
 	}
+	
+	
+	private static int selectMazeBuilder() {
+		boolean validOption = false;
+		int builder;
+		Scanner sc0 = new Scanner(System.in);
+
+		System.out.println();
+		System.out.println("1 - Only One Path to Exit (Only odd sizes)");
+		System.out.println("2 - Multiple Paths to Exit");
+		System.out.println();
+
+		while(!validOption){
+			System.out.println("Select your option:");
+
+			builder = sc0.nextInt();
+
+			if ((builder == 1) || (builder == 2)){
+				return builder;
+			} else {
+				System.out.println("Invalid Option.");
+			}
+		}
+		return 1;
+	}
 
 
-	/**
-	 * Random option.
-	 *
-	 * @param game the game
-	 */
-	public static void randomOption(Game game)
-	{
-
+	private static int selectMazeSize() {
 		int mazeSize;
 		Scanner sc1 = new Scanner(System.in);
 		boolean validOption = false;
+		
+		System.out.println();
 
 		while (!validOption){
 
-			System.out.println();
-			System.out.println("Enter N for NxN Maze [10 - 30]:");
+			System.out.println("Enter maze size (N) for a NxN Maze [10 - 30]:");
+
 			mazeSize = sc1.nextInt();
 
 			if (mazeSize < 10 || mazeSize > 30) {
 				System.out.println("Invalid Size.");
 			} else {
+				return mazeSize;
+			}
+		}
 
-				int mode;
+		return 10;
+	}
+	
 
-				System.out.println();
-				System.out.println("Dragon Mode:");
-				System.out.println("1 - Static");
-				System.out.println("2 - Dinamic");
-				System.out.println("3 - Mixed");
-				System.out.println();
-				System.out.println("Select your option:");
 
-				while(!validOption)	{
+	private static int selectNumberDragons() {
 
-					mode = sc1.nextInt();
+		int numDragons;
+		Scanner sc1 = new Scanner(System.in);
+		boolean validOption = false;
+		
+		System.out.println();
 
-					if (mode > 0 && mode < 4){
+		while(!validOption){
 
-						while(!validOption){
-							
-							System.out.println();
-							System.out.println("Number of Dragons [1-15]:");
+			
+			System.out.println("Number of Dragons [1-15]:");
+			numDragons = sc1.nextInt();
 
-							int nD = sc1.nextInt();
+			if ((numDragons > 0) && (numDragons < 16)){
+				return numDragons;
+			} else {
+				System.out.println("Invalid number of Dragons.");
+			}
+		}
 
-							if (nD > 0 && nD < 16){
-								validOption = true;
-								game.initGame(mazeSize, mode, nD);
-							} else {
-								System.out.println("Invalid number of Dragons.");
-							}
+		return 1;
+	}
 
-						}
+	
+	private static int selectDragonsMode() {
+		int mode;
+		Scanner sc1 = new Scanner(System.in);
+		boolean validOption = false;
 
-					} else {
-						System.out.println("Invalid Mode. Choose another mode.");
-					}
-				}
+		System.out.println();
+		System.out.println("Dragon Mode:");
+		System.out.println("1 - Static");
+		System.out.println("2 - Dinamic");
+		System.out.println("3 - Mixed");
+		System.out.println();
+
+		while(!validOption)	{
+			
+			System.out.println("Select your option:");
+			mode = sc1.nextInt();
+			
+			if ((mode > 0) && (mode < 4)){
+				return mode;
+			} else {
+				System.out.println("Invalid Mode.");
 			}
 		}
 		
-		//sc1.close();
+		return 1;	
 	}
 
 
@@ -157,7 +200,7 @@ public class CLInterface {
 	 * @param args the arguments
 	 */
 	public static void startGame() {
-		
+
 		Game game = new Game();
 
 		mainMenu(game);
@@ -168,7 +211,7 @@ public class CLInterface {
 		boolean gameEnd = false;
 
 		while(!gameEnd){
-			
+
 			gameEnd = playerMove(game);
 
 			if (!gameEnd ) {
@@ -177,8 +220,8 @@ public class CLInterface {
 
 				game.dragonsMove();
 
-				game.updatePositions();
 				printMaze(game);
+				
 				gameEnd = game.gameOver();
 
 			} else
@@ -199,8 +242,8 @@ public class CLInterface {
 
 		Scanner moveInput = new Scanner(System.in);
 		String move = moveInput.nextLine();
-		
-		
+
+
 		switch (move) {
 		case "a":
 			game.movePlayer(Direction.LEFT);
@@ -225,17 +268,17 @@ public class CLInterface {
 		return false;
 
 	}
-	
+
 	/**
 	 * Prints the maze.
 	 * @param game 
 	 */
 	public static void printMaze(Game game) {
-		
-		String [][] maze =game.getMaze().getMaze();
-		
+
+		String [][] maze =game.getMaze().getBoard();
+
 		System.out.println();
-		
+
 		int n = maze.length;
 		for (int i=0; i<n; i++) {
 			for (int j=0; j<n;j++) {
