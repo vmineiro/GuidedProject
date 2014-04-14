@@ -1,5 +1,7 @@
 package maze.logic;
 
+import maze.logic.Character.Direction;
+
 /**
  * The Class Position.
  */
@@ -59,34 +61,26 @@ public class Position {
 	
 	
 	/**
-	 * Move up.
+	 * Move.
 	 */
-	public void moveUp(){
-		line--;
-	}
+	public void move(Direction dir){
+		switch (dir){
+		case LEFT:
+			col--;
+			break;
+		case DOWN:
+			line++;
+			break;
+		case RIGHT:
+			col++;
+			break;
+		case UP:
+			line--;
+			break;
+		default:
+			break;
+		}
 	
-	
-	/**
-	 * Move down.
-	 */
-	public void moveDown(){
-		line++;
-	}
-	
-	
-	/**
-	 * Move left.
-	 */
-	public void moveLeft(){
-		col--;
-	}
-	
-	
-	/**
-	 * Move right.
-	 */
-	public void moveRight(){
-		col++;
 	}
 	
 	
@@ -97,7 +91,8 @@ public class Position {
 	 */
 	public Position upperPosition(){
 		Position temp = new Position (line,col);
-		temp.moveUp();
+		temp.move(Direction.UP);
+		//temp.moveUp();
 		return temp;
 	}
 	
@@ -109,7 +104,7 @@ public class Position {
 	 */
 	public Position bottomPosition(){
 		Position temp = new Position (line,col);
-		temp.moveDown();
+		temp.move(Direction.DOWN);
 		return temp;
 	}
 	
@@ -121,7 +116,7 @@ public class Position {
 	 */
 	public Position leftPosition(){
 		Position temp = new Position (line,col);
-		temp.moveLeft();
+		temp.move(Direction.LEFT);
 		return temp;
 	}
 	
@@ -133,7 +128,7 @@ public class Position {
 	 */
 	public Position rightPosition(){
 		Position temp = new Position (line,col);
-		temp.moveRight();
+		temp.move(Direction.RIGHT);
 		return temp;
 	}
 	

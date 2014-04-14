@@ -2,8 +2,6 @@ package game.tests;
 
 import static org.junit.Assert.*;
 
-import java.util.Random;
-
 import org.junit.Test;
 
 import maze.logic.Eagle;
