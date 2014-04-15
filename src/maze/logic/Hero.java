@@ -1,14 +1,15 @@
 package maze.logic;
 
+import java.io.Serializable;
+
+
 /**
  * The Class Hero.
  */
-public class Hero extends Character {
-	
-	
+public class Hero extends Character implements Serializable{
+		
 	/** The armed. */
 	private boolean armed;
-	
 	
 	/** The armed. */
 	private boolean eagleLaunched;
@@ -33,12 +34,15 @@ public class Hero extends Character {
 	 * @return the armed
 	 */
 	public void getArmed() {
+		
 		if (symbol.equals("Ha")){		/* In case of eagle wasn't launched */
 			symbol = "Aa";
 		} else {
 			symbol = "A ";				/* In case of eagle died */
 		}
+		
 		armed = true;
+		
 	}
 	
 	

@@ -11,6 +11,10 @@ import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Insets;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MainMenuPanel.
+ */
 public class MainMenuPanel extends JPanel {
 
 	/**

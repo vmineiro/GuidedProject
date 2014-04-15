@@ -3,7 +3,7 @@ package maze.logic;
 import java.util.Random;
 import java.util.Stack;
 
-// TODO: Combine with Maze Generator - Two types of Maze
+
 /**
  * The Class MazeBuilder.
  */

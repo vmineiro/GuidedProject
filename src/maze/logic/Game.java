@@ -4,15 +4,15 @@ package maze.logic;
 import maze.logic.Dragon.Mode;
 import maze.logic.Character.Direction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Game.
  */
-public class Game {
+public class Game implements Serializable{
 
 	/** The maze. */
 	private Maze maze;
@@ -48,7 +48,7 @@ public class Game {
 	 * @param mazeSize the option selected (standard = 0  or random maze = size of maze)
 	 * @param mode the mode of the dragon
 	 * @param nDragons the n dragons
-	 * @param builder 
+	 * @param builder the builder
 	 */
 	public void initGame(int mazeSize, int mode, int nDragons, int builder) {
 
@@ -56,7 +56,7 @@ public class Game {
 
 			/* initialize a temporary maze to be build */
 			MazeGenerator tempMaze;
-			
+
 			/* set the standard maze */
 			tempMaze = new MazeGenerator();		
 			maze = tempMaze.getMaze();
@@ -71,25 +71,26 @@ public class Game {
 		} else {
 
 			if (builder == 1) {
-				
+
 				/* initialize a temporary maze to be build */
 				MazeBuilder tempMaze = new MazeBuilder();
-				
+
 				/* set a random maze with size of "mazeSize" */
 				tempMaze.setRandomMaze(mazeSize);
-				
+
 				maze = tempMaze.getResult();
-				
+
 			} else {
+				
 				/* initialize a temporary maze to be build */
 				MazeGenerator tempMaze;
-				
+
 				/* set the standard maze */
 				tempMaze = new MazeGenerator(mazeSize);		
 				maze = tempMaze.getMaze();
-				
+
 			}
-			
+
 			/* set the positions of character and the dragon mode */
 			player.setPosition(maze.randomPosition());
 
@@ -100,6 +101,7 @@ public class Game {
 
 			/* create dragons */
 			for (int i = 0; i< nDragons; i++){
+				
 				Dragon dragon = new Dragon(new Position(0, 0), Mode.STATIC);
 				dragon.setPosition(maze.randomDragonPosition());
 
@@ -107,19 +109,20 @@ public class Game {
 				if (mode == 1) {
 					dragon.setMode(Mode.STATIC);
 				} else if (mode == 2) {
-					dragon.setMode(Mode.DINAMIC);
+					dragon.setMode(Mode.DYNAMIC);
 				} else {
 					dragon.setMode(Mode.MIXED);
 				}
 				updatePosition(dragon);
 
 				addDragon(dragon);
+				
 			}
 
 		}
 	}
 
-	
+
 	/**
 	 * Add a dragon to the game.
 	 * 
@@ -179,6 +182,58 @@ public class Game {
 		return sword;
 	}
 
+
+	/**
+	 * Sets the player.
+	 *
+	 * @param player2 the new player
+	 */
+	public void setPlayer(Hero player2) {
+		player = player2;	
+	}
+
+
+	/**
+	 * Sets the maze.
+	 *
+	 * @param maze2 the new maze
+	 */
+	public void setMaze(Maze maze2) {
+		
+		maze = maze2;
+		
+	}
+
+
+	/**
+	 * Sets the dragons.
+	 *
+	 * @param dragons2 the new dragons
+	 */
+	public void setDragons(ArrayList<Dragon> dragons2) {
+		dragons = dragons2;		
+	}
+
+
+	/**
+	 * Sets the eagle.
+	 *
+	 * @param eagle2 the new eagle
+	 */
+	public void setEagle(Eagle eagle2) {
+		eagle = eagle2;		
+	}
+
+
+	/**
+	 * Sets the sword.
+	 *
+	 * @param sword2 the new sword
+	 */
+	public void setSword(Sword sword2) {
+		sword = sword2;		
+	}
+	
 	
 	/**
 	 * Update the positions of all characters.
@@ -190,35 +245,45 @@ public class Game {
 		}
 
 		if (sword.isActive()) {
+			
 			if (maze.getPositionValue(sword.getPosition()).equals("D "))
 				maze.setCellValue(sword.getPosition(), "F ");
 			else
 				updatePosition(sword);		
+			
 		}
 
 		if (eagle.isActive()) {
+			
 			if (maze.getPositionValue(eagle.getPosition()).equals("D ") && !eagle.isReturning()){
+				/* Eagle over an Awaken Dragon */
 				maze.setCellValue(eagle.getPosition(), "Da");
 			} else if (maze.getPositionValue(eagle.getPosition()).equals("d ") && !eagle.isReturning()){
+				/* Eagle over an Asleep Dragon */
 				maze.setCellValue(eagle.getPosition(), "da");
 			} else if (maze.getPositionValue(eagle.getPosition()).equals("XX") && !eagle.isReturning()){
+				/* Eagle over a Wall */
 				maze.setCellValue(eagle.getPosition(), "Xa");
 			} else if (maze.getPositionValue(eagle.getPosition()).equals("F ")) {
+				/* Eagle over a Dragon the Sword */
 				maze.setCellValue(eagle.getPosition(), "Fa");
 			} else if (player.getPosition().equals(eagle.getPosition())) {
+				/* Eagle over the Sword */
 				maze.setCellValue(player.getPosition(), "Ha");
 			} else if (eagle.getPosition().equals(sword.getPosition())) {
+				/* Eagle over the Sword */
 				maze.setCellValue(eagle.getPosition(), "Ea");
 			} else {
 				updatePosition(eagle);
 				updatePosition(player);
-			}			
+			}	
+			
 		} else {
 			updatePosition(player);
 		}
 
 	}
-	
+
 
 	/**
 	 * Set the symbol of the character (Hero, Dragon, Sword or Eagle) in his maze position.
@@ -237,6 +302,7 @@ public class Game {
 	 */
 	public void movePlayer(Direction dir) {
 		if (checkPlayerMove(player.getPosition(dir))) {
+			
 			maze.clearCell(player.getPosition());
 			player.move(dir);
 			pickSword();
@@ -245,7 +311,9 @@ public class Game {
 			checkKill();
 
 			updatePosition(player);
+			
 		}
+		
 	}
 
 
@@ -257,12 +325,14 @@ public class Game {
 		if (!sword.isActive()) return; 
 
 		if (player.getPosition().equals(sword.getPosition())) {
+			
 			player.getArmed();
 			sword.picked();
+			
 		}
 
 	}
-	
+
 
 	/**
 	 * Check if the player move is valid or not.
@@ -296,10 +366,15 @@ public class Game {
 			/* Message if the player tries to exit without getting the sword and kill the dragon */
 
 			boolean allDragonsDead = true;
+			
 			for (Dragon dragon : dragons){
-				if (!dragon.isDead()) allDragonsDead = false;					/* Game doesn't end */
+				
+				if (!dragon.isDead()) allDragonsDead = false;
+				/* Game doesn't end */
 			}
+			
 			if (pos.equals(maze.getExit())){
+				
 				if (!allDragonsDead) {
 					//System.out.println("\nYou need to kill all the Dragons (D / d)");
 					return false;
@@ -308,9 +383,9 @@ public class Game {
 			}
 
 		}		
-
-
+		
 		return true;
+		
 	}
 
 
@@ -318,10 +393,13 @@ public class Game {
 	 * Move each dragon in the game.
 	 */
 	public void dragonsMove(){
-		for (Dragon dragon : dragons){
-			dragonMove(dragon);
-		}
 		
+		for (Dragon dragon : dragons){
+			
+			dragonMove(dragon);
+			
+		}
+
 		/* check if the dragon kill any Character (hero or eagle) or if the dragon dies. */
 		checkKill();	
 	}
@@ -348,8 +426,11 @@ public class Game {
 			/* 33% probability of changing dragon sleep status */
 
 			int changeStatus = randomNr.nextInt(10);
+			
 			if (changeStatus % 3 == 0) {
+				
 				dragon.changeStatus();
+			
 			}
 
 		}
@@ -372,22 +453,23 @@ public class Game {
 			   if the move is not valid (wall) the loop generates another number until get a valid option */
 
 			move = randomNr.nextInt(5);
+			
 			switch (move) {
 			case 0:
 				moveDragon(dragon,Direction.LEFT);
-					validMove = true;
+				validMove = true;
 				break;
 			case 1:
 				moveDragon(dragon,Direction.DOWN);
-					validMove = true;
+				validMove = true;
 				break;		
 			case 2:
 				moveDragon(dragon,Direction.RIGHT);
-					validMove = true;
+				validMove = true;
 				break;
 			case 3:
 				moveDragon(dragon,Direction.UP);
-					validMove = true;
+				validMove = true;
 				break;
 			case 4:
 				validMove = true;
@@ -398,18 +480,24 @@ public class Game {
 
 	}
 
-	
+
 	/**
 	 * Dragon move.
+	 *
+	 * @param dragon the dragon
+	 * @param dir the dir
 	 */
 	public void moveDragon(Dragon dragon, Direction dir) {
+		
 		if (maze.cellIsEmpty(dragon.getPosition(dir))) {
+			
 			maze.clearCell(dragon.getPosition());
 			dragon.move(dir);
 
 			updatePosition(dragon);
+			
 		}
-		
+
 	}
 
 
@@ -422,10 +510,11 @@ public class Game {
 
 		player.launchEagle();
 		System.out.println("Eagle Launched");
+		
 		eagle.setPosition(player.getPosition());
 		eagle.getSword(sword.getPosition());
+		
 		eagleMove();
-		updatePosition(player);
 
 	}
 
@@ -509,7 +598,7 @@ public class Game {
 						player.die();
 					}
 				}
-				
+
 				/* Dragon kills the Eagle */
 				if (eagle.isActive() && !eagle.isOnWay() && !eagle.isReturning()){
 					if (eagle.getPosition().equals(dragon.getPosition()) ||
@@ -527,6 +616,7 @@ public class Game {
 		}
 
 		updatePositions();
+		
 	}
 
 
@@ -554,5 +644,21 @@ public class Game {
 	}
 
 
+	/**
+	 * Sets the game.
+	 *
+	 * @param tempGame the new game
+	 */
+	public void setGame(Game tempGame) {
+		
+		setMaze(tempGame.getMaze());
+		setPlayer(tempGame.getPlayer());
+		setDragons(tempGame.getDragons());
+		setEagle(tempGame.getEagle());
+		setSword(tempGame.getSword());
+		
+		updatePositions();
+		
+	}
 
 }

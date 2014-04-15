@@ -1,25 +1,24 @@
 package maze.logic;
 
+import java.io.Serializable;
+
 
 /**
  * The Class Dragon.
  */
-public class Dragon extends Character {
-
+public class Dragon extends Character implements Serializable{
 	
 	/**
 	 * The Enumeration of different possible modes of dragons.
 	 */
 	public enum Mode {
 		/** The static. */ STATIC,
-		/** The dinamic. */ DINAMIC,
+		/** The dynamic. */ DYNAMIC,
 		/** The mixed. */MIXED
-		};
-	
+		};	
 		
 	/** The mode. */
-	private Mode mode;
-	
+	private Mode mode;	
 	
 	/** The actual sleep status of the dragon. */
 	private boolean sleep;
@@ -92,7 +91,7 @@ public class Dragon extends Character {
 	
 
 	/**
-	 * Dragon falls asleep
+	 * Dragon falls asleep.
 	 */
 	public void fallsAsleep() {
 		sleep = true;
@@ -101,7 +100,7 @@ public class Dragon extends Character {
 
 
 	/**
-	 * Dragon Awakes
+	 * Dragon Awakes.
 	 */
 	public void awake() {
 		sleep = false;

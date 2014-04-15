@@ -1,6 +1,7 @@
 package maze.logic;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -8,28 +9,22 @@ import java.util.Stack;
 /**
  * The Class Eagle.
  */
-public class Eagle extends Character {
-
+public class Eagle extends Character implements Serializable{
 
 	/** The list of positions of sword path. */
 	private ArrayList<Position> swordPath;
 
-
 	/** The return path. */
 	private Stack<Position> returnPath;
-
 
 	/** The has sword. */
 	private boolean hasSword;
 
-
 	/** The on way field. */
 	private boolean onWay;
 
-
 	/** The turning back field. */
 	private boolean returning;
-
 
 	/** Store the last cell symbol to reprint after pass the cell. */
 	private String lastCell;
@@ -48,7 +43,7 @@ public class Eagle extends Character {
 		returning = false;
 		swordPath = new ArrayList<Position>();
 		returnPath = new Stack<Position>();
-		lastCell = "  ";
+		lastCell = "H ";
 	}
 
 
@@ -91,13 +86,14 @@ public class Eagle extends Character {
 		return returnPath;
 	}
 
+	
 	/**
 	 * Move.
 	 */
 	public void move(){
 
-		if (onWay) {							/* moving to the sword position	*/	
-			if (swordPath.isEmpty()){			/* arrived to the sword position */
+		if (onWay) {					/* moving to the sword position	*/	
+			if (swordPath.isEmpty()){	/* arrived to the sword position */
 				lastCell = "  ";
 				onWay = false;
 			} else {
@@ -164,6 +160,7 @@ public class Eagle extends Character {
 	 * Build the shortest path from the position where the eagle was launched to the sword and the return path.
 	 *
 	 * @param swordPosition the sword position
+	 * @return the sword
 	 */
 	public void getSword(Position swordPosition) {
 

@@ -1,10 +1,12 @@
 package maze.logic;
 
+import java.io.Serializable;
+
+
 /**
  * The Class Character.
  */
-public class Character {
-
+public class Character implements Serializable{
 
 	/**
 	 * The Enumeration of directions.
@@ -16,14 +18,11 @@ public class Character {
 		/** The up direction. */ UP
 	};
 
-
 	/** The position of Character. */
 	private Position position;
 
-
 	/** The status of Character. */
 	private boolean active;
-
 
 	/** The symbol to represent the Character in the Maze. */
 	protected String symbol;
@@ -52,9 +51,9 @@ public class Character {
 
 	/**
 	 * Gets the position.
-	 * @param dir 
 	 *
-	 * @return the actual position
+	 * @param dir the direction
+	 * @return the position on Direction dir
 	 */
 	public Position getPosition(Direction dir){
 		switch (dir){
