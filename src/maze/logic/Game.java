@@ -4,6 +4,7 @@ package maze.logic;
 import maze.logic.Dragon.Mode;
 import maze.logic.Character.Direction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,7 +13,7 @@ import java.util.Random;
 /**
  * The Class Game.
  */
-public class Game {
+public class Game implements Serializable{
 
 	/** The maze. */
 	private Maze maze;
@@ -56,7 +57,7 @@ public class Game {
 
 			/* initialize a temporary maze to be build */
 			MazeGenerator tempMaze;
-			
+
 			/* set the standard maze */
 			tempMaze = new MazeGenerator();		
 			maze = tempMaze.getMaze();
@@ -71,25 +72,25 @@ public class Game {
 		} else {
 
 			if (builder == 1) {
-				
+
 				/* initialize a temporary maze to be build */
 				MazeBuilder tempMaze = new MazeBuilder();
-				
+
 				/* set a random maze with size of "mazeSize" */
 				tempMaze.setRandomMaze(mazeSize);
-				
+
 				maze = tempMaze.getResult();
-				
+
 			} else {
 				/* initialize a temporary maze to be build */
 				MazeGenerator tempMaze;
-				
+
 				/* set the standard maze */
 				tempMaze = new MazeGenerator(mazeSize);		
 				maze = tempMaze.getMaze();
-				
+
 			}
-			
+
 			/* set the positions of character and the dragon mode */
 			player.setPosition(maze.randomPosition());
 
@@ -119,7 +120,7 @@ public class Game {
 		}
 	}
 
-	
+
 	/**
 	 * Add a dragon to the game.
 	 * 
@@ -179,6 +180,33 @@ public class Game {
 		return sword;
 	}
 
+
+
+
+	public void setPlayer(Hero player2) {
+		player = player2;	
+	}
+
+
+	public void setMaze(Maze maze2) {
+		maze = maze2;		
+	}
+
+
+	public void setDragons(ArrayList<Dragon> dragons2) {
+		dragons = dragons2;		
+	}
+
+
+	public void setEagle(Eagle eagle2) {
+		eagle = eagle2;		
+	}
+
+
+	public void setSword(Sword sword2) {
+		sword = sword2;		
+	}
+	
 	
 	/**
 	 * Update the positions of all characters.
@@ -218,7 +246,7 @@ public class Game {
 		}
 
 	}
-	
+
 
 	/**
 	 * Set the symbol of the character (Hero, Dragon, Sword or Eagle) in his maze position.
@@ -262,7 +290,7 @@ public class Game {
 		}
 
 	}
-	
+
 
 	/**
 	 * Check if the player move is valid or not.
@@ -321,7 +349,7 @@ public class Game {
 		for (Dragon dragon : dragons){
 			dragonMove(dragon);
 		}
-		
+
 		/* check if the dragon kill any Character (hero or eagle) or if the dragon dies. */
 		checkKill();	
 	}
@@ -375,19 +403,19 @@ public class Game {
 			switch (move) {
 			case 0:
 				moveDragon(dragon,Direction.LEFT);
-					validMove = true;
+				validMove = true;
 				break;
 			case 1:
 				moveDragon(dragon,Direction.DOWN);
-					validMove = true;
+				validMove = true;
 				break;		
 			case 2:
 				moveDragon(dragon,Direction.RIGHT);
-					validMove = true;
+				validMove = true;
 				break;
 			case 3:
 				moveDragon(dragon,Direction.UP);
-					validMove = true;
+				validMove = true;
 				break;
 			case 4:
 				validMove = true;
@@ -398,7 +426,7 @@ public class Game {
 
 	}
 
-	
+
 	/**
 	 * Dragon move.
 	 */
@@ -409,7 +437,7 @@ public class Game {
 
 			updatePosition(dragon);
 		}
-		
+
 	}
 
 
@@ -509,7 +537,7 @@ public class Game {
 						player.die();
 					}
 				}
-				
+
 				/* Dragon kills the Eagle */
 				if (eagle.isActive() && !eagle.isOnWay() && !eagle.isReturning()){
 					if (eagle.getPosition().equals(dragon.getPosition()) ||
@@ -552,7 +580,5 @@ public class Game {
 		} else
 			return false;
 	}
-
-
 
 }
