@@ -2,7 +2,6 @@ package game.tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,14 +9,25 @@ import maze.logic.*;
 import maze.logic.Dragon.Mode;
 import maze.logic.Character.Direction;
 
+
+/**
+ * The Class MoveTests.
+ */
 public class MoveTests {
 	
+	/** The game testing. */
 	Game gameTesting;
 	
 	
+	/**
+	 * Sets the up.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		
+		/* Set Game Settings */
 		gameTesting = new Game();
 
 		String[][] lab = {
@@ -43,12 +53,9 @@ public class MoveTests {
 	}
 
 	
-	@After
-	public void tearDown() throws Exception {
-		
-	}
-
-	
+	/**
+	 * Hero move test.
+	 */
 	@Test
 	public void heroMoveTest(){
 
@@ -57,17 +64,35 @@ public class MoveTests {
 		/* Initial Position Test */
 		assertTrue(player.getPosition().equals(new Position(4,4)));
 		
-		Direction[] moves = {Direction.DOWN, Direction.RIGHT, Direction.LEFT,Direction.UP};
-		Position[] positions ={new Position(5,4),new Position(5,5),new Position(5,4),new Position(4,4)};
+		/* Hero Moves */
+		Direction[] moves = {
+				Direction.DOWN,
+				Direction.RIGHT,
+				Direction.LEFT,
+				Direction.UP
+				};
+		/* Positions Expected */
+		Position[] positions = {
+				new Position(5,4),
+				new Position(5,5),
+				new Position(5,4),
+				new Position(4,4)
+				};
 
+		/* Assert Hero Positions Change. Does not Consider Wall and Illegal moves.*/
 		for (int i = 0 ; i < 4 ; i++){
+			
 			player.move(moves[i]);
 			assertTrue(player.getPosition().equals(positions[i]));
+			
 		}
 
 	}
 	
 
+	/**
+	 * Hero move test with maze.
+	 */
 	@Test
 	public void heroMoveTestWithMaze(){
 		
@@ -86,6 +111,9 @@ public class MoveTests {
 	}
 	
 
+	/**
+	 * Pick sword test.
+	 */
 	@Test
 	public void pickSwordTest(){
 		
@@ -115,6 +143,9 @@ public class MoveTests {
 	}
 	
 	
+	/**
+	 * Hero dead test.
+	 */
 	@Test
 	public void heroDeadTest(){
 		
@@ -136,6 +167,9 @@ public class MoveTests {
 	}
 	
 	
+	/**
+	 * Dragon dead test.
+	 */
 	@Test
 	public void dragonDeadTest(){
 		
@@ -156,18 +190,30 @@ public class MoveTests {
 	}
 	
 	
+	/**
+	 * Win test.
+	 */
 	@Test
 	public void winTest(){
 		
-		Direction[] moves = {Direction.DOWN, Direction.DOWN, Direction.RIGHT, Direction.LEFT,Direction.UP,Direction.LEFT};
+		Direction[] moves = {
+				Direction.DOWN,
+				Direction.DOWN,
+				Direction.RIGHT,
+				Direction.LEFT,
+				Direction.UP,
+				Direction.LEFT
+				};
 		
 		//gameTesting.getMaze().printMaze();
 		
 		/* Hero Moves */
 		for (int i = 0; i < 6; i++){
+			
 			assertFalse(gameTesting.gameOver());
 			gameTesting.movePlayer(moves[i]);
 			//gameTesting.getMaze().printMaze();
+			
 		}
 		
 		assertTrue(gameTesting.gameOver());
@@ -179,6 +225,9 @@ public class MoveTests {
 	}
 	
 	
+	/**
+	 * Exit test.
+	 */
 	@Test
 	public void exitTest(){
 		

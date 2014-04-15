@@ -1,11 +1,12 @@
 package maze.logic;
 
+import java.io.Serializable;
 
 
 /**
  * The Class Sword.
  */
-public class Sword extends Character {
+public class Sword extends Character implements Serializable{
 	
 	
 	/**

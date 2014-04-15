@@ -1,16 +1,17 @@
 package maze.logic;
 
+import java.io.Serializable;
+
 import maze.logic.Character.Direction;
+
 
 /**
  * The Class Position.
  */
-public class Position {
-
+public class Position implements Serializable {
 	
 	/** The line index. */
 	private int line;
-	
 	
 	/** The column index. */
 	private int col;
@@ -62,8 +63,11 @@ public class Position {
 	
 	/**
 	 * Move.
+	 *
+	 * @param dir the dir
 	 */
 	public void move(Direction dir){
+		
 		switch (dir){
 		case LEFT:
 			col--;
@@ -90,10 +94,12 @@ public class Position {
 	 * @return the position
 	 */
 	public Position upperPosition(){
+		
 		Position temp = new Position (line,col);
 		temp.move(Direction.UP);
-		//temp.moveUp();
+		
 		return temp;
+		
 	}
 	
 	
@@ -103,9 +109,12 @@ public class Position {
 	 * @return the position
 	 */
 	public Position bottomPosition(){
+		
 		Position temp = new Position (line,col);
 		temp.move(Direction.DOWN);
+		
 		return temp;
+		
 	}
 	
 	
@@ -115,9 +124,12 @@ public class Position {
 	 * @return the position
 	 */
 	public Position leftPosition(){
+		
 		Position temp = new Position (line,col);
 		temp.move(Direction.LEFT);
+		
 		return temp;
+		
 	}
 	
 	
@@ -127,9 +139,12 @@ public class Position {
 	 * @return the position
 	 */
 	public Position rightPosition(){
+		
 		Position temp = new Position (line,col);
 		temp.move(Direction.RIGHT);
+		
 		return temp;
+		
 	}
 	
 	
@@ -140,8 +155,11 @@ public class Position {
 	 * @return true, if successful
 	 */
 	public boolean equals(Position pos1){
+		
 		if (this.line == pos1.getLine() && this.col == pos1.getCol()) return true;
+		
 		return false;
+		
 	}
 	
 	

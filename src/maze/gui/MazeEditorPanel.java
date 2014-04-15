@@ -4,6 +4,10 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MazeEditorPanel.
+ */
 public class MazeEditorPanel extends JPanel {
 
 	/**

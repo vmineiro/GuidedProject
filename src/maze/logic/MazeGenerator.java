@@ -10,7 +10,6 @@ import java.util.Stack;
  */
 public class MazeGenerator {
 
-	
 	/** The maze. */
 	private Maze maze;
 
@@ -19,7 +18,9 @@ public class MazeGenerator {
 	 * Instantiates a Standard maze.
 	 */
 	public MazeGenerator() {
+		
 		maze = new Maze();
+		
 		String[][] lab = {
 				{"XX","XX","XX","XX","XX","XX","XX","XX","XX","XX"},
 				{"XX","  ","  ","  ","  ","  ","  ","  ","  ","XX"},
@@ -32,8 +33,10 @@ public class MazeGenerator {
 				{"XX","  ","XX","XX","  ","  ","  ","  ","  ","XX"},
 				{"XX","XX","XX","XX","XX","XX","XX","XX","XX","XX"}
 		};
+		
 		maze.setExit(new Position(5, 9));
 		maze.setMaze(lab);
+		
 	}
 	
 	
@@ -43,6 +46,7 @@ public class MazeGenerator {
 	 * @param n the n
 	 */
 	public MazeGenerator(int n){
+		
 		maze = new Maze();
 		
 		/* Generate the Position for the Exit */
@@ -164,11 +168,13 @@ public class MazeGenerator {
 		int[] positonsOrders = new int[4];
 		
 		for (int i=0; i<4; i++){
+			
 			do
 				randNr = randomNr.nextInt(4)+1;
 			while (alreadyExist(positonsOrders, randNr));
 			
 			positonsOrders[i] = randNr;
+			
 		}
 		
 		return positonsOrders;
@@ -184,10 +190,14 @@ public class MazeGenerator {
 	 * @return true, if successful
 	 */
 	private static boolean alreadyExist(int[] positonsOrders, int randNr) {
+		
 		for (int i : positonsOrders){
+			
 			if (i == randNr) return true;
+			
 		}
 		return false;
+		
 	}
 
 	
@@ -200,6 +210,7 @@ public class MazeGenerator {
 	 * @return true, if successful
 	 */
 	private static boolean validPathPosition(Position pos, String[][] lab, int bound) {
+		
 		int col = pos.getCol();
 		int lin = pos.getLine();
 
@@ -245,11 +256,17 @@ public class MazeGenerator {
 	 * @param n the n
 	 */
 	private static void fillMaze(String[][] lab, int n){
+		
 		for (int i = 0; i < n; i++){
+			
 			for (int j = 0; j< n; j++) {
+				
 				lab[i][j] = "XX";
+				
 			}
+			
 		}
+		
 	}
 	
 
@@ -260,11 +277,13 @@ public class MazeGenerator {
 	 * @return a valid maze exit
 	 */
 	public static Position generateMazeExit(int n){
+		
 		Random line = new Random();
 		Random column = new Random();
 		int lineExit, colExit;
 
 		lineExit = line.nextInt(n);
+		
 		if (lineExit == 0 || lineExit == n-1)
 			colExit = column.nextInt(n-2)+1;
 		else

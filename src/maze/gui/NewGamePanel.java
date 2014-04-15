@@ -20,7 +20,13 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NewGamePanel.
+ */
 public class NewGamePanel extends JPanel {
+	
+	/** The game type button group. */
 	private final ButtonGroup gameTypeButtonGroup = new ButtonGroup();
 
 	/**

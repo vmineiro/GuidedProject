@@ -14,19 +14,29 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GUInterface.
+ */
 public class GUInterface {
 
+	/** The frame. */
 	private JFrame frame;
 	
+	/** The main menu. */
 	private MainMenuPanel mainMenu;
 	
+	/** The game panel. */
 	private MazePanel gamePanel;
 	
+	/** The menu bar. */
 	private JMenuBar menuBar;
 	
 
 	/**
 	 * Launch the application.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

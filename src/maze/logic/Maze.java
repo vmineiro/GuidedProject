@@ -1,17 +1,16 @@
 package maze.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 
 
 /**
  * The Class Maze.
  */
-public class Maze {
+public class Maze  implements Serializable {
 
-	
 	/** The maze. */
-	private static String board [][];
-	
+	private String board [][];
 	
 	/** The maze exit. */
 	private Position mazeExit;
@@ -38,7 +37,6 @@ public class Maze {
 	/**
 	 * Set the board - Used on Maze Generator.
 	 *
-	 * @param lab the new maze
 	 * @return the maze
 	 */
 	public String[][] getBoard(){
@@ -58,7 +56,7 @@ public class Maze {
 
 	
 	/**
-	 * Change the value of the cell with the line "line" and column "col" to the value ' '  
+	 * Change the value of the cell with the line "line" and column "col" to the value ' '  .
 	 *
 	 * @param pos the position to clear
 	 */
@@ -140,10 +138,14 @@ public class Maze {
 		Position temp;													/* initialize a temporary position */
 		
 		do {
+			
 			linePos = number.nextInt(mazeSize-2)+1;						/* pick a random inner line */
 			colPos = number.nextInt(mazeSize-2)+1;						/* pick a random inner column */
+			
 			temp = new Position(linePos,colPos);
+			
 			if (getPositionValue(temp).equals("  ")) validPos = true;	/* compare the value of the maze position */
+		
 		} while (!validPos);
 		
 		return temp;
@@ -161,13 +163,16 @@ public class Maze {
 		boolean validPos = false;
 		
 		do {
+			
 			temp = randomPosition();
+			
 			if (!getPositionValue(temp.leftPosition()).equals("Ha") &&			/* left position check */
 					!getPositionValue(temp.bottomPosition()).equals("Ha") &&	/* bottom position check */
 					!getPositionValue(temp.rightPosition()).equals("Ha") &&		/* right position check */
 					!getPositionValue(temp.upperPosition()).equals("Ha")){		/* upper position check */
 				validPos = true;
 			}
+			
 		} while (!validPos);
 		
 		return temp;
