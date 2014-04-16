@@ -1,43 +1,122 @@
 package maze.gui;
 
+import maze.logic.*;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class MazePanel extends JPanel implements MouseListener, MouseMotionListener
+public class MazePanel extends JPanel implements KeyListener
 {
-	private int x1=0, y1=0, x2=0, y2=0;
+	private Game game;
+	private BufferedImage wallImg;
+	private BufferedImage floorImg;
+	private BufferedImage dragonImg;
+	private BufferedImage swordImg;
+	private BufferedImage heroImg;
 	
 	public MazePanel()
 	{
-		addMouseListener(this);
-		addMouseMotionListener(this); 
+		this.game = new Game();
+		game.initGame(0,1,1,0);
+		game.updatePositions();
+		
+		addKeyListener(this);
+		
+		try {
+			wallImg = ImageIO.read(new File("textures/wall01.png"));
+			floorImg = ImageIO.read(new File("textures/floor01.jpg"));
+			dragonImg = ImageIO.read(new File("textures/dragon80x80.jpeg"));
+			swordImg = ImageIO.read(new File("textures/swor02.png"));
+			heroImg = ImageIO.read(new File("textures/templar02.jpg"));
+		} catch (IOException e) {}
+		
 	}
 	
 	public void paintComponent(Graphics g) 
 	{
-		super.paintComponent(g); 
-		g.setColor(Color.BLUE);
-		g.fillOval(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+		super.paintComponent(g);
+		
+		int n = game.getMaze().getBoard().length;
+		int elem_size = 75;
+		
+		for (int i=0; i<n; i++) 
+		{
+			for (int j=0; j<n;j++) 
+			{
+				if(game.getMaze().getBoard()[i][j].equals("XX"))
+				{
+					g.drawImage(wallImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 512, 512, null);
+				}
+				else if(game.getMaze().getBoard()[i][j].equals("  ") || game.getMaze().getBoard()[i][j].equals("SS"))
+				{
+					g.drawImage(floorImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 400, 400, null);
+				}
+				else if(game.getMaze().getBoard()[i][j].equals("D ") || game.getMaze().getBoard()[i][j].equals("d ") || game.getMaze().getBoard()[i][j].equals("F "))
+				{
+					g.drawImage(dragonImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 74, 74, null);
+				}
+				else if(game.getMaze().getBoard()[i][j].equals("E "))
+				{
+					g.drawImage(swordImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 500, 500, null);
+				}
+				else if(game.getMaze().getBoard()[i][j].equals("Ha"))
+				{
+					g.drawImage(heroImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 300, 343, null);
+				}
+				
+				// FALTAM CRIAR IMAGENS PARA CERTOS ESTADOS DOS PERSONAGENS
+			}
+		}
 	}
 	
-	public void mousePressed(MouseEvent e) 
+	@Override
+	public void keyReleased(KeyEvent e) 
 	{
-		x2 = x1 = e.getX();
-		y2 = y1 = e.getY();
+		int key = e.getKeyCode();
+		
+		if(key == KeyEvent.VK_UP)
+		{
+			game.movePlayer(maze.logic.Character.Direction.UP);
+		}
+		else if(key == KeyEvent.VK_DOWN)
+		{
+			game.movePlayer(maze.logic.Character.Direction.DOWN);
+		}
+		else if (key == KeyEvent.VK_LEFT)
+		{
+			game.movePlayer(maze.logic.Character.Direction.LEFT);
+		}
+		else if(key == KeyEvent.VK_RIGHT)
+		{
+			game.movePlayer(maze.logic.Character.Direction.RIGHT);
+		}
+		else if(key == KeyEvent.VK_E)
+		{
+			game.eagleLaunched();
+		}
+		
+		game.eagleMove();
+
+		game.dragonsMove();
+		
+		if(game.gameOver())
+		{
+			System.exit(0);
+		}
+		
 		repaint();
 	}
 	
-	public void mouseDragged(MouseEvent e) 
-	{ 
-		x2 = e.getX();
-		y2 = e.getY();
-		repaint();
-	}
+	@Override
+	public void keyPressed(KeyEvent e) {}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
 	
-	public void mouseReleased(MouseEvent e) {}
-	public void mouseMoved(MouseEvent arg0) {}
-	public void mouseClicked(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
 }

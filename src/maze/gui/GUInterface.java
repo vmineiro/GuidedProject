@@ -1,5 +1,7 @@
 package maze.gui;
 
+import maze.logic.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -14,16 +16,19 @@ import java.awt.BorderLayout;
 public class GUInterface {
 
 	private JFrame frame;
-
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					GUInterface window = new GUInterface();
 					window.frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -34,7 +39,8 @@ public class GUInterface {
 	/**
 	 * Create the application.
 	 */
-	public GUInterface() {
+	public GUInterface() 
+	{
 		initialize();
 	}
 
@@ -44,20 +50,13 @@ public class GUInterface {
 	private void initialize() {
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		frame.setPreferredSize(new Dimension(500, 500));
+		frame.setBounds(100, 100, 500, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		
 		// MAZE PANEL
 		MazePanel mazePanel = new MazePanel();
+		mazePanel.setFocusable(true);
 		frame.getContentPane().add(mazePanel, BorderLayout.CENTER);
-		
-		// BUTTONS PANEL
-		JPanel buttons = new JPanel();
-		frame.getContentPane().add(buttons, BorderLayout.SOUTH);
-		
-		
 	}
 
 }
