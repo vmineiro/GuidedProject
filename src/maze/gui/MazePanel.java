@@ -14,6 +14,11 @@ import javax.swing.*;
 public class MazePanel extends JPanel implements KeyListener
 {
 	private Game game;
+	private int mazeSize = 0;
+	private int mode = 1;
+	private int nDragons = 1;
+	private int builder = 0;	
+	
 	private BufferedImage wallImg;
 	private BufferedImage floorImg;
 	private BufferedImage dragonImg;
@@ -46,7 +51,7 @@ public class MazePanel extends JPanel implements KeyListener
 	
 	public void launchNewGame()
 	{
-		game.initGame(0, 1, 1, 0);
+		game.initGame(mazeSize, mode, nDragons, builder);
 		game.updatePositions();
 	}
 	
