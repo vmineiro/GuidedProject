@@ -14,10 +14,17 @@ import javax.swing.*;
 public class MazePanel extends JPanel implements KeyListener
 {
 	private Game game;
+	
 	private int mazeSize = 0;
 	private int mode = 1;
 	private int nDragons = 1;
 	private int builder = 0;	
+	
+	private int keyUp = KeyEvent.VK_UP;
+	private int keyDown = KeyEvent.VK_DOWN;
+	private int keyLeft = KeyEvent.VK_LEFT;
+	private int keyRight = KeyEvent.VK_RIGHT;
+	private int keyEagle = KeyEvent.VK_E;
 	
 	private BufferedImage wallImg;
 	private BufferedImage floorImg;
@@ -81,6 +88,31 @@ public class MazePanel extends JPanel implements KeyListener
 		this.builder = n_builder;
 	}
 	
+	public void setUpKey(int upK)
+	{
+		this.keyUp = upK;
+	}
+	
+	public void setDownKey(int downK)
+	{
+		this.keyDown = downK;
+	}
+	
+	public void setLeftKey(int leftK)
+	{
+		this.keyLeft = leftK;
+	}
+	
+	public void setRightKey(int rightK)
+	{
+		this.keyRight = rightK;
+	}
+	
+	public void setEagleKey(int eagleK)
+	{
+		this.keyEagle = eagleK;
+	}
+	
 	public void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
@@ -141,23 +173,23 @@ public class MazePanel extends JPanel implements KeyListener
 	{
 		int key = e.getKeyCode();
 		
-		if(key == KeyEvent.VK_UP)
+		if(key == keyUp)
 		{
 			game.movePlayer(maze.logic.Character.Direction.UP);
 		}
-		else if(key == KeyEvent.VK_DOWN)
+		else if(key == keyDown)
 		{
 			game.movePlayer(maze.logic.Character.Direction.DOWN);
 		}
-		else if (key == KeyEvent.VK_LEFT)
+		else if (key == keyLeft)
 		{
 			game.movePlayer(maze.logic.Character.Direction.LEFT);
 		}
-		else if(key == KeyEvent.VK_RIGHT)
+		else if(key == keyRight)
 		{
 			game.movePlayer(maze.logic.Character.Direction.RIGHT);
 		}
-		else if(key == KeyEvent.VK_E)
+		else if(key == keyEagle)
 		{
 			game.eagleLaunched();
 		}
