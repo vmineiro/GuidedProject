@@ -19,6 +19,9 @@ public class MazePanel extends JPanel implements KeyListener
 	private BufferedImage dragonImg;
 	private BufferedImage swordImg;
 	private BufferedImage heroImg;
+	private BufferedImage heroEagleImg;
+	private BufferedImage heroArmImg;
+	private BufferedImage eagleImg;
 	
 	public MazePanel()
 	{
@@ -34,6 +37,10 @@ public class MazePanel extends JPanel implements KeyListener
 			dragonImg = ImageIO.read(new File("textures/dragon80x80.jpeg"));
 			swordImg = ImageIO.read(new File("textures/swor02.png"));
 			heroImg = ImageIO.read(new File("textures/templar02.jpg"));
+			heroEagleImg = ImageIO.read(new File("textures/knight_falcon.png"));
+			heroArmImg = ImageIO.read(new File("textures/templar01.jpg"));
+			eagleImg = ImageIO.read(new File("textures/eagle.jpg"));
+			
 		} catch (IOException e) {}
 		
 	}
@@ -43,7 +50,7 @@ public class MazePanel extends JPanel implements KeyListener
 		super.paintComponent(g);
 		
 		int n = game.getMaze().getBoard().length;
-		int elem_size = 75;
+		int elem_size = 50;
 		
 		for (int i=0; i<n; i++) 
 		{
@@ -57,7 +64,8 @@ public class MazePanel extends JPanel implements KeyListener
 				{
 					g.drawImage(floorImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 400, 400, null);
 				}
-				else if(game.getMaze().getBoard()[i][j].equals("D ") || game.getMaze().getBoard()[i][j].equals("d ") || game.getMaze().getBoard()[i][j].equals("F "))
+				else if(game.getMaze().getBoard()[i][j].equals("D ") || game.getMaze().getBoard()[i][j].equals("d ") || 
+						game.getMaze().getBoard()[i][j].equals("F "))
 				{
 					g.drawImage(dragonImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 74, 74, null);
 				}
@@ -67,10 +75,22 @@ public class MazePanel extends JPanel implements KeyListener
 				}
 				else if(game.getMaze().getBoard()[i][j].equals("Ha"))
 				{
+					g.drawImage(heroEagleImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 116, 128, null);
+				}
+				else if(game.getMaze().getBoard()[i][j].equals("H "))
+				{
 					g.drawImage(heroImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 300, 343, null);
 				}
-				
-				// FALTAM CRIAR IMAGENS PARA CERTOS ESTADOS DOS PERSONAGENS
+				else if(game.getMaze().getBoard()[i][j].equals(" a") || game.getMaze().getBoard()[i][j].equals("Xa") || 
+						game.getMaze().getBoard()[i][j].equals("Da") || game.getMaze().getBoard()[i][j].equals("da") || 
+						game.getMaze().getBoard()[i][j].equals("Fa") || game.getMaze().getBoard()[i][j].equals("Ea"))
+				{
+					g.drawImage(eagleImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 100, 100, null);
+				}
+				else if(game.getMaze().getBoard()[i][j].equals("Aa") || game.getMaze().getBoard()[i][j].equals("A "))
+				{
+					g.drawImage(heroArmImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 910, 963, null);
+				}
 			}
 		}
 	}
