@@ -22,6 +22,7 @@ public class MazePanel extends JPanel implements KeyListener
 	private BufferedImage wallImg;
 	private BufferedImage floorImg;
 	private BufferedImage dragonImg;
+	private BufferedImage dragonSleepImg;
 	private BufferedImage swordImg;
 	private BufferedImage heroImg;
 	private BufferedImage heroEagleImg;
@@ -44,6 +45,7 @@ public class MazePanel extends JPanel implements KeyListener
 			heroEagleImg = ImageIO.read(new File("textures/knight_falcon.png"));
 			heroArmImg = ImageIO.read(new File("textures/templar01.jpg"));
 			eagleImg = ImageIO.read(new File("textures/eagle.jpg"));
+			dragonSleepImg = ImageIO.read(new File("textures/sleeping-dragon.jpg"));
 			
 		} catch (IOException e) {}
 		
@@ -98,11 +100,15 @@ public class MazePanel extends JPanel implements KeyListener
 				{
 					g.drawImage(floorImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 400, 400, null);
 				}
-				else if(game.getMaze().getBoard()[i][j].equals("D ") || game.getMaze().getBoard()[i][j].equals("d ") || 
-						game.getMaze().getBoard()[i][j].equals("F "))
+				else if(game.getMaze().getBoard()[i][j].equals("D ") || game.getMaze().getBoard()[i][j].equals("F "))
 				{
 					g.drawImage(dragonImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 74, 74, null);
 				}
+				else if(game.getMaze().getBoard()[i][j].equals("d "))
+				{
+					g.drawImage(dragonSleepImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 300, 234, null);
+				}
+				
 				else if(game.getMaze().getBoard()[i][j].equals("E "))
 				{
 					g.drawImage(swordImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 500, 500, null);
