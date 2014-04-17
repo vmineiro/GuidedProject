@@ -28,6 +28,8 @@ public class GUInterface {
 	private MazePanel mazePanel;
 	private JPanel buttonsPanel;
 	
+	private ConfigDialog configDialog;
+	
 	private JButton newGame;
 	private JButton configGame;
 	private JButton exitGame;
@@ -83,7 +85,7 @@ public class GUInterface {
 		exitGame = new JButton("Exit Game");	
 		exitGame.addActionListener(new ExitGameListener());
 
-		// Button - EXIT GAME
+		// Button - GAME CONFIGURATION
 		configGame = new JButton("Game Configuration");	
 		configGame.addActionListener(new configGameListener());
 		
@@ -141,9 +143,13 @@ public class GUInterface {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-					
+			// JDialog - GAME CONFIGURATION
+			configDialog = new ConfigDialog(frame, true, "Game Configuration");
+			
+			mazePanel.requestFocusInWindow();
 		}
 		
+				
 	}
 
 }
