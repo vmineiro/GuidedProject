@@ -176,22 +176,27 @@ public class MazePanel extends JPanel implements KeyListener
 		if(key == keyUp)
 		{
 			game.movePlayer(maze.logic.Character.Direction.UP);
+			repaint();
 		}
 		else if(key == keyDown)
 		{
 			game.movePlayer(maze.logic.Character.Direction.DOWN);
+			repaint();
 		}
 		else if (key == keyLeft)
 		{
 			game.movePlayer(maze.logic.Character.Direction.LEFT);
+			repaint();
 		}
 		else if(key == keyRight)
 		{
 			game.movePlayer(maze.logic.Character.Direction.RIGHT);
+			repaint();
 		}
 		else if(key == keyEagle)
 		{
 			game.eagleLaunched();
+			repaint();
 		}
 		
 		game.eagleMove();
@@ -203,7 +208,6 @@ public class MazePanel extends JPanel implements KeyListener
 			System.exit(0);
 		}
 		
-		repaint();
 	}
 	
 	@Override
