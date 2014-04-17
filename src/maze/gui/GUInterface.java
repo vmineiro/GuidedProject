@@ -115,6 +115,7 @@ public class GUInterface {
 			}
 			else if(reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION){}	
 			
+			mazePanel.repaint();
 			mazePanel.requestFocusInWindow();
 		}	
 	}
@@ -145,6 +146,13 @@ public class GUInterface {
 		{
 			// JDialog - GAME CONFIGURATION
 			configDialog = new ConfigDialog(frame, true, "Game Configuration");
+			
+			if(configDialog.getConfigOption())
+			{
+				mazePanel.setMazeSize(configDialog.getSelMazeSize());
+				mazePanel.setNDragons(configDialog.getSelNDragons());
+				mazePanel.setModeGame(configDialog.getSelMode());
+			}
 			
 			mazePanel.requestFocusInWindow();
 		}
