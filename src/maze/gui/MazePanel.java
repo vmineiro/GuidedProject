@@ -96,7 +96,7 @@ public class MazePanel extends JPanel implements KeyListener
 	}
 	
 	@Override
-	public void keyReleased(KeyEvent e) 
+	public void keyPressed(KeyEvent e) 
 	{
 		int key = e.getKeyCode();
 		
@@ -134,7 +134,7 @@ public class MazePanel extends JPanel implements KeyListener
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {}
 
 	@Override
 	public void keyTyped(KeyEvent e) {}
