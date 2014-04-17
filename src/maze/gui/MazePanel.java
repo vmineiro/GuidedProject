@@ -30,13 +30,13 @@ public class MazePanel extends JPanel implements KeyListener
 	
 	public MazePanel()
 	{
-		this.game = new Game();
+		
 		launchNewGame();
 		
 		addKeyListener(this);
 		
 		try {
-			wallImg = ImageIO.read(new File("textures/wall01.png"));
+			wallImg = ImageIO.read(new File("textures/Grass_1.png"));
 			floorImg = ImageIO.read(new File("textures/floor01.jpg"));
 			dragonImg = ImageIO.read(new File("textures/dragon80x80.jpeg"));
 			swordImg = ImageIO.read(new File("textures/swor02.png"));
@@ -51,8 +51,32 @@ public class MazePanel extends JPanel implements KeyListener
 	
 	public void launchNewGame()
 	{
+		this.game = new Game();
 		game.initGame(mazeSize, mode, nDragons, builder);
 		game.updatePositions();
+	}
+	
+	public void setMazeSize(int size)
+	{
+		this.mazeSize = size;
+		setBuilder(2);
+	}
+	
+	public void setModeGame(int mode_g)
+	{
+		this.mode = mode_g;
+		setBuilder(2);
+	}
+	
+	public void setNDragons(int n_dragons)
+	{
+		this.nDragons = n_dragons;
+		setBuilder(2);
+	}
+
+	public void setBuilder(int n_builder)
+	{
+		this.builder = n_builder;
 	}
 	
 	public void paintComponent(Graphics g) 
@@ -68,7 +92,7 @@ public class MazePanel extends JPanel implements KeyListener
 			{
 				if(game.getMaze().getBoard()[i][j].equals("XX"))
 				{
-					g.drawImage(wallImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 512, 512, null);
+					g.drawImage(wallImg, j*elem_size, i*elem_size, (j*elem_size)+elem_size, (i*elem_size)+elem_size, 0, 0, 256, 256, null);
 				}
 				else if(game.getMaze().getBoard()[i][j].equals("  ") || game.getMaze().getBoard()[i][j].equals("SS"))
 				{
