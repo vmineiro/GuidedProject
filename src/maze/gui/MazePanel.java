@@ -26,8 +26,7 @@ public class MazePanel extends JPanel implements KeyListener
 	public MazePanel()
 	{
 		this.game = new Game();
-		game.initGame(0,1,1,0);
-		game.updatePositions();
+		launchNewGame();
 		
 		addKeyListener(this);
 		
@@ -43,6 +42,12 @@ public class MazePanel extends JPanel implements KeyListener
 			
 		} catch (IOException e) {}
 		
+	}
+	
+	public void launchNewGame()
+	{
+		game.initGame(0, 1, 1, 0);
+		game.updatePositions();
 	}
 	
 	public void paintComponent(Graphics g) 
