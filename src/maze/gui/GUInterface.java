@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -28,6 +29,7 @@ public class GUInterface {
 	private JPanel buttonsPanel;
 	
 	private JButton newGame;
+	private JButton configGame;
 	private JButton exitGame;
 	
 	/**
@@ -80,12 +82,17 @@ public class GUInterface {
 		// Button - EXIT GAME
 		exitGame = new JButton("Exit Game");	
 		exitGame.addActionListener(new ExitGameListener());
+
+		// Button - EXIT GAME
+		configGame = new JButton("Game Configuration");	
+		configGame.addActionListener(new configGameListener());
 		
 	}
 	
 	private void addWidgets(Container cont)
 	{
 		buttonsPanel.add(newGame);
+		buttonsPanel.add(configGame);
 		buttonsPanel.add(exitGame);
 		
 		cont.add(mazePanel, BorderLayout.CENTER);
@@ -129,6 +136,14 @@ public class GUInterface {
 		}
 	}
 	
-	
+	private class configGameListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+					
+		}
+		
+	}
 
 }
