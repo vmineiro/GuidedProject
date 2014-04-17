@@ -152,6 +152,12 @@ public class GUInterface {
 				mazePanel.setMazeSize(configDialog.getSelMazeSize());
 				mazePanel.setNDragons(configDialog.getSelNDragons());
 				mazePanel.setModeGame(configDialog.getSelMode());
+				
+				mazePanel.setUpKey(configDialog.getSelUpKey());
+				mazePanel.setDownKey(configDialog.getSelDownKey());
+				mazePanel.setLeftKey(configDialog.getSelLeftKey());
+				mazePanel.setRightKey(configDialog.getSelRightKey());
+				mazePanel.setEagleKey(configDialog.getSelEagleKey());
 			}
 			
 			mazePanel.requestFocusInWindow();
