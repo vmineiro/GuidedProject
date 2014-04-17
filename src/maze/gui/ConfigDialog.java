@@ -36,13 +36,17 @@ public class ConfigDialog extends JDialog
     private JLabel modeLabel;
     private JRadioButton staticRadioButton;
     private JRadioButton dynamicRadioButton;
-    private JRadioButton mixedRadioButton;
     private JButton btnUp;
     private JLabel keyLabel;
     private JButton btnDown;
     private JButton btnLeft;
     private JButton btnRight;
     private JButton btnEagle;
+    
+    private boolean saveConfig = false;
+    private int selMazeSize;
+    private int selNDragons;
+    private int selMode;
 	
 	public ConfigDialog(JFrame frame, boolean modal, String myMessage)
 	{
@@ -66,6 +70,7 @@ public class ConfigDialog extends JDialog
 		sizeLabel = new JLabel("Enter maze size (N) for a NxN Maze [10 - 30]:");
 		
 		sizeSlider = new JSlider();
+		sizeSlider.setSnapToTicks(true);
 		sizeSlider.setPaintLabels(true);
 		sizeSlider.setPaintTicks(true);
 		sizeSlider.setMinorTickSpacing(5);
@@ -80,6 +85,7 @@ public class ConfigDialog extends JDialog
 		dragonLabel = new JLabel("Number of Dragons [1-15]:");
 		
 		dragonSlider = new JSlider();
+		dragonSlider.setSnapToTicks(true);
 		dragonSlider.setMinimum(1);
 		dragonSlider.setMaximum(15);
 		dragonSlider.setValue(7);
@@ -91,11 +97,11 @@ public class ConfigDialog extends JDialog
 		modePanel = new JPanel();
 		modePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		modeLabel = new JLabel("Dragon Mode:");
+		modeLabel = new JLabel("Dragon Mode (Static + Dynamic = Mixed):");
 		
 		staticRadioButton = new JRadioButton("Static");
+		staticRadioButton.setSelected(true);
 		dynamicRadioButton = new JRadioButton("Dynamic");
-		mixedRadioButton = new JRadioButton("Mixed");		
 
 		// Keys Panel
 		keysLabelPanel = new JPanel();
@@ -141,7 +147,6 @@ public class ConfigDialog extends JDialog
 		modePanel.add(modeLabel);
 		modePanel.add(staticRadioButton);
 		modePanel.add(dynamicRadioButton);
-		modePanel.add(mixedRadioButton);
 		cont.add(modePanel);
 		
 		// Keys Panel
@@ -160,12 +165,49 @@ public class ConfigDialog extends JDialog
 		cont.add(buttonsPanel);		
 	}
 	
+	public boolean getConfigOption()
+	{
+		return saveConfig;
+	}
+	
+	public int getSelMazeSize()
+	{
+		return selMazeSize;
+	}
+	
+	public int getSelNDragons()
+	{
+		return selNDragons;
+	}
+	
+	public int getSelMode()
+	{
+		return selMode;
+	}
+	
 	private class saveConfigListener implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			saveConfig = true;
 			
+			selMazeSize = sizeSlider.getValue();
+			selNDragons = dragonSlider.getValue();
 			
+			if(staticRadioButton.isSelected() && dynamicRadioButton.isSelected())
+			{
+				selMode = 3;
+			}
+			else if(!staticRadioButton.isSelected())
+			{
+				selMode = 2;
+			}
+			else
+			{
+				selMode = 1;
+			}
+			
+			setVisible(false);
 		}	
 	}
 	
@@ -173,8 +215,8 @@ public class ConfigDialog extends JDialog
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			
+			saveConfig = false;
+			setVisible(false);
 		}	
 	}
 	
