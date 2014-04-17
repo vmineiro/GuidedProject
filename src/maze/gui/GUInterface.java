@@ -57,7 +57,7 @@ public class GUInterface {
 		frame = new JFrame("MAZE GAME");
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(500, 550));
+		frame.setPreferredSize(new Dimension(600, 650));
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		createWidgets();

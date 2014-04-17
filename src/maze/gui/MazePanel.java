@@ -86,7 +86,8 @@ public class MazePanel extends JPanel implements KeyListener
 		super.paintComponent(g);
 		
 		int n = game.getMaze().getBoard().length;
-		int elem_size = 50;
+		
+		int elem_size = 600/n;
 		
 		for (int i=0; i<n; i++) 
 		{
