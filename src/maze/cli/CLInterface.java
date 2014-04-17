@@ -55,7 +55,7 @@ public class CLInterface {
 				} 
 				else if (menuOption==2)
 				{					
-					//maze.gui.StarGameWindow.startGame();
+					maze.gui.GUInterface.startGameGUI();
 					validOption = true;					
 				} 
 				else
