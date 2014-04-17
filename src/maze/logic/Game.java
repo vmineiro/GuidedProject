@@ -509,7 +509,7 @@ public class Game implements Serializable{
 		if (player.eagleLaunched()) return;
 
 		player.launchEagle();
-		System.out.println("Eagle Launched");
+		//System.out.println("Eagle Launched");
 		
 		eagle.setPosition(player.getPosition());
 		eagle.getSword(sword.getPosition());
