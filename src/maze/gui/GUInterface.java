@@ -26,6 +26,7 @@ public class GUInterface {
 	private JButton configGame;
 	private JButton exitGame;
 	private JButton saveLoadGame;
+	private JButton createMaze;
 
 	/**
 	 * Launch the application.
@@ -50,7 +51,7 @@ public class GUInterface {
 		frame = new JFrame("MAZE GAME");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(600, 650));
+		frame.setPreferredSize(new Dimension(660, 730));
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		createWidgets();
@@ -86,6 +87,10 @@ public class GUInterface {
 		configGame = new JButton("Game Settings");	
 		configGame.addActionListener(new configGameListener());
 
+		// Button - CREATE MAZE
+		createMaze = new JButton("Create Maze");	
+		createMaze.addActionListener(new CreateMazeListener());
+
 	}
 
 	private void addWidgets(Container cont)
@@ -93,6 +98,7 @@ public class GUInterface {
 		buttonsPanel.add(newGame);
 		buttonsPanel.add(saveLoadGame);
 		buttonsPanel.add(configGame);
+		buttonsPanel.add(createMaze);
 		buttonsPanel.add(exitGame);
 
 		cont.add(mazePanel, BorderLayout.CENTER);
@@ -150,26 +156,34 @@ public class GUInterface {
 				mazePanel.setMazeSize(configDialog.getSelMazeSize());
 				mazePanel.setNDragons(configDialog.getSelNDragons());
 				mazePanel.setModeGame(configDialog.getSelMode());
+				mazePanel.setBuilder(configDialog.getSelBuider());
 
 				mazePanel.setUpKey(configDialog.getSelUpKey());
 				mazePanel.setDownKey(configDialog.getSelDownKey());
 				mazePanel.setLeftKey(configDialog.getSelLeftKey());
 				mazePanel.setRightKey(configDialog.getSelRightKey());
 				mazePanel.setEagleKey(configDialog.getSelEagleKey());
-				
+
 				String newGameMsg = "New Game?";
 				int reply = JOptionPane.showConfirmDialog(frame,newGameMsg,"New Game",JOptionPane.YES_NO_OPTION);
 
 				if(reply == JOptionPane.YES_OPTION)
 				{
-				
-				mazePanel.launchNewGame();
-				mazePanel.repaint();
-				
+
+					mazePanel.launchNewGame();
+					
+					if (mazePanel.getGame().getMaze().getBoard().length > 25){
+						frame.setSize(780, 850);;
+					} else {
+						frame.setSize(frame.getPreferredSize());
+					}
+					
+					mazePanel.repaint();
+
 				}
 				else if(reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION){}	
 			}
-			
+
 
 			mazePanel.requestFocusInWindow();
 		}
@@ -219,13 +233,71 @@ public class GUInterface {
 				}
 				else if(reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION){}	
 			}
-			
+
 			saveLoadDialog.setSaveGame(false);
 			saveLoadDialog.setLoadGame(false);
+			
+			if (mazePanel.getGame().getMaze().getBoard().length > 25){
+				frame.setSize(780, 850);;
+			} else {
+				frame.setSize(frame.getPreferredSize());
+			}
 			
 			mazePanel.repaint();
 			mazePanel.requestFocusInWindow();
 
+		}	
+	}
+	
+	private class CreateMazeListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+//			// JDialog - SAVE/LOAD GAME
+//			saveLoadDialog = new SaveLoadDialog(frame, true, "Save/Load Game");
+//
+//			if(saveLoadDialog.gameSaved())
+//			{
+//
+//				try{
+//
+//					mazePanel.getGame().saveGame(saveLoadDialog.getFilePath());
+//					JOptionPane.showMessageDialog(frame,"Game saved.");
+//
+//				} catch (IOException i) {
+//
+//					i.printStackTrace();
+//
+//				}		
+//
+//			} 
+//			else if (saveLoadDialog.gameLoaded())
+//			{
+//				String newGameMsg = "Load Game?";
+//				int reply = JOptionPane.showConfirmDialog(frame,newGameMsg,"Load Game",JOptionPane.YES_NO_OPTION);
+//
+//				if(reply == JOptionPane.YES_OPTION)
+//				{
+//					try{
+//
+//						mazePanel.loadGame(saveLoadDialog.getFilePath());
+//
+//					} catch (IOException | ClassNotFoundException i) {
+//						JOptionPane.showMessageDialog(frame,"File not supported.");
+//						i.printStackTrace();
+//
+//					}
+//				}
+//				else if(reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION){}	
+//			}
+//
+//			saveLoadDialog.setSaveGame(false);
+//			saveLoadDialog.setLoadGame(false);
+//
+//			mazePanel.repaint();
+//			mazePanel.requestFocusInWindow();
+//
 		}	
 	}
 

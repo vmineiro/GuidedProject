@@ -221,11 +221,11 @@ public class CLInterface {
 
 			try {
 
-				System.out.println("Enter maze size (N) for a NxN Maze [10 - 30]:");
+				System.out.println("Enter maze size (N) for a NxN Maze [10 - 35]:");
 
 				mazeSize = sc1.nextInt();
 
-				if (mazeSize > 9 || mazeSize < 31) {
+				if (mazeSize > 9 || mazeSize < 36) {
 
 					return mazeSize;
 
@@ -267,10 +267,10 @@ public class CLInterface {
 
 			try {
 
-				System.out.println("Number of Dragons [1-15]:");
+				System.out.println("Number of Dragons [1-16]:");
 				numDragons = sc1.nextInt();
 
-				if ((numDragons > 0) && (numDragons < 16)) {
+				if ((numDragons > 0) && (numDragons < 17)) {
 
 					return numDragons;
 
@@ -550,12 +550,13 @@ public class CLInterface {
 
 		} catch (IOException i) {
 
-			i.printStackTrace();
+			System.out.printf("File not supported.");
+			//i.printStackTrace();
 
 		} catch (ClassNotFoundException c) {
 
 			System.out.println("Game class not found");
-			c.printStackTrace();
+			//c.printStackTrace();
 
 		}
 
@@ -580,7 +581,9 @@ public class CLInterface {
 
 		} catch (IOException i) {
 			
-			i.printStackTrace();
+			
+			System.out.printf("File not supported.");
+			//i.printStackTrace();
 			
 		}
 

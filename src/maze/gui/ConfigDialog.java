@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,7 +19,6 @@ import javax.swing.JLabel;
 import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
-
 import javax.swing.JSlider;
 import javax.swing.JRadioButton;
 
@@ -30,6 +30,7 @@ public class ConfigDialog extends JDialog
 	private JPanel keysLabelPanel;
 	private JPanel keysPanel;
 	private JPanel buttonsPanel;
+	private JPanel builderPanel;
 	
 	private JButton yesButton;
     private JButton noButton;
@@ -46,11 +47,14 @@ public class ConfigDialog extends JDialog
     private JButton btnLeft;
     private JButton btnRight;
     private JButton btnEagle;
+    private JComboBox<String> builderCombBox;
+    private JLabel builderLabel;
     
     private boolean saveConfig = false;
     private int selMazeSize;
     private int selNDragons;
     private int selMode;
+    private int selBuilder;
     
     private int selUpKey = KeyEvent.VK_UP;
     private int selDownKey = KeyEvent.VK_DOWN;
@@ -77,29 +81,32 @@ public class ConfigDialog extends JDialog
 		mazeSizePanel = new JPanel();
 		mazeSizePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		sizeLabel = new JLabel("Enter maze size (N) for a NxN Maze [10 - 30]:");
+		sizeLabel = new JLabel("Enter maze size (N) for a NxN Maze:");
 		
 		sizeSlider = new JSlider();
 		sizeSlider.setSnapToTicks(true);
-		sizeSlider.setPaintLabels(true);
 		sizeSlider.setPaintTicks(true);
-		sizeSlider.setMinorTickSpacing(5);
+		sizeSlider.setMinorTickSpacing(1);
+		sizeSlider.setMajorTickSpacing(5);
 		sizeSlider.setValue(20);
-		sizeSlider.setMaximum(30);
+		sizeSlider.setMaximum(35);
 		sizeSlider.setMinimum(10);
+		sizeSlider.setPaintLabels(true);	
+		
 		
 		// Dragons Number Panel
 		nDragonsPanel = new JPanel();
 		nDragonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		dragonLabel = new JLabel("Number of Dragons [1-15]:");
+		dragonLabel = new JLabel("Number of Dragons:");
 		
 		dragonSlider = new JSlider();
 		dragonSlider.setSnapToTicks(true);
 		dragonSlider.setMinimum(1);
-		dragonSlider.setMaximum(15);
+		dragonSlider.setMaximum(16);
 		dragonSlider.setValue(7);
 		dragonSlider.setMinorTickSpacing(1);
+		dragonSlider.setMajorTickSpacing(5);
 		dragonSlider.setPaintTicks(true);
 		dragonSlider.setPaintLabels(true);
 		
@@ -110,8 +117,9 @@ public class ConfigDialog extends JDialog
 		modeLabel = new JLabel("Dragon Mode (Static + Dynamic = Mixed):");
 		
 		staticRadioButton = new JRadioButton("Static");
-		staticRadioButton.setSelected(true);
+		staticRadioButton.setSelected(false);
 		dynamicRadioButton = new JRadioButton("Dynamic");
+		dynamicRadioButton.setSelected(true);
 
 		// Keys Panel
 		keysLabelPanel = new JPanel();
@@ -148,10 +156,27 @@ public class ConfigDialog extends JDialog
 		noButton = new JButton("Discard Configuration");	
 		noButton.addActionListener(new disConfigListener());
 		
+		
+		// Builder Panel
+		builderPanel = new JPanel();
+		
+		String builderName[] = {"One path to the exit","Multiple paths to the exit"};		
+		builderCombBox = new JComboBox<>(builderName);
+		builderCombBox.setSelectedIndex(0);
+		builderCombBox.addActionListener(new BuilderComboBoxListener());
+		
+		builderLabel = new JLabel("Maze Builder:");
+		
 	}
 	
 	private void addWidgets(Container cont)
 	{
+		
+		// Builder Panel
+		builderPanel.add(builderLabel);
+		builderPanel.add(builderCombBox);
+		cont.add(builderPanel);	
+		
 		// Maze Size Panel
 		mazeSizePanel.add(sizeLabel);
 		mazeSizePanel.add(sizeSlider);
@@ -182,6 +207,7 @@ public class ConfigDialog extends JDialog
 		buttonsPanel.add(yesButton);
 		buttonsPanel.add(noButton);
 		cont.add(buttonsPanel);		
+		
 	}
 	
 	public boolean getConfigOption()
@@ -202,6 +228,11 @@ public class ConfigDialog extends JDialog
 	public int getSelMode()
 	{
 		return selMode;
+	}
+	
+	public int getSelBuider()
+	{
+		return selBuilder;
 	}
 	
 	public int getSelUpKey()
@@ -261,6 +292,16 @@ public class ConfigDialog extends JDialog
 		public void actionPerformed(ActionEvent e) {
 			saveConfig = false;
 			setVisible(false);
+		}	
+	}
+	
+	private class BuilderComboBoxListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			selBuilder = builderCombBox.getSelectedIndex() +1;
+	    
 		}	
 	}
 	
