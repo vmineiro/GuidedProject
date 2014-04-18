@@ -14,14 +14,10 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import java.awt.FlowLayout;
 
-import javax.swing.JSpinner;
 import javax.swing.BoxLayout;
-
-import java.awt.Component;
 
 import javax.swing.JSlider;
 import javax.swing.JRadioButton;

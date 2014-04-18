@@ -4,6 +4,11 @@ package maze.logic;
 import maze.logic.Dragon.Mode;
 import maze.logic.Character.Direction;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,6 +31,9 @@ public class Game implements Serializable{
 	/** The dragon. */
 	private ArrayList<Dragon> dragons;
 
+	/** All */
+	private int dragonsAlive;
+
 	/** The Eagle. */
 	private Eagle eagle;
 
@@ -37,6 +45,7 @@ public class Game implements Serializable{
 		maze = new Maze();
 		player = new Hero(new Position(0,0));
 		dragons = new ArrayList<Dragon>();
+		dragonsAlive = 0;
 		sword = new Sword(new Position(0,0));
 		eagle = new Eagle(player.getPosition());
 	}
@@ -67,6 +76,7 @@ public class Game implements Serializable{
 			Dragon dragon = new Dragon(new Position(3, 1), Mode.STATIC);
 			dragon.setMode(Mode.STATIC);
 			addDragon(dragon);
+			dragonsAlive = dragons.size();
 
 		} else {
 
@@ -81,7 +91,7 @@ public class Game implements Serializable{
 				maze = tempMaze.getResult();
 
 			} else {
-				
+
 				/* initialize a temporary maze to be build */
 				MazeGenerator tempMaze;
 
@@ -101,7 +111,7 @@ public class Game implements Serializable{
 
 			/* create dragons */
 			for (int i = 0; i< nDragons; i++){
-				
+
 				Dragon dragon = new Dragon(new Position(0, 0), Mode.STATIC);
 				dragon.setPosition(maze.randomDragonPosition());
 
@@ -116,8 +126,10 @@ public class Game implements Serializable{
 				updatePosition(dragon);
 
 				addDragon(dragon);
-				
+
 			}
+
+			dragonsAlive = dragons.size();
 
 		}
 	}
@@ -199,9 +211,9 @@ public class Game implements Serializable{
 	 * @param maze2 the new maze
 	 */
 	public void setMaze(Maze maze2) {
-		
+
 		maze = maze2;
-		
+
 	}
 
 
@@ -233,8 +245,8 @@ public class Game implements Serializable{
 	public void setSword(Sword sword2) {
 		sword = sword2;		
 	}
-	
-	
+
+
 	/**
 	 * Update the positions of all characters.
 	 */
@@ -245,16 +257,16 @@ public class Game implements Serializable{
 		}
 
 		if (sword.isActive()) {
-			
+
 			if (maze.getPositionValue(sword.getPosition()).equals("D "))
 				maze.setCellValue(sword.getPosition(), "F ");
 			else
 				updatePosition(sword);		
-			
+
 		}
 
 		if (eagle.isActive()) {
-			
+
 			if (maze.getPositionValue(eagle.getPosition()).equals("D ") && !eagle.isReturning()){
 				/* Eagle over an Awaken Dragon */
 				maze.setCellValue(eagle.getPosition(), "Da");
@@ -277,7 +289,7 @@ public class Game implements Serializable{
 				updatePosition(eagle);
 				updatePosition(player);
 			}	
-			
+
 		} else {
 			updatePosition(player);
 		}
@@ -302,7 +314,7 @@ public class Game implements Serializable{
 	 */
 	public void movePlayer(Direction dir) {
 		if (checkPlayerMove(player.getPosition(dir))) {
-			
+
 			maze.clearCell(player.getPosition());
 			player.move(dir);
 			pickSword();
@@ -311,9 +323,9 @@ public class Game implements Serializable{
 			checkKill();
 
 			updatePosition(player);
-			
+
 		}
-		
+
 	}
 
 
@@ -325,10 +337,10 @@ public class Game implements Serializable{
 		if (!sword.isActive()) return; 
 
 		if (player.getPosition().equals(sword.getPosition())) {
-			
+
 			player.getArmed();
 			sword.picked();
-			
+
 		}
 
 	}
@@ -365,17 +377,9 @@ public class Game implements Serializable{
 
 			/* Message if the player tries to exit without getting the sword and kill the dragon */
 
-			boolean allDragonsDead = true;
-			
-			for (Dragon dragon : dragons){
-				
-				if (!dragon.isDead()) allDragonsDead = false;
-				/* Game doesn't end */
-			}
-			
 			if (pos.equals(maze.getExit())){
-				
-				if (!allDragonsDead) {
+
+				if (dragonsAlive > 0) {
 					//System.out.println("\nYou need to kill all the Dragons (D / d)");
 					return false;
 				} else
@@ -383,9 +387,9 @@ public class Game implements Serializable{
 			}
 
 		}		
-		
+
 		return true;
-		
+
 	}
 
 
@@ -393,13 +397,16 @@ public class Game implements Serializable{
 	 * Move each dragon in the game.
 	 */
 	public void dragonsMove(){
-		
+
 		for (Dragon dragon : dragons){
-			
+
 			dragonMove(dragon);
-			
+
 		}
 
+		if (dragonsAlive == 0) {
+			maze.setCellValue(maze.getExit(), "  ");
+		}
 		/* check if the dragon kill any Character (hero or eagle) or if the dragon dies. */
 		checkKill();	
 	}
@@ -426,11 +433,11 @@ public class Game implements Serializable{
 			/* 33% probability of changing dragon sleep status */
 
 			int changeStatus = randomNr.nextInt(10);
-			
+
 			if (changeStatus % 3 == 0) {
-				
+
 				dragon.changeStatus();
-			
+
 			}
 
 		}
@@ -453,7 +460,7 @@ public class Game implements Serializable{
 			   if the move is not valid (wall) the loop generates another number until get a valid option */
 
 			move = randomNr.nextInt(5);
-			
+
 			switch (move) {
 			case 0:
 				moveDragon(dragon,Direction.LEFT);
@@ -488,14 +495,14 @@ public class Game implements Serializable{
 	 * @param dir the dir
 	 */
 	public void moveDragon(Dragon dragon, Direction dir) {
-		
+
 		if (maze.cellIsEmpty(dragon.getPosition(dir))) {
-			
+
 			maze.clearCell(dragon.getPosition());
 			dragon.move(dir);
 
 			updatePosition(dragon);
-			
+
 		}
 
 	}
@@ -506,14 +513,13 @@ public class Game implements Serializable{
 	 * */
 	public void eagleLaunched() {
 
-		if (player.eagleLaunched()) return;
+		if (player.eagleLaunched() || player.isArmed()) return;
 
 		player.launchEagle();
-		//System.out.println("Eagle Launched");
-		
+
 		eagle.setPosition(player.getPosition());
 		eagle.getSword(sword.getPosition());
-		
+
 		eagleMove();
 
 	}
@@ -575,48 +581,52 @@ public class Game implements Serializable{
 		/* Hero kills the Dragon */
 		if (player.isArmed()){
 			for (Dragon dragon : dragons){
-				if (player.getPosition().equals(dragon.getPosition(Direction.LEFT)) ||
-						player.getPosition().equals(dragon.getPosition(Direction.DOWN)) ||
-						player.getPosition().equals(dragon.getPosition(Direction.RIGHT)) ||
-						player.getPosition().equals(dragon.getPosition(Direction.UP))) {
-					dragon.die();
-				}
+				if (!dragon.isDead()){
+					if (player.getPosition().equals(dragon.getPosition(Direction.LEFT)) ||
+							player.getPosition().equals(dragon.getPosition(Direction.DOWN)) ||
+							player.getPosition().equals(dragon.getPosition(Direction.RIGHT)) ||
+							player.getPosition().equals(dragon.getPosition(Direction.UP))) {
+						dragon.die();
+						dragonsAlive--;
+					}
+				}		
 			}
 		}
 
 		/* Dragons kill */
 		for (Dragon dragon : dragons){
+			if (!dragon.isDead()){
+				if (!dragon.isAsleep()){
 
-			if (!dragon.isAsleep()){
-
-				/* Dragon kills the Hero */
-				if (!player.isArmed()) {
-					if (player.getPosition().equals(dragon.getPosition(Direction.LEFT)) ||
-							player.getPosition().equals(dragon.getPosition(Direction.DOWN)) ||
-							player.getPosition().equals(dragon.getPosition(Direction.RIGHT)) ||
-							player.getPosition().equals(dragon.getPosition(Direction.UP))) {
-						player.die();
+					/* Dragon kills the Hero */
+					if (!player.isArmed()) {
+						if (player.getPosition().equals(dragon.getPosition(Direction.LEFT)) ||
+								player.getPosition().equals(dragon.getPosition(Direction.DOWN)) ||
+								player.getPosition().equals(dragon.getPosition(Direction.RIGHT)) ||
+								player.getPosition().equals(dragon.getPosition(Direction.UP))) {
+							player.die();
+						}
 					}
-				}
 
-				/* Dragon kills the Eagle */
-				if (eagle.isActive() && !eagle.isOnWay() && !eagle.isReturning()){
-					if (eagle.getPosition().equals(dragon.getPosition()) ||
-							eagle.getPosition().equals(dragon.getPosition(Direction.LEFT)) ||
-							eagle.getPosition().equals(dragon.getPosition(Direction.DOWN)) ||
-							eagle.getPosition().equals(dragon.getPosition(Direction.RIGHT)) ||
-							eagle.getPosition().equals(dragon.getPosition(Direction.UP))
-							) {
-						eagle.die();
-						sword.droped(eagle.getPosition());
+					/* Dragon kills the Eagle */
+					if (eagle.isActive() && !eagle.isOnWay() && !eagle.isReturning()){
+						if (eagle.getPosition().equals(dragon.getPosition()) ||
+								eagle.getPosition().equals(dragon.getPosition(Direction.LEFT)) ||
+								eagle.getPosition().equals(dragon.getPosition(Direction.DOWN)) ||
+								eagle.getPosition().equals(dragon.getPosition(Direction.RIGHT)) ||
+								eagle.getPosition().equals(dragon.getPosition(Direction.UP))
+								) {
+							eagle.die();
+							sword.droped(eagle.getPosition());
+						}
 					}
-				}
 
+				}
 			}
 		}
 
 		updatePositions();
-		
+
 	}
 
 
@@ -628,7 +638,6 @@ public class Game implements Serializable{
 	public boolean gameOver() {
 
 		if (player.isDead()) {										/* Player loses */
-			//System.out.println("\nGame Over you Lost!!!");
 			return true;												
 		}
 
@@ -637,7 +646,6 @@ public class Game implements Serializable{
 		}
 
 		if (player.getPosition().equals(maze.getExit())) {			/* Player Wins */
-			//System.out.println("\nCongratulations you Win!!!");
 			return true;											
 		} else
 			return false;
@@ -650,15 +658,63 @@ public class Game implements Serializable{
 	 * @param tempGame the new game
 	 */
 	public void setGame(Game tempGame) {
-		
+
 		setMaze(tempGame.getMaze());
 		setPlayer(tempGame.getPlayer());
 		setDragons(tempGame.getDragons());
+		
+		int numDragonsAlive = 0;
+		
+		for (Dragon dragon : dragons) {
+			if (!dragon.isDead()){
+				numDragonsAlive++;
+			}
+		}
+		
+		dragonsAlive = numDragonsAlive;
+		
 		setEagle(tempGame.getEagle());
 		setSword(tempGame.getSword());
-		
+
 		updatePositions();
-		
+
+	}
+
+
+	public void saveGame(String path) throws IOException {
+
+
+		FileOutputStream fileOut = new FileOutputStream(path);
+		ObjectOutputStream os = new ObjectOutputStream(fileOut);
+
+		/* Write the game in a file */
+		os.writeObject(this);
+
+		fileOut.close();
+		os.close();	
+
+	}
+
+
+	public void loadGame(String path) throws IOException, ClassNotFoundException  {
+
+		FileInputStream fileIn = new FileInputStream(path);
+		ObjectInputStream is = new ObjectInputStream(fileIn);
+
+		/* load the saved game in the file to the object tempGame */
+		Game tempGame = (Game) is.readObject();
+
+		is.close();
+		fileIn.close();
+
+		/* Change the Current Game */
+		setGame(tempGame);
+
+	}
+
+
+	public int getDragonsAlive() {
+		return dragonsAlive;
 	}
 
 }
