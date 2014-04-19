@@ -4,9 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import maze.logic.Dragon;
 import maze.logic.Eagle;
+import maze.logic.Game;
 import maze.logic.Position;
 import maze.logic.Sword;
+import maze.logic.Dragon.Mode;
 
 
 /**
@@ -115,13 +118,14 @@ public class EagleTests {
 		int i = 0;
 
 		/* Eagle Move Simulation */
-		while (!stoped){
+		while (!stoped && i < 10){
 
 			if (!eagle.isOnWay() && eagle.isActive()) {
 				
 				stoped = true;
 				
 				/* Assert Symbol Change */
+				eagle.move();
 				assertTrue(eagle.getSymbol().equals("Ea"));
 				sword.setPosition(eagle.getPosition());
 				sword.setActive();
@@ -155,6 +159,69 @@ public class EagleTests {
 			i++;
 			
 		}
+		
+	}
+	
+	/**
+	 * Eagle move test.
+	 */
+	@Test
+	public void eagleDeadTest(){
+
+		/* Set Game Settings */
+		Game gameTesting = new Game();
+
+		String[][] lab = {
+				{"XX","XX","XX","XX","XX"},
+				{"XX","  ","  ","  ","XX"},
+				{"SS","  ","XX","  ","XX"},
+				{"XX","  ","  ","  ","XX"},
+				{"XX","XX","XX","XX","XX"}
+		};
+
+		gameTesting.getPlayer().setPosition(new Position(1, 1));
+		
+		gameTesting.getSword().setPosition(new Position(3,2));
+
+		gameTesting.getMaze().setMaze(lab);
+		gameTesting.getMaze().setExit(new Position(2,0));
+		
+		Dragon dragon = new Dragon(new Position(3,3),Mode.STATIC);
+		gameTesting.addDragon(dragon);
+		
+		gameTesting.updatePositions();
+		
+		gameTesting.eagleLaunched();
+		
+		assertTrue(gameTesting.getEagle().isOnWay());
+		assertTrue(gameTesting.getEagle().getPosition().equals(new Position(1, 1)));
+		
+		gameTesting.eagleMove();
+		assertTrue(gameTesting.getEagle().getPosition().equals(new Position(2, 2)));
+		
+		gameTesting.eagleMove();
+		
+		assertTrue(gameTesting.getEagle().getPosition().equals(new Position(3, 2)));
+		assertFalse(gameTesting.getEagle().isOnWay());
+		assertFalse(gameTesting.getEagle().isReturning());
+		
+		gameTesting.eagleMove();
+		assertFalse(gameTesting.getEagle().isOnWay());
+		assertFalse(gameTesting.getEagle().isReturning());
+		assertTrue(gameTesting.getSword().isActive());
+		assertFalse(gameTesting.getEagle().isActive());
+
+		
+		gameTesting.eagleMove();
+		assertFalse(gameTesting.getEagle().isOnWay());
+		assertFalse(gameTesting.getEagle().isReturning());
+		assertTrue(gameTesting.getSword().isActive());
+		assertFalse(gameTesting.getEagle().isActive());
+		assertTrue(gameTesting.getEagle().getPosition().equals(new Position(3, 2)));
+		
+		gameTesting.eagleMove();
+		assertTrue(gameTesting.getEagle().getPosition().equals(new Position(3, 2)));		
+		
 		
 	}
 

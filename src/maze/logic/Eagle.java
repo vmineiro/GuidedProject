@@ -56,6 +56,9 @@ public class Eagle extends Character implements Serializable{
 		lastCell = positionValue;
 	}
 
+	public boolean hasTheSword() {
+		return hasSword;
+	}
 
 	/**
 	 * Gets the last cell.
@@ -85,6 +88,15 @@ public class Eagle extends Character implements Serializable{
 	public Stack<Position> getReturnPath() {
 		return returnPath;
 	}
+	
+	
+	public void die(){
+		super.die();
+		hasSword = false;
+		onWay = false;
+		returning = false;
+		
+	}
 
 	
 	/**
@@ -93,31 +105,27 @@ public class Eagle extends Character implements Serializable{
 	public void move(){
 
 		if (onWay) {					/* moving to the sword position	*/	
-			if (swordPath.isEmpty()){	/* arrived to the sword position */
-				lastCell = "  ";
-				onWay = false;
-			} else {
-				moveToSword();
-			}
+			
+			moveToSword();
 
-		}
-		if (!onWay && !returning && !hasSword){	/* picking the sword. Possibility to the dragon kill the eagle while picking the sword */		
-			returning = true;
+		} else if (!onWay && !hasSword){	/* picking the sword. Possibility to the dragon kill the eagle while picking the sword */		
+			
 			hasSword = true;
 			symbol = "Ea";
 
-		}
-		if (returning){							/* returning to the position where the eagle was launched */	
-			if (returnPath.isEmpty()){			/* arrived to the launch position */
-				returning = false;
-			} else {
-				moveBack();
-			}
+		} else if (hasSword && !returning){
+			
+			returning = true;
+			
+		} else if (returning){							/* returning to the position where the eagle was launched */	
+			
+			moveBack();
 
 		}
+
 
 	}
-
+	
 
 	/**
 	 * Move to sword.
@@ -125,6 +133,12 @@ public class Eagle extends Character implements Serializable{
 	public void moveToSword(){	
 		setPosition(swordPath.get(0));
 		swordPath.remove(0);
+		
+		if (swordPath.isEmpty()){	/* arrived to the sword position */
+			lastCell = "  ";
+			onWay = false;
+		}
+		
 	}
 
 
@@ -133,6 +147,11 @@ public class Eagle extends Character implements Serializable{
 	 */
 	public void moveBack(){	
 		setPosition(returnPath.pop());
+		
+		if (returnPath.isEmpty()){			/* arrived to the launch position */
+			returning = false;
+		}
+		
 	}
 
 

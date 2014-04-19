@@ -545,30 +545,26 @@ public class Game implements Serializable{
 		/*  If the eagle is moving set the previous value on the eagle position, move one position,
 			and store the maze value on lastCell field */
 
-		if (eagle.isOnWay() || eagle.isReturning()) {
 
-			maze.setCellValue(eagle.getPosition(), eagle.getLastCell());				
-			eagle.move();
+		maze.setCellValue(eagle.getPosition(), eagle.getLastCell());				
+		eagle.move();
 
-			/* if the eagle arrive the sword position, after pick the sword the cell value will be 
+		/* if the eagle arrive the sword position, after pick the sword the cell value will be 
 				an empty cell ("  ") */
-			if (eagle.getPosition().equals(sword.getPosition())){			
-				eagle.setLastCell("  ");
-			} else {
-				eagle.setLastCell(maze.getPositionValue(eagle.getPosition()));	
-			}
-
+		if (eagle.getPosition().equals(sword.getPosition())){			
+			eagle.setLastCell("  ");
+			sword.picked();
+		} else {
+			eagle.setLastCell(maze.getPositionValue(eagle.getPosition()));	
 		}
 
-		if (sword.isActive()) {
-			if (eagle.getPosition().equals(sword.getPosition())){
-				sword.picked();
-			}
-		} else {
+		if (!sword.isActive()) {
 			if (!eagle.isReturning()) {
 				sword.droped(eagle.getPosition());
 			}
 		}	
+		
+		checkKill();
 
 	}
 
@@ -662,17 +658,17 @@ public class Game implements Serializable{
 		setMaze(tempGame.getMaze());
 		setPlayer(tempGame.getPlayer());
 		setDragons(tempGame.getDragons());
-		
+
 		int numDragonsAlive = 0;
-		
+
 		for (Dragon dragon : dragons) {
 			if (!dragon.isDead()){
 				numDragonsAlive++;
 			}
 		}
-		
+
 		dragonsAlive = numDragonsAlive;
-		
+
 		setEagle(tempGame.getEagle());
 		setSword(tempGame.getSword());
 
