@@ -29,7 +29,7 @@ public class Maze  implements Serializable {
 	 * @param lab the new maze
 	 * @return the maze
 	 */
-	public void setMaze(String[][] lab){
+	public void setBoard(String[][] lab){
 		board = lab;
 	}
 	

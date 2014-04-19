@@ -42,7 +42,7 @@ public class MoveTests {
 		
 		gameTesting.getSword().setPosition(new Position(3,1));
 
-		gameTesting.getMaze().setMaze(lab);
+		gameTesting.getMaze().setBoard(lab);
 		gameTesting.getMaze().setExit(new Position(2,0));
 		
 		Dragon dragon = new Dragon(new Position(3,3),Mode.STATIC);

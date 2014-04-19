@@ -88,44 +88,48 @@ public class Eagle extends Character implements Serializable{
 	public Stack<Position> getReturnPath() {
 		return returnPath;
 	}
-	
-	
+
+
 	public void die(){
 		super.die();
 		hasSword = false;
 		onWay = false;
 		returning = false;
-		
+
 	}
 
-	
+
 	/**
 	 * Move.
 	 */
 	public void move(){
 
+		if (returnPath.isEmpty()){
+			returning = false;
+			return;
+		}
+
 		if (onWay) {					/* moving to the sword position	*/	
-			
+
 			moveToSword();
 
 		} else if (!onWay && !hasSword){	/* picking the sword. Possibility to the dragon kill the eagle while picking the sword */		
-			
+
 			hasSword = true;
 			symbol = "Ea";
 
 		} else if (hasSword && !returning){
-			
-			returning = true;
-			
+
+			returning = true;		
+
 		} else if (returning){							/* returning to the position where the eagle was launched */	
-			
+
 			moveBack();
 
 		}
 
-
 	}
-	
+
 
 	/**
 	 * Move to sword.
@@ -133,12 +137,12 @@ public class Eagle extends Character implements Serializable{
 	public void moveToSword(){	
 		setPosition(swordPath.get(0));
 		swordPath.remove(0);
-		
+
 		if (swordPath.isEmpty()){	/* arrived to the sword position */
 			lastCell = "  ";
 			onWay = false;
 		}
-		
+
 	}
 
 
@@ -147,11 +151,7 @@ public class Eagle extends Character implements Serializable{
 	 */
 	public void moveBack(){	
 		setPosition(returnPath.pop());
-		
-		if (returnPath.isEmpty()){			/* arrived to the launch position */
-			returning = false;
-		}
-		
+
 	}
 
 

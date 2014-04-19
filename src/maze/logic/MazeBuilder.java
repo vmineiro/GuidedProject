@@ -60,7 +60,7 @@ public class MazeBuilder {
 				{"XX","XX","XX","XX","XX","XX","XX","XX","XX","XX"}
 		};
 
-		maze.setMaze(standard);
+		maze.setBoard(standard);
 		maze.setExit(new Position(5,9));
 	}
 
@@ -79,7 +79,7 @@ public class MazeBuilder {
 			mazeSize = mazeSize+1;
 		}
 
-		maze.setMaze(new String[mazeSize][mazeSize]);
+		maze.setBoard(new String[mazeSize][mazeSize]);
 		visitedCells = new boolean[mazeSize][mazeSize];
 		initBoards();
 

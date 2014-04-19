@@ -21,6 +21,7 @@ public class GUInterface {
 
 	private ConfigDialog configDialog;
 	private SaveLoadDialog saveLoadDialog;
+	private MazeEditorDialog mazeEditorPanel;
 
 	private JButton newGame;
 	private JButton configGame;
@@ -51,7 +52,7 @@ public class GUInterface {
 		frame = new JFrame("MAZE GAME");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(660, 730));
+		frame.setPreferredSize(new Dimension(665, 735));
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		createWidgets();
@@ -173,7 +174,7 @@ public class GUInterface {
 					mazePanel.launchNewGame();
 					
 					if (mazePanel.getGame().getMaze().getBoard().length > 25){
-						frame.setSize(780, 850);;
+						frame.setSize(780, 850);
 					} else {
 						frame.setSize(frame.getPreferredSize());
 					}
@@ -208,7 +209,7 @@ public class GUInterface {
 					JOptionPane.showMessageDialog(frame,"Game saved.");
 
 				} catch (IOException i) {
-
+					JOptionPane.showMessageDialog(frame,"Error writing the file.");
 					i.printStackTrace();
 
 				}		
@@ -253,51 +254,24 @@ public class GUInterface {
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) 
-		{
-//			// JDialog - SAVE/LOAD GAME
-//			saveLoadDialog = new SaveLoadDialog(frame, true, "Save/Load Game");
-//
-//			if(saveLoadDialog.gameSaved())
-//			{
-//
-//				try{
-//
-//					mazePanel.getGame().saveGame(saveLoadDialog.getFilePath());
-//					JOptionPane.showMessageDialog(frame,"Game saved.");
-//
-//				} catch (IOException i) {
-//
-//					i.printStackTrace();
-//
-//				}		
-//
-//			} 
-//			else if (saveLoadDialog.gameLoaded())
-//			{
-//				String newGameMsg = "Load Game?";
-//				int reply = JOptionPane.showConfirmDialog(frame,newGameMsg,"Load Game",JOptionPane.YES_NO_OPTION);
-//
-//				if(reply == JOptionPane.YES_OPTION)
-//				{
-//					try{
-//
-//						mazePanel.loadGame(saveLoadDialog.getFilePath());
-//
-//					} catch (IOException | ClassNotFoundException i) {
-//						JOptionPane.showMessageDialog(frame,"File not supported.");
-//						i.printStackTrace();
-//
-//					}
-//				}
-//				else if(reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION){}	
-//			}
-//
-//			saveLoadDialog.setSaveGame(false);
-//			saveLoadDialog.setLoadGame(false);
-//
-//			mazePanel.repaint();
-//			mazePanel.requestFocusInWindow();
-//
+		{					
+			// JDialog - Maze Editor
+			mazeEditorPanel = new MazeEditorDialog(frame, true, "Maze Editor");	
+			
+			if (mazeEditorPanel.playGame){
+				mazePanel.getGame().setGame(mazeEditorPanel.getGame());
+			}
+			
+			if (mazePanel.getGame().getMaze().getBoard().length > 25){
+				frame.setSize(780, 850);;
+			} else {
+				frame.setSize(frame.getPreferredSize());
+			}
+			
+			mazePanel.repaint();
+			mazePanel.requestFocusInWindow();
+			
+			
 		}	
 	}
 

@@ -540,6 +540,7 @@ public class Game implements Serializable{
 				player.pickEagle();
 				return;
 			}
+	
 		}
 
 		/*  If the eagle is moving set the previous value on the eagle position, move one position,

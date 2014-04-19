@@ -70,19 +70,16 @@ public class MazePanel extends JPanel implements KeyListener
 	public void setMazeSize(int size)
 	{
 		this.mazeSize = size;
-		//setBuilder(2);
 	}
 
 	public void setModeGame(int mode_g)
 	{
 		this.mode = mode_g;
-		//setBuilder(2);
 	}
 
 	public void setNDragons(int n_dragons)
 	{
 		this.nDragons = n_dragons;
-		//setBuilder(2);
 	}
 
 	public void setBuilder(int n_builder)

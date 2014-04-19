@@ -35,7 +35,7 @@ public class MazeGenerator {
 		};
 		
 		maze.setExit(new Position(5, 9));
-		maze.setMaze(lab);
+		maze.setBoard(lab);
 		
 	}
 	
@@ -54,7 +54,7 @@ public class MazeGenerator {
 		maze.setExit(mazeExit);
 		
 		/* Generate a Maze with size of n and the exit previous generated */
-		maze.setMaze(generateMaze(n, mazeExit));
+		maze.setBoard(generateMaze(n, mazeExit));
 		
 	}
 	
