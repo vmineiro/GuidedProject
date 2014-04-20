@@ -1,3 +1,6 @@
+/*
+ * Sword
+ */
 package maze.logic;
 
 import java.io.Serializable;
@@ -31,7 +34,7 @@ public class Sword extends Character implements Serializable{
 	
 
 	/**
-	 * Droped.
+	 * Sword droped.
 	 *
 	 * @param position the position
 	 */

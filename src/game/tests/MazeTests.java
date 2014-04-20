@@ -1,3 +1,6 @@
+/*
+ * Maze Tests
+ */
 package game.tests;
 
 import maze.logic.*;
@@ -11,7 +14,7 @@ import org.junit.Test;
 public class MazeTests {
 
 	/**
-	 * Generate exit test.
+	 * Test maze exit generation.
 	 */
 	@Test
 	public void generateExitTest(){
@@ -23,12 +26,11 @@ public class MazeTests {
 			System.out.println("( " + exit.getLine() + ", " + exit.getCol() + ")");
 		}
 		 */
- 
 		
 	}
 
 	/**
-	 * Generate maze test.
+	 * Test maze generation.
 	 */
 	@Test
 	public void generateMazeTest(){
@@ -49,7 +51,8 @@ public class MazeTests {
 	}
 
 	/**
-	 * Generate positions test.
+	 * Test the creation of an array with no repeated numbers, between 0 and 3, which will represent the 
+	 * direction (left, down, right, up) order to create the path in the maze creation.
 	 */
 	@Test
 	public void generatePositionsTest(){

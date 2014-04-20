@@ -1,3 +1,6 @@
+/*
+ * Character
+ */
 package maze.logic;
 
 import java.io.Serializable;

@@ -1,3 +1,6 @@
+/*
+ * Position
+ */
 package maze.logic;
 
 import java.io.Serializable;

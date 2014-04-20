@@ -1,3 +1,6 @@
+/*
+ * Dragon Tests
+ */
 package game.tests;
 
 import org.junit.Test;
@@ -20,7 +23,7 @@ public class DragonTests {
 	private Game gameTesting;
 
 	/**
-	 * Sets the up.
+	 * Set up the tests.
 	 *
 	 * @throws Exception the exception
 	 */
@@ -34,7 +37,7 @@ public class DragonTests {
 
 	
 	/**
-	 * Dragon move test.
+	 * Test dragon move.
 	 */
 	@Test
 	public void dragonMoveTest(){
@@ -76,7 +79,7 @@ public class DragonTests {
 
 	
 	/**
-	 * Dragon sleep test.
+	 * Test the dragon status (sleep/awake).
 	 */
 	@Test
 	public void dragonSleepTest(){
@@ -127,7 +130,7 @@ public class DragonTests {
 
 
 	/**
-	 * Multiple dragons.
+	 * Test multiple dragons move.
 	 */
 	@Test
 	public void multipleDragons(){
@@ -215,7 +218,7 @@ public class DragonTests {
 	
 	
 	/**
-	 * Multiple dragons start.
+	 * Test multiple dragons start.
 	 */
 	@Test
 	public void multipleDragonsStart(){

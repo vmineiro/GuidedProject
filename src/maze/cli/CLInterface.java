@@ -1,13 +1,12 @@
+/*
+ * CLI Interface
+ */
 package maze.cli;
 
 import maze.logic.*;
 import maze.logic.Character.Direction;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 
@@ -15,6 +14,9 @@ import java.util.Scanner;
  * The Class CLInterface.
  */
 public class CLInterface {
+	
+	/** The game. */
+	private static Game game;
 
 	/**
 	 * The main method.
@@ -55,7 +57,7 @@ public class CLInterface {
 				} 
 				else if (menuOption==2)
 				{					
-					//maze.gui.StarGameWindow.startGame();
+					maze.gui.GUInterface.startGameGUI();
 					validOption = true;					
 				} 
 				else
@@ -114,7 +116,7 @@ public class CLInterface {
 				{
 					try {
 
-						loadGame(game);
+						loadGame();
 						validOption = true;
 
 					} catch (Exception e) {
@@ -141,16 +143,16 @@ public class CLInterface {
 
 	
 	/**
-	 * Maze settings.
+	 * Maze settings and initializes the game status.
 	 *
 	 * @param game the game
 	 */
 	private static void mazeSettings(Game game) {
 
-		int mazeBuilder = selectMazeBuilder();
-		int mazeSize = selectMazeSize();
-		int numDragons = selectNumberDragons();
-		int dragonsMode = selectDragonsMode();
+		int mazeBuilder = selectMazeBuilder(game);
+		int mazeSize = selectMazeSize(game);
+		int numDragons = selectNumberDragons(game);
+		int dragonsMode = selectDragonsMode(game);
 
 		game.initGame(mazeSize, dragonsMode, numDragons, mazeBuilder);
 
@@ -160,9 +162,10 @@ public class CLInterface {
 	/**
 	 * Select maze builder.
 	 *
+	 * @param game the game
 	 * @return the id of the builder selected
 	 */
-	private static int selectMazeBuilder() {
+	private static int selectMazeBuilder(Game game) {
 
 		boolean validOption = false;
 		int builder;
@@ -209,9 +212,10 @@ public class CLInterface {
 	/**
 	 * Select maze size.
 	 *
-	 * @return the int
+	 * @param game the game
+	 * @return mazeSize the size of the maze introduced
 	 */
-	private static int selectMazeSize() {
+	private static int selectMazeSize(Game game) {
 
 		int mazeSize;
 		Scanner sc1 = new Scanner(System.in);
@@ -223,11 +227,11 @@ public class CLInterface {
 
 			try {
 
-				System.out.println("Enter maze size (N) for a NxN Maze [10 - 30]:");
+				System.out.println("Enter maze size (N) for a NxN Maze [10 - 35]:");
 
 				mazeSize = sc1.nextInt();
 
-				if (mazeSize > 9 || mazeSize < 31) {
+				if (mazeSize > 9 || mazeSize < 36) {
 
 					return mazeSize;
 
@@ -255,9 +259,10 @@ public class CLInterface {
 	/**
 	 * Select number dragons.
 	 *
-	 * @return the number of dragons
+	 * @param game the game
+	 * @return numDragons the number of dragons
 	 */
-	private static int selectNumberDragons() {
+	private static int selectNumberDragons(Game game) {
 
 		int numDragons;
 		Scanner sc1 = new Scanner(System.in);
@@ -269,10 +274,10 @@ public class CLInterface {
 
 			try {
 
-				System.out.println("Number of Dragons [1-15]:");
+				System.out.println("Number of Dragons [1-16]:");
 				numDragons = sc1.nextInt();
 
-				if ((numDragons > 0) && (numDragons < 16)) {
+				if ((numDragons > 0) && (numDragons < 17)) {
 
 					return numDragons;
 
@@ -300,9 +305,10 @@ public class CLInterface {
 	/**
 	 * Select dragons mode.
 	 *
-	 * @return the dragon mode selected
+	 * @param game the game
+	 * @return mode the dragon mode selected
 	 */
-	private static int selectDragonsMode() {
+	private static int selectDragonsMode(Game game) {
 
 		int mode;
 		Scanner sc1 = new Scanner(System.in);
@@ -353,7 +359,7 @@ public class CLInterface {
 	 */
 	public static void startGame() throws Exception{
 		
-		Game game = new Game();
+		game = new Game();
 
 		/* Game Options */
 		mainMenu(game);
@@ -362,30 +368,65 @@ public class CLInterface {
 		game.updatePositions();
 
 		/* Draw the maze */
-		printMaze(game);
+		printMaze();
 
 		/* Game loop */
-		while( !game.gameOver() && !playerMove(game) ){
+		while( !game.gameOver() && !playerMove() ){
 
 			game.eagleMove();
 
 			game.dragonsMove();
 
-			printMaze(game);
+			printMaze();
 
 		}
+		
+		endGame();
 
+	}
+
+
+	/**
+	 * End game. Show a Win/Loose message the the user and asks if the user want to play again.
+	 */
+	private static void endGame() {
+		
+		if (!game.getPlayer().isDead() && game.getDragonsAlive() > 0){
+			return;
+		} else if (game.getPlayer().isDead()){
+			System.out.println("You Lost.");
+		} else {
+			System.out.println("You Win.");
+		}
+		
+		Scanner input = new Scanner(System.in);
+		try {
+			System.out.println("New Game (y/n)?");
+			String opt = input.nextLine();
+			opt.toLowerCase();
+			
+			if (opt.equals("y")){
+				startGame();
+			} else if (opt.equals("n")){
+				return;
+			} else 
+				throw new Exception();
+			
+		} catch (Exception e){
+			System.out.println("Invalid input");
+		}
+	
+		
 	}
 
 
 	/**
 	 * Read the player input.
 	 *
-	 * @param game the game
 	 * @return false, if a valid move was introduced
-	 * @return true, if player want to exit the game
+	 * 		   true, if player want to exit the game
 	 */
-	public static boolean playerMove(Game game) {
+	public static boolean playerMove() {
 
 		System.out.println("\nMove (w-up; a-left; s-down; d-right; e- launch eagle; f- don't move; m-menu):");
 
@@ -410,7 +451,7 @@ public class CLInterface {
 			game.eagleLaunched();
 			break;
 		case "m":
-			return gameMenu(game);
+			return gameMenu();
 		default:
 			break;
 		}	
@@ -422,11 +463,10 @@ public class CLInterface {
 	/**
 	 * Game menu.
 	 *
-	 * @param game the game
 	 * @return true, if successful
-	 * @return false, if exit option was selected
+	 *  	   false, if exit option was selected
 	 */
-	private static boolean gameMenu(Game game) {
+	private static boolean gameMenu() {
 
 		Scanner sc1 = new Scanner(System.in);
 		boolean validOption = false;
@@ -450,16 +490,16 @@ public class CLInterface {
 				case 1:
 					return false;
 				case 2:
-					newGame(game);
+					newGame();
 					validOption = true;
 					break;
 				case 3:
-					saveGame(game);
+					saveGame();
 					validOption = true;
 					break;
 				case 4:
 					try {				
-						loadGame(game);
+						loadGame();
 						validOption = true;
 					} catch (Exception e) {
 						System.out.println("Load game error.");
@@ -486,11 +526,9 @@ public class CLInterface {
 
 
 	/**
-	 * New game.
-	 *
-	 * @param game the game
+	 * Initialize a new game and set up the current game.
 	 */
-	private static void newGame(Game game) {
+	private static void newGame() {
 
 		Game tempGame = new Game();
 
@@ -504,37 +542,25 @@ public class CLInterface {
 	/**
 	 * Load game.
 	 *
-	 * @param game the game
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private static void loadGame(Game game) throws IOException {
+	private static void loadGame() throws IOException {
 
 		try	{
 
 			String path =  "./saved_games/" + fileName();
-
-			FileInputStream fileIn = new FileInputStream(path);
-			ObjectInputStream is = new ObjectInputStream(fileIn);
-
-			/* load the saved game in the file to the object tempGame */
-			Game tempGame = (Game) is.readObject();
-
-			is.close();
-			fileIn.close();
-
-			/* Change the Current Game */
-			game.setGame(tempGame);
+			
+			game.loadGame(path);
 
 			System.out.printf("Load complete.");
 
 		} catch (IOException i) {
 
-			i.printStackTrace();
+			System.out.printf("File not supported.");
 
 		} catch (ClassNotFoundException c) {
 
 			System.out.println("Game class not found");
-			c.printStackTrace();
 
 		}
 
@@ -543,30 +569,20 @@ public class CLInterface {
 
 	/**
 	 * Save game.
-	 *
-	 * @param game the game
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private static void saveGame(Game game) throws IOException {
+	private static void saveGame() {
 
 		try	{		
 
 			String path = "./saved_games/" + fileName();
-
-			FileOutputStream fileOut = new FileOutputStream(path);
-			ObjectOutputStream os = new ObjectOutputStream(fileOut);
-
-			/* Write the game in a file */
-			os.writeObject(game);
-
-			fileOut.close();
-			os.close();
+			
+			game.saveGame(path);
 
 			System.out.printf("Serialized data is saved in " + path);
 
 		} catch (IOException i) {
-			
-			i.printStackTrace();
+				
+			System.out.printf("File not supported.");
 			
 		}
 
@@ -574,9 +590,9 @@ public class CLInterface {
 
 
 	/**
-	 * File name.
+	 * Read the file name introduced by the user.
 	 *
-	 * @return the string
+	 * @return name String with the file name.
 	 */
 	private static String fileName() {
 
@@ -595,10 +611,8 @@ public class CLInterface {
 
 	/**
 	 * Prints the maze.
-	 *
-	 * @param game the game
 	 */
-	public static void printMaze(Game game) {
+	public static void printMaze() {
 
 		String [][] maze =game.getMaze().getBoard();
 
