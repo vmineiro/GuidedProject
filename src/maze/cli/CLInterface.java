@@ -12,6 +12,7 @@ import java.util.Scanner;
  */
 public class CLInterface {
 	
+	/** The game. */
 	private static Game game;
 
 	/**
@@ -158,6 +159,7 @@ public class CLInterface {
 	/**
 	 * Select maze builder.
 	 *
+	 * @param game the game
 	 * @return the id of the builder selected
 	 */
 	private static int selectMazeBuilder(Game game) {
@@ -207,6 +209,7 @@ public class CLInterface {
 	/**
 	 * Select maze size.
 	 *
+	 * @param game the game
 	 * @return the int
 	 */
 	private static int selectMazeSize(Game game) {
@@ -253,6 +256,7 @@ public class CLInterface {
 	/**
 	 * Select number dragons.
 	 *
+	 * @param game the game
 	 * @return the number of dragons
 	 */
 	private static int selectNumberDragons(Game game) {
@@ -298,6 +302,7 @@ public class CLInterface {
 	/**
 	 * Select dragons mode.
 	 *
+	 * @param game the game
 	 * @return the dragon mode selected
 	 */
 	private static int selectDragonsMode(Game game) {
@@ -378,6 +383,9 @@ public class CLInterface {
 	}
 
 
+	/**
+	 * End game.
+	 */
 	private static void endGame() {
 		
 		if (!game.getPlayer().isDead() && game.getDragonsAlive() > 0){
@@ -412,9 +420,8 @@ public class CLInterface {
 	/**
 	 * Read the player input.
 	 *
-	 * @param game the game
 	 * @return false, if a valid move was introduced
-	 * @return true, if player want to exit the game
+	 * true, if player want to exit the game
 	 */
 	public static boolean playerMove() {
 
@@ -453,9 +460,8 @@ public class CLInterface {
 	/**
 	 * Game menu.
 	 *
-	 * @param game the game
 	 * @return true, if successful
-	 * @return false, if exit option was selected
+	 * false, if exit option was selected
 	 */
 	private static boolean gameMenu() {
 
@@ -518,8 +524,6 @@ public class CLInterface {
 
 	/**
 	 * New game.
-	 *
-	 * @param game the game
 	 */
 	private static void newGame() {
 
@@ -535,7 +539,6 @@ public class CLInterface {
 	/**
 	 * Load game.
 	 *
-	 * @param game the game
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private static void loadGame() throws IOException {
@@ -551,12 +554,10 @@ public class CLInterface {
 		} catch (IOException i) {
 
 			System.out.printf("File not supported.");
-			//i.printStackTrace();
 
 		} catch (ClassNotFoundException c) {
 
 			System.out.println("Game class not found");
-			//c.printStackTrace();
 
 		}
 
@@ -565,9 +566,6 @@ public class CLInterface {
 
 	/**
 	 * Save game.
-	 *
-	 * @param game the game
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private static void saveGame() {
 
@@ -580,10 +578,8 @@ public class CLInterface {
 			System.out.printf("Serialized data is saved in " + path);
 
 		} catch (IOException i) {
-			
-			
+				
 			System.out.printf("File not supported.");
-			//i.printStackTrace();
 			
 		}
 
@@ -612,8 +608,6 @@ public class CLInterface {
 
 	/**
 	 * Prints the maze.
-	 *
-	 * @param game the game
 	 */
 	public static void printMaze() {
 

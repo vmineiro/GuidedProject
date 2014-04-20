@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -31,54 +32,116 @@ import javax.swing.JToggleButton;
 import maze.logic.*;
 import maze.logic.Dragon.Mode;
 
+
+/**
+ * The Class MazeEditorDialog.
+ */
 public class MazeEditorDialog extends JDialog {
 
+	/** The play game. */
 	public boolean playGame = false;
 
+	/** The new game. */
 	private Game newGame;
 
+	/** The board. */
 	private String lab[][];
 
+	/** The symbol selected. */
 	private String symbolSelected;
 
+	/** The maze size. */
 	private int mazeSize;
+	
+	/** The mode. */
 	private int mode;
+	
+	/** The n dragons. */
 	private int nDragons = 0;
+	
+	/** The number of heros. */
 	private int nHero = 0;
+	
+	/** The number of exits. */
 	private int nExit = 0;
+	
+	/** The number of swords. */
 	private int nSword = 0;
 
+	/** The windows width. */
 	private int xSize = 775;
+	
+	/** The windows height. */
 	private int ySize = 665;
 
+	/** The input size dialog. */
 	private InputSizeJDialog inputSizeDialog;
 
+	/** The maze viewer. */
 	private MazeViewer mazeViewer;
+	
+	/** The cells symbols panel. */
 	private JPanel cellsSymbolsPanel;
+	
+	/** The exit panel. */
 	private JPanel exitPanel;
+	
+	/** The dragon mode panel. */
 	private JPanel dragonModePanel;
+	
+	/** The buttons panel. */
 	private JPanel buttonsPanel;
 
+	/** The cells symbols group button. */
 	private ButtonGroup cellsSymbolsGrp;
 
+	/** The wall button. */
 	private JToggleButton wallButton;
+	
+	/** The path button. */
 	private JToggleButton pathButton;
+	
+	/** The dragon button. */
 	private JToggleButton dragonButton;
+	
+	/** The sword button. */
 	private JToggleButton swordButton;
+	
+	/** The hero button. */
 	private JToggleButton heroButton;
+	
+	/** The exit button. */
 	private JToggleButton exitButton;
 
+	/** The dragon mode label. */
 	private JLabel dragonModeLabel;
+	
+	/** The static radio button. */
 	private JRadioButton staticRadioButton;
+	
+	/** The dynamic radio button. */
 	private JRadioButton dynamicRadioButton;
 
+	/** The play game button. */
 	private JButton playGameButton;
+	
+	/** The save maze button. */
 	private JButton saveMazeButton;
+	
+	/** The cancel button. */
 	private JButton cancelButton;
 	
+	/** The frame. */
 	private JFrame frame;
 
 
+	/**
+	 * Instantiates a new maze editor dialog.
+	 *
+	 * @param frame the frame
+	 * @param modal the modal
+	 * @param myMessage the my message
+	 */
 	public MazeEditorDialog (JFrame frame, boolean modal, String myMessage){	
 		super(frame,modal);
 		getContentPane().setLayout(new BorderLayout(0,0));
@@ -118,6 +181,11 @@ public class MazeEditorDialog extends JDialog {
 	}
 
 	
+	/**
+	 * Adds the widgets.
+	 *
+	 * @param contentPane the content pane
+	 */
 	private void addWidgets(Container contentPane) {
 
 		contentPane.add(mazeViewer,BorderLayout.CENTER);
@@ -156,6 +224,9 @@ public class MazeEditorDialog extends JDialog {
 	}
 
 	
+	/**
+	 * Creates the widgets.
+	 */
 	private void createWidgets() {
 
 		ImageIcon wallIco =  new ImageIcon("textures/wall01.gif");
@@ -233,11 +304,21 @@ public class MazeEditorDialog extends JDialog {
 	}
 
 	
+	/**
+	 * Gets the play game.
+	 *
+	 * @return the play game
+	 */
 	public boolean getPlayGame(){
 		return playGame;
 	}
 	
 	
+	/**
+	 * Gets the game.
+	 *
+	 * @return the game
+	 */
 	public Game getGame(){
 		return newGame;
 	}
@@ -264,6 +345,9 @@ public class MazeEditorDialog extends JDialog {
 	}	
 
 
+	/**
+	 * Builds the game.
+	 */
 	private void buildGame() {
 		
 		if(staticRadioButton.isSelected() && dynamicRadioButton.isSelected())
@@ -306,10 +390,20 @@ public class MazeEditorDialog extends JDialog {
 				}
 			}
 		}
-
 	}
 
 	
+	/**
+	 * The listener interface for receiving wallButton events.
+	 * The class that is interested in processing a wallButton
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addWallButtonListener<code> method. When
+	 * the wallButton event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see WallButtonEvent
+	 */
 	private class WallButtonListener implements ActionListener
 	{
 		@Override
@@ -319,6 +413,17 @@ public class MazeEditorDialog extends JDialog {
 	}
 
 	
+	/**
+	 * The listener interface for receiving pathButton events.
+	 * The class that is interested in processing a pathButton
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addPathButtonListener<code> method. When
+	 * the pathButton event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see PathButtonEvent
+	 */
 	private class PathButtonListener implements ActionListener
 	{
 		@Override
@@ -328,6 +433,17 @@ public class MazeEditorDialog extends JDialog {
 	}
 
 	
+	/**
+	 * The listener interface for receiving dragonButton events.
+	 * The class that is interested in processing a dragonButton
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addDragonButtonListener<code> method. When
+	 * the dragonButton event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see DragonButtonEvent
+	 */
 	private class DragonButtonListener implements ActionListener
 	{
 		@Override
@@ -337,6 +453,17 @@ public class MazeEditorDialog extends JDialog {
 	}
 
 	
+	/**
+	 * The listener interface for receiving heroButton events.
+	 * The class that is interested in processing a heroButton
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addHeroButtonListener<code> method. When
+	 * the heroButton event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see HeroButtonEvent
+	 */
 	private class HeroButtonListener implements ActionListener
 	{
 		@Override
@@ -346,6 +473,17 @@ public class MazeEditorDialog extends JDialog {
 	}
 
 	
+	/**
+	 * The listener interface for receiving swordButton events.
+	 * The class that is interested in processing a swordButton
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addSwordButtonListener<code> method. When
+	 * the swordButton event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see SwordButtonEvent
+	 */
 	private class SwordButtonListener implements ActionListener
 	{
 		@Override
@@ -355,6 +493,17 @@ public class MazeEditorDialog extends JDialog {
 	}
 
 	
+	/**
+	 * The listener interface for receiving exitButton events.
+	 * The class that is interested in processing a exitButton
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addExitButtonListener<code> method. When
+	 * the exitButton event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ExitButtonEvent
+	 */
 	private class ExitButtonListener implements ActionListener
 	{
 		@Override
@@ -364,23 +513,60 @@ public class MazeEditorDialog extends JDialog {
 	}
 	
 	
+	/**
+	 * The listener interface for receiving playGame events.
+	 * The class that is interested in processing a playGame
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addPlayGameListener<code> method. When
+	 * the playGame event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see PlayGameEvent
+	 */
 	private class PlayGameListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			newGame = new Game();
-
-			buildGame();
-			
-			playGame = true;
-
-			setVisible(false);
+			try {
+				
+				if (nDragons == 0) throw new HeadlessException("d");
+				if (nSword != 1) throw new HeadlessException("e");
+				if (nHero != 1) throw new HeadlessException("h");
+				if (nExit != 1) throw new HeadlessException("s");
+				
+				newGame = new Game();
+				buildGame();
+				playGame = true;
+				setVisible(false);
+				
+			} catch (Exception e1) {
+				if (e1.getMessage().equals("d")){
+					JOptionPane.showMessageDialog(frame,"Must have at least one dragon.");
+				} else if (e1.getMessage().equals("e")){
+					JOptionPane.showMessageDialog(frame,"Must have one sword.");
+				} else if (e1.getMessage().equals("h")){
+					JOptionPane.showMessageDialog(frame,"Must have one hero.");
+				} else if (e1.getMessage().equals("s")){
+					JOptionPane.showMessageDialog(frame,"Must have one exit.");
+				}
+			}
 		}
 	}
 
 	
+	/**
+	 * The listener interface for receiving saveMaze events.
+	 * The class that is interested in processing a saveMaze
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addSaveMazeListener<code> method. When
+	 * the saveMaze event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see SaveMazeEvent
+	 */
 	private class SaveMazeListener implements ActionListener
 	{
 
@@ -388,34 +574,60 @@ public class MazeEditorDialog extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 
 
-			newGame = new Game();
+			try {
+				
+				if (nDragons == 0) throw new HeadlessException("d");
+				if (nSword != 1) throw new HeadlessException("e");
+				if (nHero != 1) throw new HeadlessException("h");
+				if (nExit != 1) throw new HeadlessException("s");
+				
+				newGame = new Game();
+				buildGame();
 
-			buildGame();
+				SaveLoadDialog inputDialog = new SaveLoadDialog(frame, true, "Save/Load Game");
 
-			SaveLoadDialog inputDialog = new SaveLoadDialog(frame, true, "Save/Load Game");
+				if(inputDialog.gameSaved())	{
+					
+					try{
+						newGame.saveGame(inputDialog.getFilePath());
+						JOptionPane.showMessageDialog(frame,"Game saved.");
 
-			if(inputDialog.gameSaved())
-			{
+					} catch (IOException i) {
+						JOptionPane.showMessageDialog(frame,"Error writing the file.");
+						i.printStackTrace();
 
-				try{
+					}		
+				} 
 
-					newGame.saveGame(inputDialog.getFilePath());
-					JOptionPane.showMessageDialog(frame,"Game saved.");
-
-				} catch (IOException i) {
-					JOptionPane.showMessageDialog(frame,"Error writing the file.");
-					i.printStackTrace();
-
-				}		
-
-			} 
-
-			playGame = false;
-			setVisible(false);
+				playGame = false;
+				setVisible(false);
+				
+			} catch (HeadlessException e1) {
+				if (e1.getMessage().equals("d")){
+					JOptionPane.showMessageDialog(frame,"Must have at least one dragon.");
+				} else if (e1.getMessage().equals("e")){
+					JOptionPane.showMessageDialog(frame,"Must have one sword.");
+				} else if (e1.getMessage().equals("h")){
+					JOptionPane.showMessageDialog(frame,"Must have one hero.");
+				} else if (e1.getMessage().equals("s")){
+					JOptionPane.showMessageDialog(frame,"Must have one exit.");
+				}			
+			}			
 		}
 	}
 
 
+	/**
+	 * The listener interface for receiving cancel events.
+	 * The class that is interested in processing a cancel
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addCancelListener<code> method. When
+	 * the cancel event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see CancelEvent
+	 */
 	private class CancelListener implements ActionListener
 	{
 		@Override
@@ -426,19 +638,43 @@ public class MazeEditorDialog extends JDialog {
 	}
 
 
+	
+	/**
+	 * The Class MazeViewer.
+	 */
 	private class MazeViewer extends JPanel {
 
+		/** The elem_size. */
 		int elem_size;
+		
+		/** The ajust size. */
 		int ajust;
 
+		/** The wall img. */
 		private BufferedImage wallImg;
+		
+		/** The floor img. */
 		private BufferedImage floorImg;
+		
+		/** The dragon img. */
 		private BufferedImage dragonImg;
+		
+		/** The dragon sleep img. */
 		private BufferedImage dragonSleepImg;
+		
+		/** The sword img. */
 		private BufferedImage swordImg;
+		
+		/** The hero eagle img. */
 		private BufferedImage heroEagleImg;
+		
+		/** The exit image. */
 		private BufferedImage exitImage;
 
+		
+		/**
+		 * Instantiates a new maze viewer.
+		 */
 		public MazeViewer()
 		{
 
@@ -459,23 +695,16 @@ public class MazeEditorDialog extends JDialog {
 			getContentPane().addMouseListener(new MouseListener() {
 
 				@Override
-				public void mouseReleased(MouseEvent e) {
-
-				}
+				public void mouseReleased(MouseEvent e) {}
 
 				@Override
-				public void mousePressed(MouseEvent e) {
-				}
+				public void mousePressed(MouseEvent e) {}
 
 				@Override
-				public void mouseExited(MouseEvent e) {
-
-				}
+				public void mouseExited(MouseEvent e) {}
 
 				@Override
-				public void mouseEntered(MouseEvent e) {
-
-				}
+				public void mouseEntered(MouseEvent e) {}
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -510,7 +739,9 @@ public class MazeEditorDialog extends JDialog {
 							}
 						} else if (symbolSelected.equals("SS")) {
 							throw new Exception("s1");
-						}
+						} else if (symbolSelected.equals("D ")) {
+							nDragons++;
+						}					
 
 						String cell = lab[i][j];
 
@@ -520,6 +751,8 @@ public class MazeEditorDialog extends JDialog {
 							nSword--;
 						} else if (cell.equals("SS")) {
 							nExit--;
+						} else if (cell.equals("D ")) {
+							nDragons--;
 						}
 
 						lab[i][j] = symbolSelected;
@@ -545,10 +778,10 @@ public class MazeEditorDialog extends JDialog {
 
 		}
 
+		
 		public void paintComponent(Graphics g) 
 		{
 			super.paintComponent(g);
-
 
 			for (int i=0; i<mazeSize; i++) 
 			{
@@ -585,25 +818,47 @@ public class MazeEditorDialog extends JDialog {
 				}
 			}
 		}
-
-
 	}	
 
 
+	
+	/**
+	 * The Class InputSizeJDialog.
+	 */
 	private class InputSizeJDialog extends JDialog{
 
+		/** The size input. */
 		private boolean sizeInput = false;
+		
+		/** The input maze size. */
 		private int inputMazeSize;
 
+		/** The input panel. */
 		private JPanel inputPanel;
+		
+		/** The input buttons panel. */
 		private JPanel inputButtonsPanel;
 
+		/** The input label. */
 		private JLabel inputLabel;
+		
+		/** The input field. */
 		private JTextField inputField;
+		
+		/** The ok input button. */
 		private JButton okInputButton;
+		
+		/** The cancel input button. */
 		private JButton cancelInputButton;
 
 
+		/**
+		 * Instantiates a new input size j dialog.
+		 *
+		 * @param frame the frame
+		 * @param modal the modal
+		 * @param myMessage the my message
+		 */
 		public InputSizeJDialog (JFrame frame, boolean modal, String myMessage){
 
 			super(frame,modal);
@@ -618,7 +873,13 @@ public class MazeEditorDialog extends JDialog {
 			setVisible(true);
 
 		}
+		
 
+		/**
+		 * Adds the input size widgets.
+		 *
+		 * @param contentPane the content pane
+		 */
 		private void addInputSizeWidgets(Container contentPane) {
 
 			inputPanel.add(inputLabel);
@@ -631,7 +892,11 @@ public class MazeEditorDialog extends JDialog {
 			contentPane.add(inputButtonsPanel);
 
 		}
+		
 
+		/**
+		 * Creates the input size widgets.
+		 */
 		private void createInputSizeWidgets() {
 
 			// Input Panel
@@ -659,17 +924,41 @@ public class MazeEditorDialog extends JDialog {
 		}
 
 
+		/**
+		 * Gets the size input.
+		 *
+		 * @return the size input
+		 */
 		public boolean getSizeInput() {
 			return sizeInput;
 		}
+		
 
+		/**
+		 * Gets the maze size.
+		 *
+		 * @return the maze size
+		 */
 		public int getMazeSize() {
 			return inputMazeSize;
 		}
 
+		
+		/**
+		 * The listener interface for receiving okInput events.
+		 * The class that is interested in processing a okInput
+		 * event implements this interface, and the object created
+		 * with that class is registered with a component using the
+		 * component's <code>addOkInputListener<code> method. When
+		 * the okInput event occurs, that object's appropriate
+		 * method is invoked.
+		 *
+		 * @see OkInputEvent
+		 */
 		private class OkInputListener implements ActionListener
 		{
 
+			/** The temp size. */
 			int tempSize;
 
 			@Override
@@ -693,14 +982,15 @@ public class MazeEditorDialog extends JDialog {
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(getParent(), "Size must be between 10 and 35");
 				}
-
 			}
-
 		}
+		
 
+		/**
+		 * The Class CancelInputButton.
+		 */
 		private class CancelInputButton implements ActionListener
 		{
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -709,10 +999,6 @@ public class MazeEditorDialog extends JDialog {
 				setVisible(false);
 
 			}
-
 		}
-
-	}
-	
-
+	}	
 }

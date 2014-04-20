@@ -13,20 +13,42 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * The Class GUInterface.
+ */
 public class GUInterface {
 
+	/** The frame. */
 	private JFrame frame;
+	
+	/** The maze panel. */
 	private MazePanel mazePanel;
+	
+	/** The buttons panel. */
 	private JPanel buttonsPanel;
 
+	/** The settings dialog. */
 	private ConfigDialog configDialog;
+	
+	/** The save load dialog. */
 	private SaveLoadDialog saveLoadDialog;
+	
+	/** The maze editor panel. */
 	private MazeEditorDialog mazeEditorPanel;
 
+	/** The new game button. */
 	private JButton newGame;
+	
+	/** The game settings button. */
 	private JButton configGame;
+	
+	/** The exit game button. */
 	private JButton exitGame;
+	
+	/** The save load game button. */
 	private JButton saveLoadGame;
+	
+	/** The create maze button. */
 	private JButton createMaze;
 
 	/**
@@ -44,6 +66,7 @@ public class GUInterface {
 		}
 	}
 
+	
 	/**
 	 * Create the application.
 	 */
@@ -61,7 +84,11 @@ public class GUInterface {
 		frame.pack();
 		frame.setVisible(true);		
 	}
+	
 
+	/**
+	 * Creates the widgets.
+	 */
 	private void createWidgets()
 	{
 		// Maze Panel
@@ -94,6 +121,12 @@ public class GUInterface {
 
 	}
 
+	
+	/**
+	 * Adds the widgets.
+	 *
+	 * @param cont the cont
+	 */
 	private void addWidgets(Container cont)
 	{
 		buttonsPanel.add(newGame);
@@ -106,8 +139,21 @@ public class GUInterface {
 		cont.add(buttonsPanel, BorderLayout.SOUTH);
 	}
 
+	
+	/**
+	 * The listener interface for receiving newGame events.
+	 * The class that is interested in processing a newGame
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addNewGameListener<code> method. When
+	 * the newGame event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see NewGameEvent
+	 */
 	private class NewGameListener implements ActionListener
 	{
+		
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -125,8 +171,21 @@ public class GUInterface {
 		}	
 	}
 
+	
+	/**
+	 * The listener interface for receiving exitGame events.
+	 * The class that is interested in processing a exitGame
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addExitGameListener<code> method. When
+	 * the exitGame event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ExitGameEvent
+	 */
 	private class ExitGameListener implements ActionListener
 	{
+		
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -144,8 +203,22 @@ public class GUInterface {
 		}
 	}
 
+	
+	/**
+	 * The listener interface for receiving configGame events.
+	 * The class that is interested in processing a configGame
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addconfigGameListener<code> method. When
+	 * the configGame event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see configGameEvent
+	 */
 	private class configGameListener implements ActionListener
 	{
+		
+
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -170,7 +243,6 @@ public class GUInterface {
 
 				if(reply == JOptionPane.YES_OPTION)
 				{
-
 					mazePanel.launchNewGame();
 					
 					if (mazePanel.getGame().getMaze().getBoard().length > 25){
@@ -180,20 +252,29 @@ public class GUInterface {
 					}
 					
 					mazePanel.repaint();
-
 				}
 				else if(reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION){}	
 			}
-
-
 			mazePanel.requestFocusInWindow();
 		}
-
-
+		
 	}
+	
 
+	/**
+	 * The listener interface for receiving saveLoadGame events.
+	 * The class that is interested in processing a saveLoadGame
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addSaveLoadGameListener<code> method. When
+	 * the saveLoadGame event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see SaveLoadGameEvent
+	 */
 	private class SaveLoadGameListener implements ActionListener
 	{
+		
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -202,18 +283,16 @@ public class GUInterface {
 
 			if(saveLoadDialog.gameSaved())
 			{
-
-				try{
-
+				try
+				{
 					mazePanel.getGame().saveGame(saveLoadDialog.getFilePath());
 					JOptionPane.showMessageDialog(frame,"Game saved.");
-
-				} catch (IOException i) {
+				}
+				catch (IOException i)
+				{
 					JOptionPane.showMessageDialog(frame,"Error writing the file.");
 					i.printStackTrace();
-
 				}		
-
 			} 
 			else if (saveLoadDialog.gameLoaded())
 			{
@@ -222,14 +301,14 @@ public class GUInterface {
 
 				if(reply == JOptionPane.YES_OPTION)
 				{
-					try{
-
+					try
+					{
 						mazePanel.loadGame(saveLoadDialog.getFilePath());
-
-					} catch (IOException | ClassNotFoundException i) {
+					}
+					catch (IOException | ClassNotFoundException i)
+					{
 						JOptionPane.showMessageDialog(frame,"File not supported.");
 						i.printStackTrace();
-
 					}
 				}
 				else if(reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION){}	
@@ -238,41 +317,60 @@ public class GUInterface {
 			saveLoadDialog.setSaveGame(false);
 			saveLoadDialog.setLoadGame(false);
 			
-			if (mazePanel.getGame().getMaze().getBoard().length > 25){
+			if (mazePanel.getGame().getMaze().getBoard().length > 25)
+			{
 				frame.setSize(780, 850);;
-			} else {
+			}
+			else
+			{
 				frame.setSize(frame.getPreferredSize());
 			}
 			
 			mazePanel.repaint();
 			mazePanel.requestFocusInWindow();
-
-		}	
+		}
+		
 	}
 	
+	
+	/**
+	 * The listener interface for receiving createMaze events.
+	 * The class that is interested in processing a createMaze
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addCreateMazeListener<code> method. When
+	 * the createMaze event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see CreateMazeEvent
+	 */
 	private class CreateMazeListener implements ActionListener
 	{
+		
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{					
 			// JDialog - Maze Editor
 			mazeEditorPanel = new MazeEditorDialog(frame, true, "Maze Editor");	
 			
-			if (mazeEditorPanel.playGame){
+			if (mazeEditorPanel.playGame)
+			{
 				mazePanel.getGame().setGame(mazeEditorPanel.getGame());
 			}
 			
-			if (mazePanel.getGame().getMaze().getBoard().length > 25){
+			if (mazePanel.getGame().getMaze().getBoard().length > 25)
+			{
 				frame.setSize(780, 850);;
-			} else {
+			} 
+			else
+			{
 				frame.setSize(frame.getPreferredSize());
 			}
 			
 			mazePanel.repaint();
-			mazePanel.requestFocusInWindow();
-			
-			
+			mazePanel.requestFocusInWindow();					
 		}	
+		
 	}
 
 }

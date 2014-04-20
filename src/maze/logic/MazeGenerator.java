@@ -219,12 +219,6 @@ public class MazeGenerator {
 		
 		/* check if the position is repeated */
 		if (lab[lin][col].equals("  ")) return false;
-		
-//		/* check  top wall square 3x3 */
-//		if (lin > 1 && col > 1 && lin < (bound -2) && col < (bound - 8)){
-//			/* check  top left square 3x3 */
-//			if (lab[lin-1][col].equals("  ") && lab[lin-1][col-1].equals("  ") && lab[lin][col-1].equals("  ")) return false;
-//		}
 
 		/* check  top left square 2x2 */
 		if (lab[lin-1][col].equals("  ") && lab[lin-1][col-1].equals("  ") && lab[lin][col-1].equals("  ")) return false;

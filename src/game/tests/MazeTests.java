@@ -23,7 +23,6 @@ public class MazeTests {
 			System.out.println("( " + exit.getLine() + ", " + exit.getCol() + ")");
 		}
 		 */
- 
 		
 	}
 

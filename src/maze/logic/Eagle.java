@@ -1,6 +1,5 @@
 package maze.logic;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -56,10 +55,17 @@ public class Eagle extends Character implements Serializable{
 		lastCell = positionValue;
 	}
 
+	
+	/**
+	 * Checks for the sword.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasTheSword() {
 		return hasSword;
 	}
 
+	
 	/**
 	 * Gets the last cell.
 	 *
@@ -90,6 +96,10 @@ public class Eagle extends Character implements Serializable{
 	}
 
 
+	/**
+	 * Die.
+	 */
+	@Override
 	public void die(){
 		super.die();
 		hasSword = false;

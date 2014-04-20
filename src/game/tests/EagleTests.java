@@ -163,7 +163,7 @@ public class EagleTests {
 	}
 	
 	/**
-	 * Eagle move test.
+	 * Eagle dead test.
 	 */
 	@Test
 	public void eagleDeadTest(){

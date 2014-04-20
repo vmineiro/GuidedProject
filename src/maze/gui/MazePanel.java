@@ -11,32 +11,76 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+
+/**
+ * The Class MazePanel.
+ */
 public class MazePanel extends JPanel implements KeyListener
 {
+	
+	/** The game. */
 	private Game game;
 
+	/** The maze size. */
 	private int mazeSize = 0;
+	
+	/** The mode. */
 	private int mode = 1;
+	
+	/** The n dragons. */
 	private int nDragons = 1;
+	
+	/** The builder. */
 	private int builder = 0;	
 
+	/** The key up. */
 	private int keyUp = KeyEvent.VK_UP;
+	
+	/** The key down. */
 	private int keyDown = KeyEvent.VK_DOWN;
+	
+	/** The key left. */
 	private int keyLeft = KeyEvent.VK_LEFT;
+	
+	/** The key right. */
 	private int keyRight = KeyEvent.VK_RIGHT;
+	
+	/** The key eagle. */
 	private int keyEagle = KeyEvent.VK_E;
 
+	/** The wall img. */
 	private BufferedImage wallImg;
+	
+	/** The floor img. */
 	private BufferedImage floorImg;
+	
+	/** The dragon img. */
 	private BufferedImage dragonImg;
+	
+	/** The dragon sleep img. */
 	private BufferedImage dragonSleepImg;
+	
+	/** The sword img. */
 	private BufferedImage swordImg;
+	
+	/** The hero img. */
 	private BufferedImage heroImg;
+	
+	/** The hero eagle img. */
 	private BufferedImage heroEagleImg;
+	
+	/** The hero arm img. */
 	private BufferedImage heroArmImg;
+	
+	/** The eagle img. */
 	private BufferedImage eagleImg;
+	
+	/** The exit image. */
 	private BufferedImage exitImage;
 
+	/**
+	 * Instantiates a new maze panel.
+	 */
 	public MazePanel()
 	{
 
@@ -60,57 +104,116 @@ public class MazePanel extends JPanel implements KeyListener
 
 	}
 
+	
+	/**
+	 * Launch new game.
+	 */
 	public void launchNewGame()
 	{
 		this.game = new Game();
 		game.initGame(mazeSize, mode, nDragons, builder);
 		game.updatePositions();
 	}
+	
 
+	/**
+	 * Sets the maze size.
+	 *
+	 * @param size the new maze size
+	 */
 	public void setMazeSize(int size)
 	{
 		this.mazeSize = size;
 	}
 
+	
+	/**
+	 * Sets the mode game.
+	 *
+	 * @param mode_g the new mode game
+	 */
 	public void setModeGame(int mode_g)
 	{
 		this.mode = mode_g;
 	}
 
+	
+	/**
+	 * Sets the n dragons.
+	 *
+	 * @param n_dragons the new n dragons
+	 */
 	public void setNDragons(int n_dragons)
 	{
 		this.nDragons = n_dragons;
 	}
+	
 
+	/**
+	 * Sets the builder.
+	 *
+	 * @param n_builder the new builder
+	 */
 	public void setBuilder(int n_builder)
 	{
 		this.builder = n_builder;
 	}
+	
 
+	/**
+	 * Sets the up key.
+	 *
+	 * @param upK the new up key
+	 */
 	public void setUpKey(int upK)
 	{
 		this.keyUp = upK;
 	}
 
+	
+	/**
+	 * Sets the down key.
+	 *
+	 * @param downK the new down key
+	 */
 	public void setDownKey(int downK)
 	{
 		this.keyDown = downK;
 	}
+	
 
+	/**
+	 * Sets the left key.
+	 *
+	 * @param leftK the new left key
+	 */
 	public void setLeftKey(int leftK)
 	{
 		this.keyLeft = leftK;
 	}
+	
 
+	/**
+	 * Sets the right key.
+	 *
+	 * @param rightK the new right key
+	 */
 	public void setRightKey(int rightK)
 	{
 		this.keyRight = rightK;
 	}
 
+	
+	/**
+	 * Sets the eagle key.
+	 *
+	 * @param eagleK the new eagle key
+	 */
 	public void setEagleKey(int eagleK)
 	{
 		this.keyEagle = eagleK;
 	}
+
 
 	public void paintComponent(Graphics g) 
 	{
@@ -171,6 +274,7 @@ public class MazePanel extends JPanel implements KeyListener
 			}
 		}
 	}
+
 
 	@Override
 	public void keyPressed(KeyEvent e) 
@@ -242,16 +346,30 @@ public class MazePanel extends JPanel implements KeyListener
 
 	}
 
+
 	@Override
 	public void keyReleased(KeyEvent e) {}
+
 
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
+	/**
+	 * Gets the game.
+	 *
+	 * @return the game
+	 */
 	public Game getGame(){
 		return game;
 	}
 
+	/**
+	 * Load game.
+	 *
+	 * @param path the path
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void loadGame(String path) throws ClassNotFoundException, IOException {
 		game.loadGame(path);
 	}

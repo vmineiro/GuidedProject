@@ -2,12 +2,10 @@ package maze.gui;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -16,24 +14,55 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
+/**
+ * The Class SaveLoadDialog.
+ */
 public class SaveLoadDialog extends JDialog{
 
+	/** The save game. */
 	private boolean saveGame = false;
+	
+	/** The load game. */
 	private boolean loadGame = false;
 
+	/** The path. */
 	private String path;
 
+	/** The text panel. */
 	private JPanel textPanel;
+	
+	/** The path input panel. */
 	private JPanel pathInputPanel;
+	
+	/** The buttons panel. */
 	private JPanel buttonsPanel;
 
+	/** The path input label1. */
 	private JLabel pathInputLabel1;
+	
+	/** The path input label2. */
 	private JLabel pathInputLabel2;
+	
+	/** The path input field. */
 	private JTextField pathInputField;
+	
+	/** The save button. */
 	private JButton saveButton;
+	
+	/** The load button. */
 	private JButton loadButton;
+	
+	/** The cancel button. */
 	private JButton cancelButton;
 
+	
+	/**
+	 * Instantiates a new save load dialog.
+	 *
+	 * @param frame the frame
+	 * @param modal the modal
+	 * @param myMessage the my message
+	 */
 	public SaveLoadDialog(JFrame frame, boolean modal, String myMessage)
 	{
 
@@ -49,6 +78,12 @@ public class SaveLoadDialog extends JDialog{
 
 	}
 
+	
+	/**
+	 * Adds the widgets.
+	 *
+	 * @param contentPane the content pane
+	 */
 	private void addWidgets(Container contentPane) {
 
 		textPanel.add(pathInputLabel1);
@@ -65,6 +100,10 @@ public class SaveLoadDialog extends JDialog{
 
 	}
 
+	
+	/**
+	 * Creates the widgets.
+	 */
 	private void createWidgets() {
 
 		// Input Panel
@@ -81,8 +120,6 @@ public class SaveLoadDialog extends JDialog{
 		pathInputField = new JTextField();
 		pathInputField.setEditable(true);
 		pathInputField.setColumns(25);
-		
-		//pathInputField.;
 
 		// Buttons Panel
 		buttonsPanel = new JPanel();
@@ -101,19 +138,49 @@ public class SaveLoadDialog extends JDialog{
 		cancelButton.addActionListener(new CancelListener());
 
 	}
+	
 
+	/**
+	 * Game saved.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean gameSaved() {
 		return saveGame;
 	}
+	
 
+	/**
+	 * Gets the file path.
+	 *
+	 * @return the file path
+	 */
 	public String getFilePath() {
 		return path;
 	}
+	
 
+	/**
+	 * Game loaded.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean gameLoaded() {
 		return loadGame;
 	}
 
+	
+	/**
+	 * The listener interface for receiving loadGame events.
+	 * The class that is interested in processing a loadGame
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addLoadGameListener<code> method. When
+	 * the loadGame event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see LoadGameEvent
+	 */
 	private class LoadGameListener implements ActionListener
 	{
 
@@ -132,7 +199,19 @@ public class SaveLoadDialog extends JDialog{
 		}
 
 	}
+	
 
+	/**
+	 * The listener interface for receiving saveGame events.
+	 * The class that is interested in processing a saveGame
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addSaveGameListener<code> method. When
+	 * the saveGame event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see SaveGameEvent
+	 */
 	private class SaveGameListener implements ActionListener
 	{
 
@@ -151,7 +230,19 @@ public class SaveLoadDialog extends JDialog{
 		}
 
 	}
+	
 
+	/**
+	 * The listener interface for receiving cancel events.
+	 * The class that is interested in processing a cancel
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addCancelListener<code> method. When
+	 * the cancel event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see CancelEvent
+	 */
 	private class CancelListener implements ActionListener
 	{
 
@@ -167,12 +258,24 @@ public class SaveLoadDialog extends JDialog{
 		}
 
 	}
+	
 
+	/**
+	 * Sets the save game.
+	 *
+	 * @param b the new save game
+	 */
 	public void setSaveGame(boolean b) {
 		saveGame = b;
 		
 	}
 
+	
+	/**
+	 * Sets the load game.
+	 *
+	 * @param b the new load game
+	 */
 	public void setLoadGame(boolean b) {
 		loadGame = b;
 		

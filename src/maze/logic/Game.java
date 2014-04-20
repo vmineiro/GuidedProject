@@ -1,6 +1,5 @@
 package maze.logic;
 
-
 import maze.logic.Dragon.Mode;
 import maze.logic.Character.Direction;
 
@@ -31,7 +30,7 @@ public class Game implements Serializable{
 	/** The dragon. */
 	private ArrayList<Dragon> dragons;
 
-	/** All */
+	/**  All. */
 	private int dragonsAlive;
 
 	/** The Eagle. */
@@ -683,6 +682,12 @@ public class Game implements Serializable{
 	}
 
 
+	/**
+	 * Save game.
+	 *
+	 * @param path the path
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void saveGame(String path) throws IOException {
 
 
@@ -698,6 +703,13 @@ public class Game implements Serializable{
 	}
 
 
+	/**
+	 * Load game.
+	 *
+	 * @param path the path
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public void loadGame(String path) throws IOException, ClassNotFoundException  {
 
 		FileInputStream fileIn = new FileInputStream(path);
@@ -715,6 +727,11 @@ public class Game implements Serializable{
 	}
 
 
+	/**
+	 * Gets the dragons alive.
+	 *
+	 * @return the dragons alive
+	 */
 	public int getDragonsAlive() {
 		return dragonsAlive;
 	}
