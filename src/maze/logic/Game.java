@@ -260,6 +260,8 @@ public class Game implements Serializable{
 
 			if (maze.getPositionValue(sword.getPosition()).equals("D "))
 				maze.setCellValue(sword.getPosition(), "F ");
+			else if (maze.getPositionValue(sword.getPosition()).equals("d "))
+				maze.setCellValue(sword.getPosition(), "f ");
 			else
 				updatePosition(sword);		
 
@@ -279,6 +281,9 @@ public class Game implements Serializable{
 			} else if (maze.getPositionValue(eagle.getPosition()).equals("F ")) {
 				/* Eagle over a Dragon the Sword */
 				maze.setCellValue(eagle.getPosition(), "Fa");
+			} else if (maze.getPositionValue(eagle.getPosition()).equals("f ")) {
+				/* Eagle over a Dragon the Sword */
+				maze.setCellValue(eagle.getPosition(), "fa");
 			} else if (player.getPosition().equals(eagle.getPosition())) {
 				/* Eagle over the Sword */
 				maze.setCellValue(player.getPosition(), "Ha");

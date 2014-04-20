@@ -223,7 +223,8 @@ public class MazeEditorDialog extends JDialog {
 
 
 		dragonModeLabel = new JLabel("Dragon Mode:");
-
+		dragonModeLabel.setHorizontalAlignment(JLabel.CENTER);
+		
 		staticRadioButton = new JRadioButton("Static");
 		staticRadioButton.setSelected(false);
 		dynamicRadioButton = new JRadioButton("Dynamic");
@@ -299,7 +300,7 @@ public class MazeEditorDialog extends JDialog {
 					} else if (mode == 2) {
 						newDragon = new Dragon(new Position (i,j), Mode.DYNAMIC);
 					} else {
-						newDragon = new Dragon(new Position (i,j), Mode.DYNAMIC);
+						newDragon = new Dragon(new Position (i,j), Mode.MIXED);
 					}
 					newGame.addDragon(newDragon);
 				}
@@ -484,8 +485,8 @@ public class MazeEditorDialog extends JDialog {
 
 					try {
 
-						if ((( i == 0 || i == mazeSize-1 )  && (j > 0 && j < mazeSize)) ||
-								(( i > 0 && i < mazeSize-1 )  && (j == 0 || j == mazeSize))){
+						if ((( i == 0 || i == mazeSize-1 )  && (j > 0 && j < mazeSize-1)) ||
+								(( i > 0 && i < mazeSize-1 )  && (j == 0 || j == mazeSize-1))){
 							if (symbolSelected.equals("SS")) {
 								if (nExit != 0) {
 									throw new Exception("s0");
@@ -493,7 +494,7 @@ public class MazeEditorDialog extends JDialog {
 									nExit++;
 								}
 							} else if (!symbolSelected.equals("XX")){
-								throw new Exception("b");
+								throw  new Exception("b");
 							}
 						} else if (symbolSelected.equals("Ha")){
 							if (nHero != 0) {

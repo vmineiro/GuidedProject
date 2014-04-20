@@ -137,7 +137,7 @@ public class MazePanel extends JPanel implements KeyListener
 				{
 					g.drawImage(dragonImg, j*elem_size+ajust, i*elem_size+ajust, (j*elem_size)+elem_size+ajust, (i*elem_size)+elem_size+ajust, 0, 0, 74, 74, null);
 				}
-				else if(game.getMaze().getBoard()[i][j].equals("d "))
+				else if(game.getMaze().getBoard()[i][j].equals("d ") || game.getMaze().getBoard()[i][j].equals("f "))
 				{
 					g.drawImage(dragonSleepImg, j*elem_size+ajust, i*elem_size+ajust, (j*elem_size)+elem_size+ajust, (i*elem_size)+elem_size+ajust, 0, 0, 300, 234, null);
 				}
