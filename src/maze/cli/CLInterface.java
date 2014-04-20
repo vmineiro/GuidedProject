@@ -1,3 +1,6 @@
+/*
+ * CLI Interface
+ */
 package maze.cli;
 
 import maze.logic.*;
@@ -140,7 +143,7 @@ public class CLInterface {
 
 	
 	/**
-	 * Maze settings.
+	 * Maze settings and initializes the game status.
 	 *
 	 * @param game the game
 	 */
@@ -210,7 +213,7 @@ public class CLInterface {
 	 * Select maze size.
 	 *
 	 * @param game the game
-	 * @return the int
+	 * @return mazeSize the size of the maze introduced
 	 */
 	private static int selectMazeSize(Game game) {
 
@@ -257,7 +260,7 @@ public class CLInterface {
 	 * Select number dragons.
 	 *
 	 * @param game the game
-	 * @return the number of dragons
+	 * @return numDragons the number of dragons
 	 */
 	private static int selectNumberDragons(Game game) {
 
@@ -303,7 +306,7 @@ public class CLInterface {
 	 * Select dragons mode.
 	 *
 	 * @param game the game
-	 * @return the dragon mode selected
+	 * @return mode the dragon mode selected
 	 */
 	private static int selectDragonsMode(Game game) {
 
@@ -384,7 +387,7 @@ public class CLInterface {
 
 
 	/**
-	 * End game.
+	 * End game. Show a Win/Loose message the the user and asks if the user want to play again.
 	 */
 	private static void endGame() {
 		
@@ -421,7 +424,7 @@ public class CLInterface {
 	 * Read the player input.
 	 *
 	 * @return false, if a valid move was introduced
-	 * true, if player want to exit the game
+	 * 		   true, if player want to exit the game
 	 */
 	public static boolean playerMove() {
 
@@ -461,7 +464,7 @@ public class CLInterface {
 	 * Game menu.
 	 *
 	 * @return true, if successful
-	 * false, if exit option was selected
+	 *  	   false, if exit option was selected
 	 */
 	private static boolean gameMenu() {
 
@@ -523,7 +526,7 @@ public class CLInterface {
 
 
 	/**
-	 * New game.
+	 * Initialize a new game and set up the current game.
 	 */
 	private static void newGame() {
 
@@ -587,9 +590,9 @@ public class CLInterface {
 
 
 	/**
-	 * File name.
+	 * Read the file name introduced by the user.
 	 *
-	 * @return the string
+	 * @return name String with the file name.
 	 */
 	private static String fileName() {
 

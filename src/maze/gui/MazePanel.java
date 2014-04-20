@@ -1,3 +1,6 @@
+/*
+ * Maze Panel
+ */
 package maze.gui;
 
 import maze.logic.*;
@@ -48,31 +51,31 @@ public class MazePanel extends JPanel implements KeyListener
 	/** The key eagle. */
 	private int keyEagle = KeyEvent.VK_E;
 
-	/** The wall img. */
+	/** The wall image. */
 	private BufferedImage wallImg;
 	
-	/** The floor img. */
+	/** The floor image. */
 	private BufferedImage floorImg;
 	
-	/** The dragon img. */
+	/** The dragon image. */
 	private BufferedImage dragonImg;
 	
-	/** The dragon sleep img. */
+	/** The dragon sleep image. */
 	private BufferedImage dragonSleepImg;
 	
-	/** The sword img. */
+	/** The sword image. */
 	private BufferedImage swordImg;
 	
-	/** The hero img. */
+	/** The hero image. */
 	private BufferedImage heroImg;
 	
-	/** The hero eagle img. */
+	/** The hero eagle image. */
 	private BufferedImage heroEagleImg;
 	
-	/** The hero arm img. */
+	/** The hero arm image. */
 	private BufferedImage heroArmImg;
 	
-	/** The eagle img. */
+	/** The eagle image. */
 	private BufferedImage eagleImg;
 	
 	/** The exit image. */

@@ -1,3 +1,6 @@
+/*
+ * Maze Generator
+ */
 package maze.logic;
 
 

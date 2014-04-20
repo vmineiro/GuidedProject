@@ -1,3 +1,6 @@
+/*
+ * Maze
+ */
 package maze.logic;
 
 import java.io.Serializable;
@@ -27,7 +30,6 @@ public class Maze  implements Serializable {
 	 * Set the board - Used on Maze Generator.
 	 *
 	 * @param lab the new maze
-	 * @return the maze
 	 */
 	public void setBoard(String[][] lab){
 		board = lab;
@@ -103,7 +105,6 @@ public class Maze  implements Serializable {
 	 * Return Cave Exit Position.
 	 *
 	 * @param pos the new exit
-	 * @return the exit
 	 */
 	public void setExit(Position pos){
 		mazeExit = pos;

@@ -1,3 +1,6 @@
+/*
+ * Graphic User Interface
+ */
 package maze.gui;
 
 import java.awt.BorderLayout;
@@ -12,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 /**
  * The Class GUInterface.
@@ -154,6 +158,9 @@ public class GUInterface {
 	private class NewGameListener implements ActionListener
 	{
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -186,6 +193,9 @@ public class GUInterface {
 	private class ExitGameListener implements ActionListener
 	{
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -219,6 +229,9 @@ public class GUInterface {
 	{
 		
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -275,6 +288,9 @@ public class GUInterface {
 	private class SaveLoadGameListener implements ActionListener
 	{
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -347,6 +363,9 @@ public class GUInterface {
 	private class CreateMazeListener implements ActionListener
 	{
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{					

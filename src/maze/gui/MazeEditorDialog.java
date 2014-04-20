@@ -1,3 +1,6 @@
+/*
+ * Maze Editor Dialog
+ */
 package maze.gui;
 
 import java.awt.BorderLayout;
@@ -184,7 +187,7 @@ public class MazeEditorDialog extends JDialog {
 	/**
 	 * Adds the widgets.
 	 *
-	 * @param contentPane the content pane
+	 * @param contentPane the container pane
 	 */
 	private void addWidgets(Container contentPane) {
 
@@ -328,7 +331,7 @@ public class MazeEditorDialog extends JDialog {
 	 * Fill all the cells from a given maze with "XX" value.
 	 *
 	 * @param lab the maze
-	 * @param n the n
+	 * @param n the size of maze
 	 */
 	private static void fillMaze(String[][] lab, int n){
 
@@ -406,6 +409,10 @@ public class MazeEditorDialog extends JDialog {
 	 */
 	private class WallButtonListener implements ActionListener
 	{
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			symbolSelected = "XX";
@@ -426,6 +433,10 @@ public class MazeEditorDialog extends JDialog {
 	 */
 	private class PathButtonListener implements ActionListener
 	{
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			symbolSelected = "  ";
@@ -446,6 +457,10 @@ public class MazeEditorDialog extends JDialog {
 	 */
 	private class DragonButtonListener implements ActionListener
 	{
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			symbolSelected = "D ";
@@ -466,6 +481,10 @@ public class MazeEditorDialog extends JDialog {
 	 */
 	private class HeroButtonListener implements ActionListener
 	{
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			symbolSelected = "Ha";
@@ -486,6 +505,10 @@ public class MazeEditorDialog extends JDialog {
 	 */
 	private class SwordButtonListener implements ActionListener
 	{
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			symbolSelected = "E ";
@@ -506,6 +529,10 @@ public class MazeEditorDialog extends JDialog {
 	 */
 	private class ExitButtonListener implements ActionListener
 	{
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			symbolSelected = "SS";
@@ -526,6 +553,10 @@ public class MazeEditorDialog extends JDialog {
 	 */
 	private class PlayGameListener implements ActionListener
 	{
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -570,6 +601,9 @@ public class MazeEditorDialog extends JDialog {
 	private class SaveMazeListener implements ActionListener
 	{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -630,6 +664,10 @@ public class MazeEditorDialog extends JDialog {
 	 */
 	private class CancelListener implements ActionListener
 	{
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			playGame = false;
@@ -779,6 +817,9 @@ public class MazeEditorDialog extends JDialog {
 		}
 
 		
+		/* (non-Javadoc)
+		 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+		 */
 		public void paintComponent(Graphics g) 
 		{
 			super.paintComponent(g);
@@ -961,6 +1002,9 @@ public class MazeEditorDialog extends JDialog {
 			/** The temp size. */
 			int tempSize;
 
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -991,6 +1035,10 @@ public class MazeEditorDialog extends JDialog {
 		 */
 		private class CancelInputButton implements ActionListener
 		{
+			
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 

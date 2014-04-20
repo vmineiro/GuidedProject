@@ -1,3 +1,6 @@
+/*
+ * Hero
+ */
 package maze.logic;
 
 import java.io.Serializable;
@@ -30,8 +33,6 @@ public class Hero extends Character implements Serializable{
 	
 	/**
 	 * Character gets armed without eagle help.
-	 *
-	 * @return the armed
 	 */
 	public void getArmed() {
 		

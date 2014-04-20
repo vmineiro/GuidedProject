@@ -1,3 +1,6 @@
+/*
+ * Save and Load Game Interface
+ */
 package maze.gui;
 
 import java.awt.Container;
@@ -184,6 +187,9 @@ public class SaveLoadDialog extends JDialog{
 	private class LoadGameListener implements ActionListener
 	{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -215,6 +221,9 @@ public class SaveLoadDialog extends JDialog{
 	private class SaveGameListener implements ActionListener
 	{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -246,6 +255,9 @@ public class SaveLoadDialog extends JDialog{
 	private class CancelListener implements ActionListener
 	{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 

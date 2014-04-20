@@ -1,3 +1,6 @@
+/*
+ * Eagle
+ */
 package maze.logic;
 
 import java.io.Serializable;
@@ -189,7 +192,6 @@ public class Eagle extends Character implements Serializable{
 	 * Build the shortest path from the position where the eagle was launched to the sword and the return path.
 	 *
 	 * @param swordPosition the sword position
-	 * @return the sword
 	 */
 	public void getSword(Position swordPosition) {
 
@@ -208,8 +210,8 @@ public class Eagle extends Character implements Serializable{
 			a = x1 - x0;
 			b = y1 - y0;
 			inc2 = 2*b;
-			d = inc2 - a; /* d = 2*b – a; */
-			inc1 = d - a; /* inc1 = 2*(b-a); */
+			d = inc2 - a; /* d = 2 * b - a; */
+			inc1 = d - a; /* inc1 = 2 * (b-a); */
 			Position temp = new Position(y0,x0);
 			swordPath.add(temp);
 			returnPath.push(temp);
@@ -231,8 +233,8 @@ public class Eagle extends Character implements Serializable{
 			a = y1 - y0;
 			b = x1 - x0;
 			inc2 = 2*b;
-			d = inc2 - a; /* d = 2*b – a; */
-			inc1 = d - a; /* inc1 = 2*(b-a); */
+			d = inc2 - a; /* d = 2 * b - a; */
+			inc1 = d - a; /* inc1 = 2 * (b-a); */
 			Position temp = new Position(y0,x0);
 			swordPath.add(temp);
 			returnPath.push(temp);
@@ -255,8 +257,8 @@ public class Eagle extends Character implements Serializable{
 			a = y1 - y0;
 			b = x0 - x1;
 			inc2 = 2*b;
-			d = inc2 - a; /* d = 2*b – a; */
-			inc1 = d - a; /* inc1 = 2*(b-a); */
+			d = inc2 - a; /* d = 2 * b - a; */
+			inc1 = d - a; /* inc1 = 2 * (b-a); */
 			Position temp = new Position(y0,x0);
 			swordPath.add(temp);
 			returnPath.push(temp);
@@ -278,8 +280,8 @@ public class Eagle extends Character implements Serializable{
 			a = x0 - x1;
 			b = y1 - y0;
 			inc2 = 2*b;
-			d = inc2 - a; /* d = 2*b – a; */
-			inc1 = d - a; /* inc1 = 2*(b-a); */
+			d = inc2 - a; /* d = 2 * b - a; */
+			inc1 = d - a; /* inc1 = 2 * (b-a); */
 			Position temp = new Position(y0,x0);
 			swordPath.add(temp);
 			returnPath.push(temp);
@@ -302,8 +304,8 @@ public class Eagle extends Character implements Serializable{
 			a = x0 - x1;
 			b = y0 - y1;
 			inc2 = 2*b;
-			d = inc2 - a; /* d = 2*b – a; */
-			inc1 = d - a; /* inc1 = 2*(b-a); */
+			d = inc2 - a; /* d = 2 * b - a; */
+			inc1 = d - a; /* inc1 = 2 * (b-a); */
 			Position temp = new Position(y0,x0);
 			swordPath.add(temp);
 			returnPath.push(temp);
@@ -325,8 +327,8 @@ public class Eagle extends Character implements Serializable{
 			a = y0 - y1;
 			b = x0 - x1;
 			inc2 = 2*b;
-			d = inc2 - a; /* d = 2*b – a; */
-			inc1 = d - a; /* inc1 = 2*(b-a); */
+			d = inc2 - a; /* d = 2 * b - a; */
+			inc1 = d - a; /* inc1 = 2 * (b-a); */
 			Position temp = new Position(y0,x0);
 			swordPath.add(temp);
 			returnPath.push(temp);
@@ -349,8 +351,8 @@ public class Eagle extends Character implements Serializable{
 			a = y0 - y1;
 			b = x1 - x0;
 			inc2 = 2*b;
-			d = inc2 - a; /* d = 2*b – a; */
-			inc1 = d - a; /* inc1 = 2*(b-a); */
+			d = inc2 - a; /* d = 2 * b - a; */
+			inc1 = d - a; /* inc1 = 2 * (b-a); */
 			Position temp = new Position(y0,x0);
 			swordPath.add(temp);
 			returnPath.push(temp);
@@ -372,8 +374,8 @@ public class Eagle extends Character implements Serializable{
 			a = x1 - x0;
 			b = y0 - y1;
 			inc2 = 2*b;
-			d = inc2 - a; /* d = 2*b – a; */
-			inc1 = d - a; /* inc1 = 2*(b-a); */
+			d = inc2 - a; /* d = 2 * b - a; */
+			inc1 = d - a; /* inc1 = 2 * (b-a); */
 			Position temp = new Position(y0,x0);
 			swordPath.add(temp);
 			returnPath.push(temp);

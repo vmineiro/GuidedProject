@@ -1,3 +1,6 @@
+/*
+ * Sword
+ */
 package maze.logic;
 
 import java.io.Serializable;

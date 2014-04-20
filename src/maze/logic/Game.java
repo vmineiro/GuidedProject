@@ -1,3 +1,6 @@
+/*
+ * Game Logic
+ */
 package maze.logic;
 
 import maze.logic.Dragon.Mode;

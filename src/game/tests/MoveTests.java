@@ -1,3 +1,6 @@
+/*
+ * Move Tests
+ */
 package game.tests;
 
 import static org.junit.Assert.*;
@@ -20,7 +23,7 @@ public class MoveTests {
 	
 	
 	/**
-	 * Sets the up.
+	 * Set up initial status to each test.
 	 *
 	 * @throws Exception the exception
 	 */
@@ -54,7 +57,7 @@ public class MoveTests {
 
 	
 	/**
-	 * Hero move test.
+	 * Test hero moves without maze consideration.
 	 */
 	@Test
 	public void heroMoveTest(){
@@ -91,7 +94,7 @@ public class MoveTests {
 	
 
 	/**
-	 * Hero move test with maze.
+	 * Test hero move with maze. Hero should not changed position if there is a wall in the direction of the move.
 	 */
 	@Test
 	public void heroMoveTestWithMaze(){
@@ -112,7 +115,7 @@ public class MoveTests {
 	
 
 	/**
-	 * Pick sword test.
+	 * Test hero armed by picking the sword.
 	 */
 	@Test
 	public void pickSwordTest(){
@@ -144,7 +147,7 @@ public class MoveTests {
 	
 	
 	/**
-	 * Hero dead test.
+	 * Test hero dead.
 	 */
 	@Test
 	public void heroDeadTest(){
@@ -168,7 +171,7 @@ public class MoveTests {
 	
 	
 	/**
-	 * Dragon dead test.
+	 * Test dragon dead.
 	 */
 	@Test
 	public void dragonDeadTest(){
@@ -191,7 +194,7 @@ public class MoveTests {
 	
 	
 	/**
-	 * Win test.
+	 * Test Win. Hero kills all the dragons and reach the exit.
 	 */
 	@Test
 	public void winTest(){
@@ -226,7 +229,7 @@ public class MoveTests {
 	
 	
 	/**
-	 * Exit test.
+	 * Test hero exit without killing the dragon.
 	 */
 	@Test
 	public void exitTest(){

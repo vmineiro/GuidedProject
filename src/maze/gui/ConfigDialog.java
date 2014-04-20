@@ -1,3 +1,6 @@
+/*
+ * Game Configurations Dialog
+ */
 package maze.gui;
 
 import java.awt.Container;
@@ -101,34 +104,34 @@ public class ConfigDialog extends JDialog
     /** The builder label. */
     private JLabel builderLabel;
     
-    /** The save config. */
+    /** The save configurations. */
     private boolean saveConfig = false;
     
-    /** The sel maze size. */
+    /** The selected maze size. */
     private int selMazeSize;
     
-    /** The sel n dragons. */
+    /** The selected n dragons. */
     private int selNDragons;
     
-    /** The sel mode. */
+    /** The selected mode. */
     private int selMode;
     
-    /** The sel builder. */
+    /** The selected builder. */
     private int selBuilder;
     
-    /** The sel up key. */
+    /** The selected up key. */
     private int selUpKey = KeyEvent.VK_UP;
     
-    /** The sel down key. */
+    /** The selected down key. */
     private int selDownKey = KeyEvent.VK_DOWN;
     
-    /** The sel left key. */
+    /** The selected left key. */
     private int selLeftKey = KeyEvent.VK_LEFT;
     
-    /** The sel right key. */
+    /** The selected right key. */
     private int selRightKey = KeyEvent.VK_RIGHT;
     
-    /** The sel eagle key. */
+    /** The selected eagle key. */
     private int selEagleKey = KeyEvent.VK_E;
 	
     
@@ -253,7 +256,7 @@ public class ConfigDialog extends JDialog
 	/**
 	 * Adds the widgets.
 	 *
-	 * @param cont the cont
+	 * @param cont the container of the widgets
 	 */
 	private void addWidgets(Container cont)
 	{
@@ -298,9 +301,9 @@ public class ConfigDialog extends JDialog
 
 	
 	/**
-	 * Gets the config option.
+	 * Gets the configurations options.
 	 *
-	 * @return the config option
+	 * @return saveConfig boolean which represent if the configurations options were set
 	 */
 	public boolean getConfigOption()
 	{
@@ -309,9 +312,9 @@ public class ConfigDialog extends JDialog
 
 	
 	/**
-	 * Gets the sel maze size.
+	 * Gets the maze size.
 	 *
-	 * @return the sel maze size
+	 * @return selMazeSize the maze size
 	 */
 	public int getSelMazeSize()
 	{
@@ -320,9 +323,9 @@ public class ConfigDialog extends JDialog
 	
 	
 	/**
-	 * Gets the sel n dragons.
+	 * Gets the number of dragons.
 	 *
-	 * @return the sel n dragons
+	 * @return selNDragons the number dragons
 	 */
 	public int getSelNDragons()
 	{
@@ -331,9 +334,9 @@ public class ConfigDialog extends JDialog
 	
 	
 	/**
-	 * Gets the sel mode.
+	 * Gets the dragons mode.
 	 *
-	 * @return the sel mode
+	 * @return selMode the dragons mode
 	 */
 	public int getSelMode()
 	{
@@ -342,9 +345,9 @@ public class ConfigDialog extends JDialog
 	
 	
 	/**
-	 * Gets the sel buider.
+	 * Gets the builder id.
 	 *
-	 * @return the sel buider
+	 * @return selBuilder the builder id
 	 */
 	public int getSelBuider()
 	{
@@ -353,9 +356,9 @@ public class ConfigDialog extends JDialog
 	
 	
 	/**
-	 * Gets the sel up key.
+	 * Gets the up key.
 	 *
-	 * @return the sel up key
+	 * @return selUpKey the up key
 	 */
 	public int getSelUpKey()
 	{
@@ -364,9 +367,9 @@ public class ConfigDialog extends JDialog
 	
 	
 	/**
-	 * Gets the sel down key.
+	 * Gets the down key.
 	 *
-	 * @return the sel down key
+	 * @return selDownKey the down key
 	 */
 	public int getSelDownKey()
 	{
@@ -375,9 +378,9 @@ public class ConfigDialog extends JDialog
 	
 	
 	/**
-	 * Gets the sel left key.
+	 * Gets the left key.
 	 *
-	 * @return the sel left key
+	 * @return selLeftKey the left key
 	 */
 	public int getSelLeftKey()
 	{
@@ -386,9 +389,9 @@ public class ConfigDialog extends JDialog
 	
 	
 	/**
-	 * Gets the sel right key.
+	 * Gets the right key.
 	 *
-	 * @return the sel right key
+	 * @return selRightKey the right key
 	 */
 	public int getSelRightKey()
 	{
@@ -397,9 +400,9 @@ public class ConfigDialog extends JDialog
 	
 	
 	/**
-	 * Gets the sel eagle key.
+	 * Gets the eagle key.
 	 *
-	 * @return the sel eagle key
+	 * @return selEagleKey the eagle key
 	 */
 	public int getSelEagleKey()
 	{
@@ -421,6 +424,9 @@ public class ConfigDialog extends JDialog
 	private class saveConfigListener implements ActionListener
 	{
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			saveConfig = true;
@@ -460,6 +466,9 @@ public class ConfigDialog extends JDialog
 	private class disConfigListener implements ActionListener
 	{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			saveConfig = false;
@@ -482,6 +491,9 @@ public class ConfigDialog extends JDialog
 	private class BuilderComboBoxListener implements ActionListener
 	{
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
@@ -505,15 +517,24 @@ public class ConfigDialog extends JDialog
 	private class UpConfigListener implements KeyListener
 	{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyPressed(KeyEvent e) 
 		{
 			selUpKey = e.getKeyCode();
 		}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyTyped(KeyEvent e) {}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyReleased(KeyEvent e) {}
 		
@@ -534,15 +555,24 @@ public class ConfigDialog extends JDialog
 	private class DownConfigListener implements KeyListener
 	{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyPressed(KeyEvent e) 
 		{
 			selDownKey = e.getKeyCode();
 		}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyTyped(KeyEvent e) {}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyReleased(KeyEvent e) {}
 		
@@ -563,15 +593,24 @@ public class ConfigDialog extends JDialog
 	private class LeftConfigListener implements KeyListener
 	{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyPressed(KeyEvent e) 
 		{
 			selLeftKey = e.getKeyCode();
 		}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyTyped(KeyEvent e) {}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyReleased(KeyEvent e) {}
 		
@@ -592,15 +631,24 @@ public class ConfigDialog extends JDialog
 	private class RightConfigListener implements KeyListener
 	{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyPressed(KeyEvent e) 
 		{
 			selRightKey = e.getKeyCode();
 		}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyTyped(KeyEvent e) {}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyReleased(KeyEvent e) {}
 		
@@ -621,15 +669,24 @@ public class ConfigDialog extends JDialog
 	private class EagleConfigListener implements KeyListener
 	{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyPressed(KeyEvent e) 
 		{
 			selEagleKey = e.getKeyCode();
 		}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyTyped(KeyEvent e) {}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyReleased(KeyEvent e) {}
 		

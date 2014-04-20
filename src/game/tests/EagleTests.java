@@ -1,3 +1,6 @@
+/*
+ * Eagle Tests
+ */
 package game.tests;
 
 import static org.junit.Assert.*;
@@ -19,7 +22,7 @@ public class EagleTests {
 
 	
 	/**
-	 * Eagle path tests.
+	 * Test the construction of the path to the sword and the return path to the launch cell.
 	 */
 	@Test
 	public void eaglePathTests() {
@@ -90,7 +93,7 @@ public class EagleTests {
 	}
 
 	/**
-	 * Eagle move test.
+	 * Test eagle move.
 	 */
 	@Test
 	public void eagleMoveTest(){
@@ -163,7 +166,7 @@ public class EagleTests {
 	}
 	
 	/**
-	 * Eagle dead test.
+	 * Test eagle dead when picking the sword.
 	 */
 	@Test
 	public void eagleDeadTest(){

@@ -1,3 +1,6 @@
+/*
+ * Maze Builder
+ */
 package maze.logic;
 
 import java.util.Random;
