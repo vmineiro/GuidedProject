@@ -307,7 +307,6 @@ public class GUInterface {
 				catch (IOException i)
 				{
 					JOptionPane.showMessageDialog(frame,"Error writing the file.");
-					i.printStackTrace();
 				}		
 			} 
 			else if (saveLoadDialog.gameLoaded())
@@ -321,10 +320,13 @@ public class GUInterface {
 					{
 						mazePanel.loadGame(saveLoadDialog.getFilePath());
 					}
-					catch (IOException | ClassNotFoundException i)
+					catch (IOException i )
+					{
+						JOptionPane.showMessageDialog(frame,"File not found.");
+					}
+					catch (ClassNotFoundException i)
 					{
 						JOptionPane.showMessageDialog(frame,"File not supported.");
-						i.printStackTrace();
 					}
 				}
 				else if(reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION){}	

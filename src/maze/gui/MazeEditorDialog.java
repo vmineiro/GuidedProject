@@ -51,7 +51,7 @@ public class MazeEditorDialog extends JDialog {
 	private String lab[][];
 
 	/** The symbol selected. */
-	private String symbolSelected;
+	private String symbolSelected = "XX";
 
 	/** The maze size. */
 	private int mazeSize;
